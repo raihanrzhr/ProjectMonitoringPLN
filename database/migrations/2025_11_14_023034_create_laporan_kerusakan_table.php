@@ -16,6 +16,7 @@ return new class extends Migration
 
             // Sesuaikan tipe FK dengan tabel lain
             $table->unsignedInteger('unit_id');
+            $table->unsignedInteger('peminjaman_id')->nullable();
             $table->unsignedBigInteger('user_id_pelapor')->nullable();
 
             $table->dateTime('tgl_kejadian');
@@ -28,6 +29,7 @@ return new class extends Migration
             // Foreign keys
             $table->foreign('unit_id')->references('unit_id')->on('unit_mobiles');
             $table->foreign('user_id_pelapor')->references('id')->on('users');
+            $table->foreign('peminjaman_id')->references('peminjaman_id')->on('peminjaman');
 
             $table->timestamps();
         });
@@ -39,6 +41,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laporan_kerusakan');
+        Schema::table('laporan_kerusakan', function (Blueprint $table) {
+        $table->dropForeign(['unit_id']); // atau nama kolom FK kamu
+    });
+
+    Schema::dropIfExists('laporan_kerusakan');
     }
 };

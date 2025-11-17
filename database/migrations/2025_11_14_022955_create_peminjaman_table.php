@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('kegiatan', 255);
             $table->string('Tamu_VIP', 255)->nullable();
             $table->string('lokasi_tujuan', 255)->nullable();
-            $table->string('posko_pelaksana', 255)->nullable();
+            // $table->string('posko_pelaksana', 255)->nullable(); (masuknya table unit_id)
             $table->string('up3_id', 255)->nullable();
             $table->enum('status_peminjaman', ['Selesai', 'Cancel', 'Sedang Digunakan']);
             $table->text('keterangan')->nullable();
