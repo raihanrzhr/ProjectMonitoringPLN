@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Perbaikan;
+use App\Models\Maintenance;
 use Illuminate\Http\Request;
 
-class PerbaikanController extends Controller
+class MaintenanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PerbaikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Perbaikan $perbaikan)
+    public function show(Maintenance $maintenance)
     {
         //
     }
@@ -42,7 +42,7 @@ class PerbaikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Perbaikan $perbaikan)
+    public function edit(Maintenance $maintenance)
     {
         //
     }
@@ -50,7 +50,7 @@ class PerbaikanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Perbaikan $perbaikan)
+    public function update(Request $request, Maintenance $maintenance)
     {
         //
     }
@@ -58,7 +58,7 @@ class PerbaikanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Perbaikan $perbaikan)
+    public function destroy(Maintenance $maintenance)
     {
         //
     }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('laporan_kerusakan', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->increments('laporan_id');
 
             // Sesuaikan tipe FK dengan tabel lain
@@ -27,13 +27,12 @@ return new class extends Migration
             $table->decimal('keperluan_anggaran', 15, 2)->nullable();
 
             // Foreign keys
-            $table->foreign('unit_id')->references('unit_id')->on('unit_mobiles');
+            $table->foreign('unit_id')->references('unit_id')->on('units');
             $table->foreign('user_id_pelapor')->references('id')->on('users');
             $table->foreign('peminjaman_id')->references('peminjaman_id')->on('peminjaman');
 
             $table->timestamps();
         });
-
     }
 
     /**

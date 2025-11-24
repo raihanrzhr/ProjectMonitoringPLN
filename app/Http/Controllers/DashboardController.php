@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailDeteksi;
 use Illuminate\Http\Request;
 
-class DetailDeteksiController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +33,7 @@ class DetailDeteksiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DetailDeteksi $detailDeteksi)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +41,7 @@ class DetailDeteksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DetailDeteksi $detailDeteksi)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +49,7 @@ class DetailDeteksiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DetailDeteksi $detailDeteksi)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +57,7 @@ class DetailDeteksiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetailDeteksi $detailDeteksi)
+    public function destroy(string $id)
     {
         //
     }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LaporanKerusakan extends Model
+class Report extends Model
 {
     protected $table = 'laporan_kerusakan';
     protected $primaryKey = 'laporan_id';
@@ -23,10 +23,10 @@ class LaporanKerusakan extends Model
         'keperluan_anggaran',
     ];
 
-    // Relasi ke UnitMobile
-    public function unitMobile()
+    // Relasi ke Unit
+    public function unit()
     {
-        return $this->belongsTo(UnitMobile::class, 'unit_id', 'unit_id');
+        return $this->belongsTo(Unit::class, 'unit_id', 'unit_id');
     }
 
     // Relasi ke Peminjaman

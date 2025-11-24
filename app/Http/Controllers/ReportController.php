@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailUps;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
-class DetailUpsController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class DetailUpsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DetailUps $detailUps)
+    public function show(Report $report)
     {
         //
     }
@@ -42,7 +42,7 @@ class DetailUpsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DetailUps $detailUps)
+    public function edit(Report $report)
     {
         //
     }
@@ -50,7 +50,7 @@ class DetailUpsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DetailUps $detailUps)
+    public function update(Request $request, Report $report)
     {
         //
     }
@@ -58,7 +58,7 @@ class DetailUpsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetailUps $detailUps)
+    public function destroy(Report $report)
     {
         //
     }

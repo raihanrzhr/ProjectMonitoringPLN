@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UnitMobile;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class UnitMobileController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class UnitMobileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UnitMobile $unitMobile)
+    public function show(Unit $unit)
     {
         //
     }
@@ -42,7 +42,7 @@ class UnitMobileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UnitMobile $unitMobile)
+    public function edit(Unit $unit)
     {
         //
     }
@@ -50,7 +50,7 @@ class UnitMobileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UnitMobile $unitMobile)
+    public function update(Request $request, Unit $unit)
     {
         //
     }
@@ -58,7 +58,7 @@ class UnitMobileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UnitMobile $unitMobile)
+    public function destroy(Unit $unit)
     {
         //
     }

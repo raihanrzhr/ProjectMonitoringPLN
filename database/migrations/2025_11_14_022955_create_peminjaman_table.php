@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->foreign('unit_id')
                 ->references('unit_id')
-                ->on('unit_mobiles');
+                ->on('units');
 
             // foreign key ke users (TIPE WAJIB BIGINT)
             $table->foreign('user_id_pemohon')

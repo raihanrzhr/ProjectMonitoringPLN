@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailUkb;
 use Illuminate\Http\Request;
 
-class DetailUkbController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +33,7 @@ class DetailUkbController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DetailUkb $detailUkb)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +41,7 @@ class DetailUkbController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DetailUkb $detailUkb)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +49,7 @@ class DetailUkbController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DetailUkb $detailUkb)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +57,7 @@ class DetailUkbController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetailUkb $detailUkb)
+    public function destroy(string $id)
     {
         //
     }

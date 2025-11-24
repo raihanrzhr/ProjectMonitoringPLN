@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perbaikan', function (Blueprint $table) {
+        Schema::create('maintenance', function (Blueprint $table) {
             $table->increments('perbaikan_id');
             $table->unsignedInteger('laporan_id')->unique()->nullable();
             $table->unsignedInteger('unit_id'); // relasi ke unit_mobile
@@ -25,10 +25,10 @@ return new class extends Migration
 
             $table->foreign('laporan_id')
                 ->references('laporan_id')
-                ->on('laporan_kerusakan');
+                ->on('reports');
             $table->foreign('unit_id')
                 ->references('unit_id')
-                ->on('unit_mobiles');
+                ->on('units');
 
             $table->timestamps();
         });
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perbaikan');
+        Schema::dropIfExists('maintenances');
     }
 };
