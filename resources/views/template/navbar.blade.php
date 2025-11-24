@@ -2,7 +2,7 @@
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
         <div class="flex items-center">
             <img
-                src="{{ asset('assets/omage/Logo.png') }}"
+                src="{{ asset('assets/image/Logo.png') }}"
                 alt="UP2D Pasundan Logo"
                 class="w-30 h-30 object-contain"
             />

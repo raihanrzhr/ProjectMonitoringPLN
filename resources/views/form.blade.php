@@ -4,24 +4,33 @@
 @section('bodyClass', 'bg-gray-50')
 
 @section('content')
-    <section class="relative h-64 md:h-80 bg-cover bg-center" style="background-image: url('data:image/svg+xml,%3Csvg width=%22600%22 height=%22400%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cdefs%3E%3ClinearGradient id=%22grad%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 style=%22stop-color:%234F9BD9;stop-opacity:1%22 /%3E%3Cstop offset=%22100%25%22 style=%22stop-color:%231E40AF;stop-opacity:1%22 /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22600%22 height=%22400%22 fill=%22url(%23grad)%22/%3E%3C/svg%3E');">
-        <div class="absolute inset-0 bg-blue-900 bg-opacity-80"></div>
-        <div class="relative container mx-auto px-4 h-full flex flex-col justify-center">
-            <div class="text-white text-sm mb-2">Home / Form</div>
-            <h1 class="text-4xl md:text-6xl font-bold">
+<section class="relative min-h-[480px] md:min-h-[540px] flex items-center justify-center bg-cover bg-center"
+    style="background-image: url('{{ asset('assets/image/Foto Hero .png') }}');">
+    <div class="absolute inset-0 bg-blue-900 bg-opacity-50"></div>
+    <div class="relative z-10 w-full">
+        <div class="container mx-auto flex flex-col items-center justify-center text-center h-full px-4 py-16">
+            <nav class="mb-6 flex items-center justify-center space-x-2 text-white text-sm font-medium">
+                <a href="{{ route('landing') }}" class="hover:underline hover:text-yellow-400 transition">
+                    Home
+                </a>
+                <span class="mx-1 text-white/80 font-bold">/</span>
+                <span class="text-yellow-400 cursor-default">Form</span>
+            </nav>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg leading-tight">
                 <span class="text-white">Pengisian</span>
                 <span class="text-yellow-400"> Form</span>
             </h1>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="py-12 px-4 bg-gray-50">
         <div class="container mx-auto max-w-6xl">
-            <div class="flex flex-wrap gap-2 mb-6">
-                <button class="px-6 py-3 bg-blue-900 text-white font-semibold rounded-t-lg" id="peminjamanTab" onclick="showForm('peminjaman')">
+            <div class="flex justify-center gap-4 mb-6">
+                <button class="px-10 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md transition-all duration-200 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200" id="peminjamanTab" onclick="showForm('peminjaman')">
                     Form Peminjaman
                 </button>
-                <button class="px-6 py-3 bg-gray-300 text-gray-700 font-semibold rounded-t-lg" id="pelaporanTab" onclick="showForm('pelaporan')">
+                <button class="px-10 py-3 bg-gray-300 text-gray-700 font-semibold rounded-full shadow-md transition-all duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200" id="pelaporanTab" onclick="showForm('pelaporan')">
                     Form Pelaporan
                 </button>
             </div>

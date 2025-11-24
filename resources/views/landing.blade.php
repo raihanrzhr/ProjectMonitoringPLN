@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="hero-bg px-4" style="
-        background-image: url('{{ asset('assets/omage/Frame Foto Hero.png') }}');
+        background-image: url('{{ asset('assets/image/Frame Foto Hero.png') }}');
         background-size: cover; background-position: center bottom; background-repeat: no-repeat;
         position: relative; min-height: 130vh; display: flex; align-items: flex-start;
         padding-top: 2rem; padding-bottom: 4rem;">
@@ -33,7 +33,7 @@
                 <div class="grid md:grid-cols-3">
                     <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
-                            <img src="{{ asset('assets/omage/Icon UPS.png') }}" alt="Unit Power Supply" class="max-w-full max-h-full object-contain">
+                            <img src="{{ asset('assets/image/Icon UPS.png') }}" alt="Unit Power Supply" class="max-w-full max-h-full object-contain">
                         </div>
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Unit Power Supply</h3>
                         <p class="text-gray-500 text-sm mb-6 leading-relaxed">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
-                            <img src="{{ asset('assets/omage/Icon Load Control.png') }}" alt="Load Control" class="max-w-full max-h-full object-contain">
+                            <img src="{{ asset('assets/image/Icon Load Control.png') }}" alt="Load Control" class="max-w-full max-h-full object-contain">
                         </div>
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Load Control</h3>
                         <p class="text-gray-500 text-sm mb-6 leading-relaxed">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
-                            <img src="{{ asset('assets/omage/Icon Detection.png') }}" alt="Detection" class="max-w-full max-h-full object-contain">
+                            <img src="{{ asset('assets/image/Icon Detection.png') }}" alt="Detection" class="max-w-full max-h-full object-contain">
                         </div>
                         <h3 class="text-xl font-bold text-blue-900 mb-4">Detection</h3>
                         <p class="text-gray-500 text-sm mb-6 leading-relaxed">

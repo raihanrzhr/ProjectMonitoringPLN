@@ -269,12 +269,12 @@
 <body>
     <div class="app-shell">
         <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <img src="https://dummyimage.com/80x80/0f172a/ffffff.png&text=UP" alt="Logo UP2D">
-                <div>
-                    <h6 class="mb-0 fw-bold">UP2D Pasundan</h6>
-                    <small>Monitoring Panel</small>
-                </div>
+            <div class="">
+                <img
+                src="{{ asset('assets/image/Logo.png') }}"
+                alt="UP2D Pasundan Logo"
+                class=""
+            />
             </div>
             <nav class="nav flex-column gap-2">
                 <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ url('admin/dashboard') }}">

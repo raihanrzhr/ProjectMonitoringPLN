@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
+ @extends('admin.layout')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Maintenance - UP2D Pasundan</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
+ @section('title', 'Maintenance - UP2D Pasundan')
+
+ @push('styles')
+ <style>
         :root {
             --sidebar-width: 240px;
             --primary-color: #0c58d0;
@@ -224,42 +216,11 @@
             }
         }
     </style>
-</head>
+@endpush
 
-<body>
-    <div class="app-shell">
-        <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <img src="https://dummyimage.com/80x80/0f172a/ffffff.png&text=UP" alt="Logo UP2D">
-                <div>
-                    <h6 class="mb-0 fw-bold">UP2D Pasundan</h6>
-                    <small>Monitoring Panel</small>
-                </div>
-            </div>
-            <nav class="nav flex-column gap-2">
-                <a class="nav-link" href="{{ url('admin/dashboard') }}"><i class="fa-solid fa-chart-line"></i>
-                    Dashboard</a>
-                <a class="nav-link" href="{{ url('admin/units') }}"><i class="fa-solid fa-car-battery"></i> Units</a>
-                <a class="nav-link" href="{{ url('admin/peminjaman') }}"><i class="fa-solid fa-clipboard-list"></i>
-                    Peminjaman</a>
-                <a class="nav-link" href="{{ url('admin/notifications') }}"><i class="fa-solid fa-bell"></i>
-                    Notifications</a>
-                <a class="nav-link" href="{{ url('admin/settings') }}"><i class="fa-solid fa-gear"></i> Settings</a>
-            </nav>
-            <div class="nav-section">
-                <small class="text-uppercase text-white-50 d-block mb-2">Report</small>
-                <nav class="nav flex-column gap-2">
-                    <a class="nav-link" href="{{ url('admin/report') }}"><i class="fa-solid fa-file-lines"></i> Car
-                        Report</a>
-                    <a class="nav-link active" href="#"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance</a>
-                </nav>
-            </div>
-            <div class="logout-btn">
-                <a class="nav-link" href="{{ url('logout') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    Logout</a>
-            </div>
-        </aside>
-        <main class="content-wrapper">
+ @section('content')
+
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <button class="btn btn-outline-dark btn-sm d-lg-none" id="toggleSidebar"><i
@@ -327,7 +288,7 @@
                     </div>
                 </div>
             </div>
-        </main>
+
     </div>
 
     <!-- Create Modal -->
@@ -452,7 +413,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -492,7 +455,5 @@
             });
         });
     </script>
-</body>
-
-</html>
+@endpush
 

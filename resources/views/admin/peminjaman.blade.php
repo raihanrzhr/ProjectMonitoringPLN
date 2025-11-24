@@ -27,6 +27,41 @@
     .table-container.active {
         display: block;
     }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    table th,
+    table td {
+        white-space: nowrap;
+        vertical-align: middle !important;
+    }
+
+    table .text-center .d-flex {
+        gap: .5rem;
+    }
+
+    .dataTables_length,
+    .dataTables_filter {
+        margin-bottom: 1rem;
+    }
+
+    .dataTables_length label,
+    .dataTables_filter label {
+        font-weight: 600;
+    }
+
+    @media (max-width: 1000px) {
+        .table-responsive {
+            font-size: 13px;
+        }
+
+        .dataTables_length,
+        .dataTables_filter {
+            font-size: 13px;
+        }
+    }
 </style>
 @endpush
 

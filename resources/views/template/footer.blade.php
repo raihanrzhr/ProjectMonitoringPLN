@@ -3,15 +3,13 @@
         <div class="grid md:grid-cols-3 gap-8 mb-8">
             <div>
                 <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-12 h-12 bg-blue-700 rounded flex items-center justify-center">
-                        <svg class="w-7 h-7 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
-                            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
-                        </svg>
-                    </div>
+
                     <div>
-                        <div class="text-yellow-400 font-bold text-lg">UP2D</div>
-                        <div class="text-white text-sm">Pasundan</div>
+                        <img
+                        src="{{ asset('assets/image/Frame Logo Footer.png') }}"
+                        alt="UP2D Pasundan Logo"
+                        class="w-30 h-30 object-contain"
+                    />
                     </div>
                 </div>
                 <div class="flex space-x-3">

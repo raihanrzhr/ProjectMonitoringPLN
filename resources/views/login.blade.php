@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="hidden md:flex items-stretch justify-stretch p-0">
-                        <img src="{{ asset('assets/omage/Frame Ilustrasi.png') }}" alt="Renewable Energy Illustration" class="w-full h-full object-cover rounded-r-2xl">
+                        <img src="{{ asset('assets/image/Frame Ilustrasi.png') }}" alt="Renewable Energy Illustration" class="w-full h-full object-cover rounded-r-2xl">
                     </div>
                 </div>
             </div>

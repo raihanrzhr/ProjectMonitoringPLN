@@ -188,7 +188,6 @@
                 <span class="icon-badge"><i class="fa-solid fa-car"></i></span>
             </div>
             <h2>126</h2>
-            <span class="trend-up"><i class="fa-solid fa-arrow-trend-up me-1"></i>8.5% naik dari kemarin</span>
         </div>
     </div>
     <div class="col-xl-4 col-md-6">
@@ -198,7 +197,6 @@
                 <span class="icon-badge"><i class="fa-solid fa-key"></i></span>
             </div>
             <h2>14</h2>
-            <span class="trend-up"><i class="fa-solid fa-arrow-trend-up me-1"></i>1.3% naik dari minggu lalu</span>
         </div>
     </div>
     <div class="col-xl-4 col-md-6">
@@ -208,7 +206,6 @@
                 <span class="icon-badge"><i class="fa-solid fa-wrench"></i></span>
             </div>
             <h2>18</h2>
-            <span class="trend-down"><i class="fa-solid fa-arrow-trend-down me-1"></i>4.3% turun dari kemarin</span>
         </div>
     </div>
 </div>
