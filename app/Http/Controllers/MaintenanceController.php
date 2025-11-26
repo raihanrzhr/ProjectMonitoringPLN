@@ -12,7 +12,9 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        //
+        $maintenances = Maintenance::all();
+        // return view('maintenances.index', compact('maintenances'));
+        return view('admin.maintenance', compact('maintenances'));
     }
 
     /**
@@ -20,7 +22,7 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        //
+        // return view('admin.maintenance');
     }
 
     /**
@@ -28,7 +30,22 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'laporan_id' => 'required|integer|exists:report,laporan_id',
+            'unit_id' => 'required|integer|exists:unit,unit_id',
+            'item_pekerjaan' => 'required|string|max:255',
+            'no_notdin' => 'nullable|string|max:100',
+            'tgl_notdin' => 'nullable|date',
+            'status_acc_ku' => 'nullable|in:PENDING,OK,REJECTED',
+            'tgl_eksekusi' => 'nullable|date',
+            'nilai_pekerjaan' => 'nullable|numeric',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        Maintenance::create($validatedData);
+
+        // return redirect()->route('maintenances.index');
+        return redirect()->route('maintenance');
     }
 
     /**
@@ -36,7 +53,8 @@ class MaintenanceController extends Controller
      */
     public function show(Maintenance $maintenance)
     {
-        //
+        // $maintenance = Maintenance::findOrFail($maintenance->perbaikan_id);
+        // return view('maintenances.show', compact('maintenance'));
     }
 
     /**
@@ -44,7 +62,8 @@ class MaintenanceController extends Controller
      */
     public function edit(Maintenance $maintenance)
     {
-        //
+        // $maintenance = Maintenance::findOrFail($maintenance->perbaikan_id);
+        // return view('maintenances.edit', compact('maintenance'));
     }
 
     /**
@@ -52,7 +71,21 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, Maintenance $maintenance)
     {
-        //
+        $validatedData = $request->validate([
+            'laporan_id' => 'required|integer|exists:report,laporan_id',
+            'unit_id' => 'required|integer|exists:unit,unit_id',
+            'item_pekerjaan' => 'required|string|max:255',
+            'no_notdin' => 'nullable|string|max:100',
+            'tgl_notdin' => 'nullable|date',
+            'status_acc_ku' => 'nullable|in:PENDING,OK,REJECTED',
+            'tgl_eksekusi' => 'nullable|date',
+            'nilai_pekerjaan' => 'nullable|numeric',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $maintenance->update($validatedData);
+
+        return redirect()->route('maintenances');
     }
 
     /**
@@ -60,6 +93,7 @@ class MaintenanceController extends Controller
      */
     public function destroy(Maintenance $maintenance)
     {
-        //
+        $maintenance = Maintenance::findOrFail($maintenance->perbaikan_id);
+        return redirect()->route('maintenances');
     }
 }

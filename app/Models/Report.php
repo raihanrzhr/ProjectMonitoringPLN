@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    protected $table = 'laporan_kerusakan';
+    protected $table = 'reports';
     protected $primaryKey = 'laporan_id';
     public $incrementing = true;
     protected $keyType = 'int';

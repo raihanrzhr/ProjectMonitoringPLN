@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Unit;
+use App\Models\Peminjaman;
+use App\Models\Maintenance;
 
 class DashboardController extends Controller
 {
@@ -11,7 +14,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        $totalUnits = Unit::count();
+        $totalLendings = Peminjaman::count();
+        $totalMaintenances = Maintenance::count();
+        //MASIH BISA DITAMBAH BERDASARKAN TABLE YANG DI BUTUHKAN
+
+        return view('admin.dashboard', compact('totalUnits', 'totalLendings', 'totalMaintenances'));
     }
 
     /**

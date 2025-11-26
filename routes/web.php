@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\PeminjamanController;
 
 // Landing (root)
 Route::get('/', function () {
@@ -34,22 +40,21 @@ Route::get('/register', function () {
 
 // Admin pages (views/admin/*)
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-    Route::get('/maintenance', function () {
-        return view('admin.maintenance');
-    })->name('maintenance');
-    Route::get('/peminjaman', function () {
-        return view('admin.peminjaman');
-    })->name('peminjaman');
-    Route::get('/report', function () {
-        return view('admin.report');
-    })->name('report');
-    Route::get('/units', function () {
-        return view('admin.units');
-    })->name('units');
-    Route::get('/users', function () {
-        return view('admin.users');
-    })->name('users');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+    Route::get('/maintenance', [MaintenanceController::class, 'index'])
+    ->name('maintenance');
+
+    Route::get('/peminjaman', [PeminjamanController::class, 'index'])
+    ->name('peminjaman');
+
+    Route::get('/report', [ReportController::class, 'index'])
+    ->name('report');
+
+    Route::get('/units', [unitController::class, 'index'])
+    ->name('units');
+
+    Route::get('/users', [UserController::class, 'index'])
+    ->name('users');
 });

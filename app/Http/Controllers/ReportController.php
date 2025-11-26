@@ -12,7 +12,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $reports = Report::all();
+        return view('admin.report', compact('reports'));
     }
 
     /**
@@ -28,7 +29,20 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'unit_id' => 'required|integer|exists:unit,unit_id',
+            'user_id' => 'required|integer|exists:users,id',
+            'peminjaman_id' => 'required|integer|exists:peminjaman,peminjaman_id',
+            'user_id_pelapor' => 'required|integer|exists:users,id',
+            'tgl_kejadian' => 'required|date',
+            'lokasi_kejadian' => 'nullable|string|max:255',
+            'deskripsi_kerusakan' => 'required|string',
+            'no_ba' => 'nullable|string|max:100',
+            'keperluan_anggaran' => 'nullable|numeric',
+        ]);
+
+        Report::create($validatedData);
+        return redirect()->route('report');
     }
 
     /**
@@ -52,7 +66,20 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        //
+        $validatedData = $request->validate([
+            'unit_id' => 'required|integer|exists:unit,unit_id',
+            'user_id' => 'required|integer|exists:users,id',
+            'peminjaman_id' => 'required|integer|exists:peminjaman,peminjaman_id',
+            'user_id_pelapor' => 'required|integer|exists:users,id',
+            'tgl_kejadian' => 'required|date',
+            'lokasi_kejadian' => 'nullable|string|max:255',
+            'deskripsi_kerusakan' => 'required|string',
+            'no_ba' => 'nullable|string|max:100',
+            'keperluan_anggaran' => 'nullable|numeric',
+        ]);
+
+        $report->update($validatedData);
+        return redirect()->route('report');
     }
 
     /**
@@ -60,6 +87,7 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
-        //
+        $report = Report::findOrFail($report->laporan_id);
+        return redirect()->route('report');
     }
 }

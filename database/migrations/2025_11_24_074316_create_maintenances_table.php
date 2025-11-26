@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('item_pekerjaan', 255);
             $table->string('no_notdin', 100)->nullable();
             $table->date('tgl_notdin')->nullable();
-            $table->boolean('status_acc_ku')->default(false);
+            $table->enum('status_acc_ku', ['PENDING', 'OK', 'REJECTED'])->default('PENDING');
             $table->date('tgl_eksekusi')->nullable();
             $table->decimal('nilai_pekerjaan', 15, 2)->default(0.00);
             $table->text('keterangan')->nullable();

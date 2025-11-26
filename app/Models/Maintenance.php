@@ -23,10 +23,10 @@ class Maintenance extends Model
         'keterangan',
     ];
 
-    // Relasi ke Maintenance
-    public function maintenance()
+    // Relasi ke Report
+    public function report()
     {
-        return $this->belongsTo(Maintenance::class, 'laporan_id', 'laporan_id');
+        return $this->belongsTo(Report::class, 'laporan_id', 'laporan_id');
     }
 
     // Relasi ke Unit
