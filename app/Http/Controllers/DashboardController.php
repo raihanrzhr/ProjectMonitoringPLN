@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UnitMobile;
 use Illuminate\Http\Request;
+use App\Models\Unit;
+use App\Models\Peminjaman;
+use App\Models\Maintenance;
 
-class UnitMobileController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $totalUnits = Unit::count();
+        $totalLendings = Peminjaman::count();
+        $totalMaintenances = Maintenance::count();
+        //MASIH BISA DITAMBAH BERDASARKAN TABLE YANG DI BUTUHKAN
+
+        return view('admin.dashboard', compact('totalUnits', 'totalLendings', 'totalMaintenances'));
     }
 
     /**
@@ -34,7 +41,7 @@ class UnitMobileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UnitMobile $unitMobile)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +49,7 @@ class UnitMobileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UnitMobile $unitMobile)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +57,7 @@ class UnitMobileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UnitMobile $unitMobile)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +65,7 @@ class UnitMobileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UnitMobile $unitMobile)
+    public function destroy(string $id)
     {
         //
     }

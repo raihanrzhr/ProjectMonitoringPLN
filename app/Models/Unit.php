@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UnitMobile extends Model
+class Unit extends Model
 {
-    protected $table = 'unit_mobiles';
+    protected $table = 'units';
     protected $primaryKey = 'unit_id';
     public $incrementing = true;
     protected $keyType = 'int';
@@ -55,15 +55,15 @@ class UnitMobile extends Model
         return $this->hasMany(Peminjaman::class, 'unit_id', 'unit_id');
     }
 
-    // Relasi ke LaporanKerusakan
-    public function laporanKerusakan()
+    // Relasi ke Report
+    public function report()
     {
-        return $this->hasMany(LaporanKerusakan::class, 'unit_id', 'unit_id');
+        return $this->hasMany(Report::class, 'unit_id', 'unit_id');
     }
 
-    // Relasi ke Perbaikan
-    public function perbaikan()
+    // Relasi ke Maintenance
+    public function maintenance()
     {
-        return $this->hasMany(Perbaikan::class, 'unit_id', 'unit_id');
+        return $this->hasMany(Maintenance::class, 'unit_id', 'unit_id');
     }
 }

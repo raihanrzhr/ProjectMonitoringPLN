@@ -21,9 +21,9 @@ class DetailUps extends Model
         'model_no_seri',
     ];
 
-    // Relasi ke UnitMobile
-    public function unitMobile()
+    // Relasi ke Unit
+    public function unit()
     {
-        return $this->belongsTo(UnitMobile::class, 'unit_id', 'unit_id');
+        return $this->belongsTo(Unit::class, 'unit_id', 'unit_id');
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unit_mobiles', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->increments('unit_id');
             $table->string('nama_unit', 100)
                 ->comment('e.g., UPS Mobile U-01');
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unit_mobiles');
+        Schema::dropIfExists('units');
     }
 };

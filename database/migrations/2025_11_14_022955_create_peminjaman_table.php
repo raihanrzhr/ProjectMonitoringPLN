@@ -18,13 +18,13 @@ return new class extends Migration
             // mengikuti tabel users
             $table->unsignedBigInteger('user_id_pemohon')->nullable();
 
-            $table->dateTime('tgl_mobilisasi')->nullable();
+            $table->dateTime('tgl_mobilisasi');
             $table->dateTime('tgl_event_mulai')->nullable();
             $table->dateTime('tgl_event_selesai')->nullable();
             $table->dateTime('tgl_demobilisasi')->nullable();
             $table->string('kegiatan', 255);
             $table->string('Tamu_VIP', 255)->nullable();
-            $table->string('lokasi_tujuan', 255)->nullable();
+            $table->string('lokasi_tujuan', 255);
             // $table->string('posko_pelaksana', 255)->nullable(); (masuknya table unit_id)
             $table->string('up3_id', 255)->nullable();
             $table->enum('status_peminjaman', ['Selesai', 'Cancel', 'Sedang Digunakan']);
@@ -32,7 +32,7 @@ return new class extends Migration
 
             $table->foreign('unit_id')
                 ->references('unit_id')
-                ->on('unit_mobiles');
+                ->on('units');
 
             // foreign key ke users (TIPE WAJIB BIGINT)
             $table->foreign('user_id_pemohon')

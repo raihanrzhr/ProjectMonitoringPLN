@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Perbaikan extends Model
+class Maintenance extends Model
 {
-    protected $table = 'perbaikan';
+    protected $table = 'maintenance';
     protected $primaryKey = 'perbaikan_id';
     public $incrementing = true;
     protected $keyType = 'int';
@@ -23,15 +23,15 @@ class Perbaikan extends Model
         'keterangan',
     ];
 
-    // Relasi ke LaporanKerusakan
-    public function laporanKerusakan()
+    // Relasi ke Report
+    public function report()
     {
-        return $this->belongsTo(LaporanKerusakan::class, 'laporan_id', 'laporan_id');
+        return $this->belongsTo(Report::class, 'laporan_id', 'laporan_id');
     }
 
-    // Relasi ke UnitMobile
-    public function unitMobile()
+    // Relasi ke Unit
+    public function unit()
     {
-        return $this->belongsTo(UnitMobile::class, 'unit_id', 'unit_id');
+        return $this->belongsTo(Unit::class, 'unit_id', 'unit_id');
     }
 }
