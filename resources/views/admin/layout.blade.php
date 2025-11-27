@@ -294,7 +294,7 @@
                 <small class="text-uppercase text-white-50 d-block mb-2">Report</small>
                 <nav class="nav flex-column gap-2">
                     <a class="nav-link {{ request()->routeIs('admin.report') ? 'active' : '' }}" href="{{ url('admin/report') }}">
-                        <i class="fa-solid fa-file-lines"></i> Car Report
+                        <i class="fa-solid fa-file-lines"></i> Pelaporan Anomali
                     </a>
                     <a class="nav-link {{ request()->routeIs('admin.maintenance') ? 'active' : '' }}" href="{{ url('admin/maintenance') }}">
                         <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance

@@ -23,9 +23,8 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Username</th>
+                        <th>NIP</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Role</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -33,12 +32,11 @@
                 <tbody>
                     <tr>
                         <td>Sofiatu Zahra</td>
-                        <td>sofiatuzz</td>
+                        <td>12345678</td>
                         <td>xxx@gmail.com</td>
-                        <td>sofiatuzahra</td>
                         <td><span class="badge bg-primary">User</span></td>
                         <td class="text-center">
-                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra Khalifah" data-username="sofiatuzz" data-email="xxx@gmail.com" data-password="Helloworld1234" data-role="Assistant Manager">
+                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra Khalifah" data-nip="12345678" data-email="xxx@gmail.com" data-role="Assistant Manager">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
@@ -47,12 +45,11 @@
                     @foreach(range(1,7) as $index)
                     <tr>
                         <td>Sofiatu Zahra</td>
-                        <td>sofiatuzz</td>
+                        <td>12345678</td>
                         <td>xxx@gmail.com</td>
-                        <td>sofiatuzahra</td>
                         <td><span class="badge bg-success">Admin</span></td>
                         <td class="text-center">
-                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra" data-username="sofiatuzz" data-email="xxx@gmail.com" data-password="sofiatuzahra" data-role="Admin">
+                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra" data-nip="12345678" data-email="xxx@gmail.com" data-role="Admin">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
@@ -80,16 +77,12 @@
                         <input type="text" class="form-control" placeholder="Isi Nama" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Username</label>
-                        <input type="text" class="form-control" placeholder="Isi Username" required>
+                        <label class="form-label">NIP</label>
+                        <input type="text" class="form-control" placeholder="Isi NIP" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" placeholder="Isi Email" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="Isi Password" required>
                     </div>
                     <div class="col-12">
                         <label class="form-label">Role</label>
@@ -98,6 +91,7 @@
                             <option>User</option>
                             <option>Admin</option>
                             <option>Assistant Manager</option>
+                            <option>Pending</option>
                         </select>
                     </div>
                 </form>
@@ -125,16 +119,12 @@
                         <input type="text" class="form-control" id="editUserNama">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Username</label>
-                        <input type="text" class="form-control" id="editUserUsername">
+                        <label class="form-label">NIP</label>
+                        <input type="text" class="form-control" id="editUserNip">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" id="editUserEmail">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" id="editUserPassword">
                     </div>
                     <div class="col-12">
                         <label class="form-label">Role</label>
@@ -142,6 +132,7 @@
                             <option>User</option>
                             <option>Admin</option>
                             <option>Assistant Manager</option>
+                            <option>Pending</option>
                         </select>
                     </div>
                 </form>
@@ -176,9 +167,8 @@
         $('.btn-edit-user').on('click', function () {
             const button = $(this);
             $('#editUserNama').val(button.data('nama'));
-            $('#editUserUsername').val(button.data('username'));
+            $('#editUserNip').val(button.data('nip'));
             $('#editUserEmail').val(button.data('email'));
-            $('#editUserPassword').val(button.data('password'));
             $('#editUserRole').val(button.data('role'));
         });
     });
@@ -198,4 +188,3 @@ table .text-center .d-flex { gap: .5rem; }
 }
 </style>
 @endpush
-

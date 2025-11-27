@@ -52,4 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/users', function () {
         return view('admin.users');
     })->name('users');
+    Route::get('/unit-detail', function () {
+        return view('admin.unit-detail');
+    })->name('unit.detail');
 });

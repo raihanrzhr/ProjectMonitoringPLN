@@ -93,7 +93,7 @@
                         <td><span class="badge-status green">Sedang digunakan</span></td>
                         <td>Normal, Dummyload 80% OK</td>
                         <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-bs-toggle="modal" data-bs-target="#detailUnitModal" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Baik" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Sedang digunakan" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
+                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Baik" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Sedang digunakan" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Baik" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Sedang digunakan" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
@@ -112,7 +112,7 @@
                         <td><span class="badge-status red">Tidak Siap Operasi</span></td>
                         <td>Normal, Dummyload 80% OK</td>
                         <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-bs-toggle="modal" data-bs-target="#detailUnitModal" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Rusak" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Tidak Siap Operasi" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
+                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Rusak" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Tidak Siap Operasi" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Rusak" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Tidak Siap Operasi" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
@@ -131,7 +131,7 @@
                         <td><span class="badge-status red">Tidak Siap Operasi</span></td>
                         <td>Perlu pengecekan, ganti batt bank 1</td>
                         <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-bs-toggle="modal" data-bs-target="#detailUnitModal" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="200" data-kondisi="Rusak" data-merk="Schneider" data-model="OG-GVM1200KH/U21814000578" data-nopol="B 9196 ECC" data-lokasi="Workshop PT MEJ" data-status="Tidak Siap Operasi" data-keterangan="Perlu pengecekan, ganti batt bank 1" data-merk-battery="ROCKET" data-jumlah-battery="80" data-kapasitas-battery="220">
+                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="200" data-kondisi="Rusak" data-merk="Schneider" data-model="OG-GVM1200KH/U21814000578" data-nopol="B 9196 ECC" data-lokasi="Workshop PT MEJ" data-status="Tidak Siap Operasi" data-keterangan="Perlu pengecekan, ganti batt bank 1" data-merk-battery="ROCKET" data-jumlah-battery="80" data-kapasitas-battery="220">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="200" data-kondisi="Rusak" data-merk="Schneider" data-model="OG-GVM1200KH/U21814000578" data-nopol="B 9196 ECC" data-lokasi="Workshop PT MEJ" data-status="Tidak Siap Operasi" data-keterangan="Perlu pengecekan, ganti batt bank 1" data-merk-battery="ROCKET" data-jumlah-battery="80" data-kapasitas-battery="220">
@@ -150,7 +150,7 @@
                         <td><span class="badge-status yellow">Stand By</span></td>
                         <td>-</td>
                         <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-bs-toggle="modal" data-bs-target="#detailUnitModal" data-unit-type="UKB" data-unit="UKB" data-kondisi="Baik" data-merk="-" data-panjang="6 x 200" data-volume="1" data-jenis="-" data-model="1C X 60SQMM" data-nopol="D 8934 FH" data-lokasi="Bandung Timur" data-status="Stand By" data-keterangan="-" data-bpkb="Ada" data-stnk="Ada" data-pajak-tahunan="15/02/2024" data-pajak-5tahunan="15/02/2024" data-kir="Ada" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
+                            <button class="btn-action info btn-view-detail" data-unit-type="UKB" data-unit="UKB" data-kondisi="Baik" data-merk="-" data-panjang="6 x 200" data-volume="1" data-jenis="-" data-model="1C X 60SQMM" data-nopol="D 8934 FH" data-lokasi="Bandung Timur" data-status="Stand By" data-keterangan="-" data-bpkb="Ada" data-stnk="Ada" data-pajak-tahunan="15/02/2024" data-pajak-5tahunan="15/02/2024" data-kir="Ada" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUKBModal" data-unit="UKB" data-kondisi="Baik" data-merk="-" data-panjang="6 x 200" data-volume="1" data-jenis="Karavan" data-model="1C X 60SQMM" data-nopol="D 8934 FH" data-lokasi="Bandung Timur" data-status="Stand By" data-keterangan="-" data-bpkb="Ada" data-stnk="Ada" data-pajak-tahunan="15/02/2024" data-pajak-5tahunan="15/02/2024" data-kir="Ada" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
@@ -169,7 +169,7 @@
                         <td><span class="badge-status yellow">-</span></td>
                         <td>-</td>
                         <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-bs-toggle="modal" data-bs-target="#detailUnitModal" data-unit-type="Deteksi" data-unit="Deteksi" data-kondisi="Baik" data-merk="BAUR" data-fitur="Assesment dan Deteksi" data-model="Mobil" data-nopol="B 9193 KCG" data-lokasi="Posko Bogor Raya" data-status="-" data-keterangan="-" data-bpkb="-" data-stnk="Ada" data-pajak-tahunan="24/10/2023" data-pajak-5tahunan="-" data-kir="-" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
+                            <button class="btn-action info btn-view-detail" data-unit-type="Deteksi" data-unit="Deteksi" data-kondisi="Baik" data-merk="BAUR" data-fitur="Assesment dan Deteksi" data-model="Mobil" data-nopol="B 9193 KCG" data-lokasi="Posko Bogor Raya" data-status="-" data-keterangan="-" data-bpkb="-" data-stnk="Ada" data-pajak-tahunan="24/10/2023" data-pajak-5tahunan="-" data-kir="-" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                             <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitDeteksiModal" data-unit="Deteksi" data-kondisi="Baik" data-merk="BAUR" data-fitur="Assesment dan Deteksi" data-model="Mobil" data-nopol="B 9193 KCG" data-lokasi="Posko Bogor Raya" data-status="-" data-keterangan="-" data-bpkb="-" data-stnk="Ada" data-pajak-tahunan="24/10/2023" data-pajak-5tahunan="-" data-kir="-" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
@@ -309,6 +309,50 @@
                     <div class="col-md-4">
                         <label class="form-label">Kapasitas</label>
                         <input type="number" class="form-control" placeholder="000" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">BPKB</label>
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Pilih</option>
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">STNK</label>
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Pilih</option>
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Pajak Tahunan STNK</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Pajak 5 Tahunan STNK</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">KIR</label>
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Pilih</option>
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Masa Berlaku KIR</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Service Mobil Terakhir</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Dokumentasi</label>
+                        <input type="text" class="form-control" placeholder="Isi Link Dokumentasi" required>
                     </div>
                 </form>
             </div>
@@ -637,6 +681,47 @@
                         <label class="form-label">Kapasitas</label>
                         <input type="number" class="form-control" id="editUPSKapasitasBattery">
                     </div>
+                    <div class="col-md-4">
+                        <label class="form-label">BPKB</label>
+                        <select class="form-select" id="editUPSBpkb">
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">STNK</label>
+                        <select class="form-select" id="editUPSStnk">
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Pajak Tahunan STNK</label>
+                        <input type="date" class="form-control" id="editUPSPajakTahunan">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Pajak 5 Tahunan STNK</label>
+                        <input type="date" class="form-control" id="editUPSPajak5Tahunan">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">KIR</label>
+                        <select class="form-select" id="editUPSKir">
+                            <option>Ada</option>
+                            <option>Tidak Ada</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Masa Berlaku KIR</label>
+                        <input type="date" class="form-control" id="editUPSMasaBerlakuKir">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Service Mobil Terakhir</label>
+                        <input type="date" class="form-control" id="editUPSService">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Dokumentasi</label>
+                        <input type="text" class="form-control" id="editUPSDokumentasi">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -909,7 +994,7 @@
             const button = $(this);
             const unit = button.data('unit');
 
-            if (unit === 'UPS') {
+                if (unit === 'UPS') {
                 $('#editUPSUnit').val(button.data('unit'));
                 $('#editUPSJenis').val(button.data('jenis'));
                 $('#editUPSKva').val(button.data('kva'));
@@ -923,7 +1008,15 @@
                 $('#editUPSMerkBattery').val(button.data('merk-battery'));
                 $('#editUPSJumlahBattery').val(button.data('jumlah-battery'));
                 $('#editUPSKapasitasBattery').val(button.data('kapasitas-battery'));
-            } else if (unit === 'UKB') {
+                $('#editUPSBpkb').val(button.data('bpkb'));
+                $('#editUPSStnk').val(button.data('stnk'));
+                $('#editUPSPajakTahunan').val(button.data('pajak-tahunan'));
+                $('#editUPSPajak5Tahunan').val(button.data('pajak-5tahunan'));
+                $('#editUPSKir').val(button.data('kir'));
+                $('#editUPSMasaBerlakuKir').val(button.data('masa-berlaku-kir'));
+                $('#editUPSService').val(button.data('service'));
+                $('#editUPSDokumentasi').val(button.data('dokumentasi'));
+                } else if (unit === 'UKB') {
                 $('#editUKBUnit').val(button.data('unit'));
                 $('#editUKBKondisi').val(button.data('kondisi'));
                 $('#editUKBMerk').val(button.data('merk'));
@@ -964,226 +1057,14 @@
             }
         });
 
-        // View Detail
+        // View Detail -> redirect to page with persisted data
         $('.btn-view-detail').on('click', function () {
             const button = $(this);
-            const unitType = button.data('unit-type');
-            let html = '';
-
-            if (unitType === 'UPS') {
-                html = `
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Unit</label>
-                            <div class="detail-value">${button.data('unit')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Jenis</label>
-                            <div class="detail-value">${button.data('jenis')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">KVA</label>
-                            <div class="detail-value">${button.data('kva')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
-                            <div class="detail-value">${button.data('kondisi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Merk</label>
-                            <div class="detail-value">${button.data('merk')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Model/No Seri</label>
-                            <div class="detail-value">${button.data('model')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">NOPOL</label>
-                            <div class="detail-value">${button.data('nopol')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Lokasi</label>
-                            <div class="detail-value">${button.data('lokasi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Status</label>
-                            <div class="detail-value">${button.data('status')}</div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <div class="detail-value">${button.data('keterangan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Merk Battery</label>
-                            <div class="detail-value">${button.data('merk-battery')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Jumlah Battery</label>
-                            <div class="detail-value">${button.data('jumlah-battery')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Kapasitas</label>
-                            <div class="detail-value">${button.data('kapasitas-battery')}</div>
-                        </div>
-                    </div>
-                `;
-            } else if (unitType === 'UKB') {
-                html = `
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Unit</label>
-                            <div class="detail-value">${button.data('unit')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
-                            <div class="detail-value">${button.data('kondisi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Merk</label>
-                            <div class="detail-value">${button.data('merk')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Panjang</label>
-                            <div class="detail-value">${button.data('panjang')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Volume</label>
-                            <div class="detail-value">${button.data('volume')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Jenis</label>
-                            <div class="detail-value">${button.data('jenis')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Type/Model/No Seri</label>
-                            <div class="detail-value">${button.data('model')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">NOPOL</label>
-                            <div class="detail-value">${button.data('nopol')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Lokasi</label>
-                            <div class="detail-value">${button.data('lokasi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Status</label>
-                            <div class="detail-value">${button.data('status')}</div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <div class="detail-value">${button.data('keterangan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <div class="detail-value">${button.data('bpkb')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <div class="detail-value">${button.data('stnk')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan STNK</label>
-                            <div class="detail-value">${button.data('pajak-tahunan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan STNK</label>
-                            <div class="detail-value">${button.data('pajak-5tahunan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <div class="detail-value">${button.data('kir')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <div class="detail-value">${button.data('masa-berlaku-kir')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Mobil Terakhir</label>
-                            <div class="detail-value">${button.data('service')}</div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <div class="detail-value">${button.data('dokumentasi')}</div>
-                        </div>
-                    </div>
-                `;
-            } else if (unitType === 'Deteksi') {
-                html = `
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Unit</label>
-                            <div class="detail-value">${button.data('unit')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
-                            <div class="detail-value">${button.data('kondisi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Merk</label>
-                            <div class="detail-value">${button.data('merk')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Fitur</label>
-                            <div class="detail-value">${button.data('fitur')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Type/Model/No Seri</label>
-                            <div class="detail-value">${button.data('model')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">NOPOL</label>
-                            <div class="detail-value">${button.data('nopol')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Lokasi</label>
-                            <div class="detail-value">${button.data('lokasi')}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Status</label>
-                            <div class="detail-value">${button.data('status')}</div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <div class="detail-value">${button.data('keterangan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <div class="detail-value">${button.data('bpkb')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <div class="detail-value">${button.data('stnk')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan STNK</label>
-                            <div class="detail-value">${button.data('pajak-tahunan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan STNK</label>
-                            <div class="detail-value">${button.data('pajak-5tahunan')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <div class="detail-value">${button.data('kir')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <div class="detail-value">${button.data('masa-berlaku-kir')}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Mobil Terakhir</label>
-                            <div class="detail-value">${button.data('service')}</div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <div class="detail-value">${button.data('dokumentasi')}</div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            $('#detailUnitContent').html(html);
+            const payload = button.data();
+            try {
+                localStorage.setItem('unitDetailPayload', JSON.stringify(payload));
+            } catch (e) {}
+            window.location.href = '/admin/unit-detail';
         });
     });
 

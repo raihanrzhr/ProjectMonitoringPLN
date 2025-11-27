@@ -12,8 +12,8 @@
                         <h1 class="font-serif-title text-4xl md:text-5xl font-bold text-blue-900 mb-10 text-center">Login</h1>
                         <form class="space-y-6">
                             <div>
-                                <label class="block text-gray-700 font-medium mb-2">Username or email</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Username or email">
+                                <label class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Email">
                             </div>
                             <div>
                                 <div class="flex justify-between items-center mb-2">
