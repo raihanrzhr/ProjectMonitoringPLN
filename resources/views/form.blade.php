@@ -6,7 +6,7 @@
 @section('content')
 <section class="relative min-h-[480px] md:min-h-[540px] flex items-center justify-center bg-cover bg-center"
     style="background-image: url('{{ asset('assets/image/Foto Hero .png') }}');">
-    <div class="absolute inset-0 bg-blue-900 bg-opacity-50"></div>
+    <div class="absolute inset-0 bg-[#002837] bg-opacity-50"></div>
     <div class="relative z-10 w-full">
         <div class="container mx-auto flex flex-col items-center justify-center text-center h-full px-4 py-16">
             <nav class="mb-6 flex items-center justify-center space-x-2 text-white text-sm font-medium">
@@ -26,8 +26,8 @@
 
     <section class="py-12 px-4 bg-gray-50">
         <div class="container mx-auto max-w-6xl">
-            <div class="flex justify-center gap-4 mb-6">
-                <button class="px-10 py-3 bg-blue-900 text-white font-semibold rounded-full shadow-md transition-all duration-200 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200" id="peminjamanTab" onclick="showForm('peminjaman')">
+            <div class="flex justify-center gap-4 mb-6 pb-4">
+                <button class="px-10 py-3 bg-[#002837] text-white font-semibold rounded-full shadow-md transition-all duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200" id="peminjamanTab" onclick="showForm('peminjaman')">
                     Form Peminjaman
                 </button>
                 <button class="px-10 py-3 bg-gray-300 text-gray-700 font-semibold rounded-full shadow-md transition-all duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-200" id="pelaporanTab" onclick="showForm('pelaporan')">
@@ -37,7 +37,7 @@
 
             <!-- Peminjaman Form - UPS (Default) -->
             <div id="peminjamanForm" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-blue-900 mb-6">Form Peminjaman</h2>
+                <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Peminjaman</h2>
                 <form class="space-y-6" id="peminjamanFormContent">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
@@ -90,7 +90,7 @@
                         <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>
                         <input type="text" name="up3" placeholder="Isi UP3" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                     </div>
-                    <button type="submit" class="w-full md:w-auto bg-blue-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
+                    <button type="submit" class="w-full md:w-auto bg-[#002837] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
                         Submit Form
                     </button>
                 </form>
@@ -98,7 +98,7 @@
 
             <!-- Pelaporan Form - UPS (Default) -->
             <div id="pelaporanForm" class="hidden bg-white rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-blue-900 mb-6">Form Pelaporan Anomali</h2>
+                <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Pelaporan Anomali</h2>
                 <form class="space-y-6" id="pelaporanFormContent">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
@@ -166,7 +166,7 @@
                             <p class="text-sm text-gray-500">File.jpg</p>
                         </div>
                     </div>
-                    <button type="submit" class="w-full md:w-auto bg-blue-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
+                    <button type="submit" class="w-full md:w-auto bg-[#002837] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
                         Submit Form
                     </button>
                 </form>
@@ -182,7 +182,7 @@ function showErrorPopup(message) {
     const modalHtml = `<div id="formErrorModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
         <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
             <p class="text-red-600 text-lg font-semibold mb-6">${message}</p>
-            <button onclick="document.getElementById('formErrorModal').remove()" class="mt-2 px-6 py-2 bg-blue-900 text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
+            <button onclick="document.getElementById('formErrorModal').remove()" class="mt-2 px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
         </div></div>`;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
@@ -250,6 +250,27 @@ function updatePelaporanJenisKapasitas(unit) {
     el.innerHTML = '<label class="block text-gray-700 font-medium mb-2">Jenis dan Kapasitas <span class="text-red-600">*</span></label><select name="jenis_kapasitas" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"><option value="">Pilih Jenis - Kapasitas</option><option>Mobile - 250 KVA</option><option>Portable - 110 KVA</option><option>Portable - 30 KVA</option></select>';
 }
 document.getElementById('pelaporanUnit').addEventListener('change', updatePelaporanMerkNopol);
+function showForm(type) {
+    const pemForm = document.getElementById('peminjamanForm');
+    const pelForm = document.getElementById('pelaporanForm');
+    const pemTab = document.getElementById('peminjamanTab');
+    const pelTab = document.getElementById('pelaporanTab');
+    if (type === 'peminjaman') {
+        pemForm.classList.remove('hidden');
+        pelForm.classList.add('hidden');
+        pemTab.classList.add('bg-[#002837]','text-white');
+        pemTab.classList.remove('bg-gray-300','text-gray-700');
+        pelTab.classList.add('bg-gray-300','text-gray-700');
+        pelTab.classList.remove('bg-[#002837]','text-white');
+    } else {
+        pemForm.classList.add('hidden');
+        pelForm.classList.remove('hidden');
+        pelTab.classList.add('bg-[#002837]','text-white');
+        pelTab.classList.remove('bg-gray-300','text-gray-700');
+        pemTab.classList.add('bg-gray-300','text-gray-700');
+        pemTab.classList.remove('bg-[#002837]','text-white');
+    }
+}
 // Init dummy on load
 updatePeminjamanMerkNopol();
 updatePelaporanMerkNopol();

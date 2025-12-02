@@ -1,4 +1,4 @@
-<footer class="bg-blue-900 text-white py-12 px-4" id="contact">
+<footer class="bg-[#002837] text-white py-12 px-4" id="contact">
     <div class="container mx-auto">
         <div class="grid md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -72,4 +72,3 @@
         </div>
     </div>
 </footer>
-
