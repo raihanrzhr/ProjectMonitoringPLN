@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController; // [1] Import ini PENTING
 
 // Landing (root)
 Route::get('/', function () {
@@ -29,19 +30,32 @@ Route::get('/form', function () {
     return view('form');
 })->name('form');
 
-// Login
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+// --- BAGIAN AUTHENTICATION (LOGIN & LOGOUT) ---
 
-// Register
-Route::middleware(['web'])->group(function () {
+// Group untuk tamu (yang belum login)
+Route::middleware('guest')->group(function () {
+    // [2] Route Login (Tampilan)
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+
+    // [3] Route Login (Proses Submit)
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    
+    // Register
     Route::get('/register', [RegisteredUserController::class, 'index'])->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
 });
 
+// Route Logout (Hanya bisa diakses jika sudah login)
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+// ----------------------------------------------
+
 // Admin pages (views/admin/*)
-Route::prefix('admin')->name('admin.')->group(function () {
+// Tambahkan middleware 'auth' agar halaman admin tidak bisa dibuka tanpa login
+Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
