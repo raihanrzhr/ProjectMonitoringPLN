@@ -1,6 +1,15 @@
 @extends('admin.layout')
 
 @section('title', 'Units - UP2D Pasundan')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @push('styles')
 <style>
@@ -83,106 +92,159 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>UPS</td>
-                        <td><span class="badge-status green">Baik</span></td>
-                        <td>Tescom</td>
-                        <td>DS3250T/183906</td>
-                        <td>DK 8005 DE</td>
-                        <td>UID Jabar (UP3 BDG)</td>
-                        <td><span class="badge-status green">Sedang digunakan</span></td>
-                        <td>Normal, Dummyload 80% OK</td>
-                        <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Baik" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Sedang digunakan" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Baik" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Sedang digunakan" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>UPS</td>
-                        <td><span class="badge-status red">Rusak</span></td>
-                        <td>Tescom</td>
-                        <td>DS3250T/183906</td>
-                        <td>DK 8005 DE</td>
-                        <td>UID Jabar (UP3 BDG)</td>
-                        <td><span class="badge-status red">Tidak Siap Operasi</span></td>
-                        <td>Normal, Dummyload 80% OK</td>
-                        <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Rusak" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Tidak Siap Operasi" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="250" data-kondisi="Rusak" data-merk="Tescom" data-model="DS3250T/183906" data-nopol="DK 8005 DE" data-lokasi="UID Jabar (UP3 BDG)" data-status="Tidak Siap Operasi" data-keterangan="Normal, Dummyload 80% OK" data-merk-battery="ZEUS" data-jumlah-battery="120" data-kapasitas-battery="120">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>UPS</td>
-                        <td><span class="badge-status red">Rusak</span></td>
-                        <td>Schneider</td>
-                        <td>OG-GVM1200KH/U21814000578</td>
-                        <td>B 9196 ECC</td>
-                        <td>Workshop PT MEJ</td>
-                        <td><span class="badge-status red">Tidak Siap Operasi</span></td>
-                        <td>Perlu pengecekan, ganti batt bank 1</td>
-                        <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-unit-type="UPS" data-unit="UPS" data-jenis="Mobile" data-kva="200" data-kondisi="Rusak" data-merk="Schneider" data-model="OG-GVM1200KH/U21814000578" data-nopol="B 9196 ECC" data-lokasi="Workshop PT MEJ" data-status="Tidak Siap Operasi" data-keterangan="Perlu pengecekan, ganti batt bank 1" data-merk-battery="ROCKET" data-jumlah-battery="80" data-kapasitas-battery="220">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUPSModal" data-unit="UPS" data-jenis="Mobile" data-kva="200" data-kondisi="Rusak" data-merk="Schneider" data-model="OG-GVM1200KH/U21814000578" data-nopol="B 9196 ECC" data-lokasi="Workshop PT MEJ" data-status="Tidak Siap Operasi" data-keterangan="Perlu pengecekan, ganti batt bank 1" data-merk-battery="ROCKET" data-jumlah-battery="80" data-kapasitas-battery="220">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>UKB</td>
-                        <td><span class="badge-status green">Baik</span></td>
-                        <td>-</td>
-                        <td>1C X 60SQMM</td>
-                        <td>D 8934 FH</td>
-                        <td>Bandung Timur</td>
-                        <td><span class="badge-status yellow">Stand By</span></td>
-                        <td>-</td>
-                        <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-unit-type="UKB" data-unit="UKB" data-kondisi="Baik" data-merk="-" data-panjang="6 x 200" data-volume="1" data-jenis="-" data-model="1C X 60SQMM" data-nopol="D 8934 FH" data-lokasi="Bandung Timur" data-status="Stand By" data-keterangan="-" data-bpkb="Ada" data-stnk="Ada" data-pajak-tahunan="15/02/2024" data-pajak-5tahunan="15/02/2024" data-kir="Ada" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitUKBModal" data-unit="UKB" data-kondisi="Baik" data-merk="-" data-panjang="6 x 200" data-volume="1" data-jenis="Karavan" data-model="1C X 60SQMM" data-nopol="D 8934 FH" data-lokasi="Bandung Timur" data-status="Stand By" data-keterangan="-" data-bpkb="Ada" data-stnk="Ada" data-pajak-tahunan="15/02/2024" data-pajak-5tahunan="15/02/2024" data-kir="Ada" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Deteksi</td>
-                        <td><span class="badge-status green">Baik</span></td>
-                        <td>BAUR</td>
-                        <td>Mobil</td>
-                        <td>B 9193 KCG</td>
-                        <td>Posko Bogor Raya</td>
-                        <td><span class="badge-status yellow">-</span></td>
-                        <td>-</td>
-                        <td class="text-center">
-                            <button class="btn-action info btn-view-detail" data-unit-type="Deteksi" data-unit="Deteksi" data-kondisi="Baik" data-merk="BAUR" data-fitur="Assesment dan Deteksi" data-model="Mobil" data-nopol="B 9193 KCG" data-lokasi="Posko Bogor Raya" data-status="-" data-keterangan="-" data-bpkb="-" data-stnk="Ada" data-pajak-tahunan="24/10/2023" data-pajak-5tahunan="-" data-kir="-" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                            <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" data-bs-target="#editUnitDeteksiModal" data-unit="Deteksi" data-kondisi="Baik" data-merk="BAUR" data-fitur="Assesment dan Deteksi" data-model="Mobil" data-nopol="B 9193 KCG" data-lokasi="Posko Bogor Raya" data-status="-" data-keterangan="-" data-bpkb="-" data-stnk="Ada" data-pajak-tahunan="24/10/2023" data-pajak-5tahunan="-" data-kir="-" data-masa-berlaku-kir="-" data-service="15/02/2024" data-dokumentasi="www.xxxx.com">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
+    @forelse($units as $unit)
+        <tr>
+            <td>{{ $unit->nama_unit }}</td>
+
+            <td>
+                @php
+                    $badgeClass = match($unit->kondisi_kendaraan) {
+                        'BAIK' => 'green',
+                        'RUSAK', 'PERBAIKAN' => 'red',
+                        default => 'yellow'
+                    };
+                @endphp
+                <span class="badge-status {{ $badgeClass }}">{{ $unit->kondisi_kendaraan }}</span>
+            </td>
+
+            <td>{{ $unit->merk_kendaraan ?? '-' }}</td>
+
+            <td>
+                @if($unit->tipe_peralatan === 'UPS')
+                    {{ $unit->detailUps->model_no_seri ?? '-' }}
+                @elseif($unit->tipe_peralatan === 'UKB')
+                    {{ $unit->detailUkb->type ?? '-' }}
+                @elseif($unit->tipe_peralatan === 'DETEKSI')
+                    {{ $unit->detailDeteksi->type ?? '-' }}
+                @else
+                    -
+                @endif
+            </td>
+
+            <td>{{ $unit->nopol }}</td>
+
+            <td>{{ $unit->lokasi }}</td>
+
+            <td>
+                @php
+                    $statusClass = match($unit->status) {
+                        'Digunakan' => 'green',
+                        'Tidak Siap Oprasi' => 'red',
+                        'Standby' => 'yellow',
+                        default => 'yellow'
+                    };
+                @endphp
+                <span class="badge-status {{ $statusClass }}">{{ $unit->status }}</span>
+            </td>
+
+            <td>{{ Str::limit($unit->catatan, 30) }}</td>
+
+            <td class="text-center">
+                <button class="btn-action info btn-view-detail" 
+                    data-unit-type="{{ $unit->tipe_peralatan }}"
+                    data-unit="{{ $unit->nama_unit }}"
+                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
+                    data-merk="{{ $unit->merk_kendaraan }}"
+                    data-nopol="{{ $unit->nopol }}"
+                    data-lokasi="{{ $unit->lokasi }}"
+                    data-status="{{ $unit->status }}"
+                    data-keterangan="{{ $unit->catatan }}"
+                    
+                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
+                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
+                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
+                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
+                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
+                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
+                    data-service="{{ $unit->tgl_service_terakhir }}"
+                    data-dokumentasi="{{ $unit->dokumentasi }}"
+
+                    @if($unit->tipe_peralatan === 'UPS')
+                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
+                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
+                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
+                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
+                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
+                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
+                    @elseif($unit->tipe_peralatan === 'UKB')
+                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
+                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
+                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
+                        data-model="{{ $unit->detailUkb->type ?? '' }}"
+                    @elseif($unit->tipe_peralatan === 'DETEKSI')
+                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
+                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
+                    @endif
+                >
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+
+                <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" 
+                    data-bs-target="#editUnit{{ $unit->tipe_peralatan == 'DETEKSI' ? 'Deteksi' : $unit->tipe_peralatan }}Modal"
+                    
+                    data-unit="{{ $unit->tipe_peralatan }}" {{-- Penting untuk JS switch case --}}
+                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
+                    data-merk="{{ $unit->merk_kendaraan }}"
+                    data-nopol="{{ $unit->nopol }}"
+                    data-lokasi="{{ $unit->lokasi }}"
+                    data-status="{{ $unit->status }}"
+                    data-keterangan="{{ $unit->catatan }}"
+                    
+                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
+                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
+                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
+                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
+                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
+                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
+                    data-service="{{ $unit->tgl_service_terakhir }}"
+                    data-dokumentasi="{{ $unit->dokumentasi }}"
+
+                    @if($unit->tipe_peralatan === 'UPS')
+                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
+                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
+                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
+                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
+                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
+                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
+                    @elseif($unit->tipe_peralatan === 'UKB')
+                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
+                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
+                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
+                        data-model="{{ $unit->detailUkb->type ?? '' }}"
+                    @elseif($unit->tipe_peralatan === 'DETEKSI')
+                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
+                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
+                    @endif
+                >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                
+                <form action="{{ route('admin.units') }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
+                     @csrf
+                     {{-- @method('DELETE') Jika Anda menggunakan resource controller --}}
+                     <button type="submit" class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="9" class="text-center py-4 text-muted">
+                <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
+                Belum ada data unit yang tersedia.
+            </td>
+        </tr>
+    @endforelse
+</tbody>
             </table>
         </div>
     </div>
 </div>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 <!-- Select Unit Type Modal -->
 <div class="modal fade" id="selectUnitTypeModal" tabindex="-1" aria-labelledby="selectUnitTypeModalLabel" aria-hidden="true">
@@ -230,137 +292,92 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUnitUPSModalLabel">Add Unit</h5>
+                <h5 class="modal-title" id="createUnitUPSModalLabel">Add Unit UPS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="createUnitUPSForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>UPS</option>
-                        </select>
+
+            <form action="{{ route('admin.units.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="tipe_peralatan" value="UPS">
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Unit</label>
+                            <select class="form-select" name="nama_unit" required>
+                                <option value="UPS" selected>UPS</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Jenis</label>
+                            <input type="text" class="form-control" name="jenis_ups" placeholder="Jenis UPS" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">KVA</label>
+                            <input type="number" class="form-control" name="kapasitas_kva" placeholder="KVA" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Kondisi</label>
+                            <select class="form-select" name="kondisi_kendaraan" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="BAIK">Baik</option>
+                                <option value="RUSAK">Rusak</option>
+                                <option value="PERBAIKAN">Perbaikan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label class="form-label">Merk</label>
+                            <input type="text" class="form-control" name="merk_kendaraan" placeholder="Isi Merk" required>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label class="form-label">Model / No Seri</label>
+                            <input type="text" class="form-control" name="model_no_seri" placeholder="Isi Model/No. Seri" required>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label class="form-label">NOPOL</label>
+                            <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Lokasi</label>
+                            <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="Standby">Standby</option>
+                                <option value="Digunakan">Digunakan</option>
+                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Keterangan</label>
+                            <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan" required></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Merk Battery</label>
+                            <input type="text" class="form-control" name="batt_merk" placeholder="Merk" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Jumlah Battery</label>
+                            <input type="number" class="form-control" name="batt_jumlah" placeholder="000" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Kapasitas</label>
+                            <input type="number" class="form-control" name="batt_kapasitas" placeholder="000" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Dokumentasi</label>
+                            <input type="text" class="form-control" name="dokumentasi" placeholder="Isi Link Dokumentasi" required>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Jenis</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Mobile</option>
-                            <option>Portable</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">KVA</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>10</option>
-                            <option>30</option>
-                            <option>100</option>
-                            <option>200</option>
-                            <option>250</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Kondisi</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Baik</option>
-                            <option>Rusak</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <label class="form-label">Merk</label>
-                        <input type="text" class="form-control" placeholder="Isi Merk" required>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <label class="form-label">Model / No Seri</label>
-                        <input type="text" class="form-control" placeholder="Isi Model/No. Seri" required>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" placeholder="XX 0000 XX" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Lokasi" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Standby</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" placeholder="Isi Keterangan" required></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Merk Battery</label>
-                        <input type="text" class="form-control" placeholder="Merk" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Jumlah Battery</label>
-                        <input type="number" class="form-control" placeholder="000" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Kapasitas</label>
-                        <input type="number" class="form-control" placeholder="000" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">BPKB</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">STNK</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">KIR</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Link Dokumentasi" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="createUnitUPSForm" class="btn btn-primary">Add</button>
-            </div>
-        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form> </div>
     </div>
 </div>
 
@@ -369,117 +386,124 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUnitUKBModalLabel">Add Unit</h5>
+                <h5 class="modal-title" id="createUnitUKBModalLabel">Add Unit UKB</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="createUnitUKBForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>UKB</option>
-                        </select>
+            
+            <form action="{{ route('admin.units.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="tipe_peralatan" value="UKB">
+                <input type="hidden" name="kabel" value="-"> 
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Unit</label>
+                            <select class="form-select" name="nama_unit" required>
+                                <option value="UKB" selected>UKB</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Kondisi</label>
+                            <select class="form-select" name="kondisi_kendaraan" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="BAIK">Baik</option>
+                                <option value="RUSAK">Rusak</option>
+                                <option value="PERBAIKAN">Perbaikan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Merk</label>
+                            <input type="text" class="form-control" name="merk_kendaraan" placeholder="Isi Merk" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Panjang (m)</label>
+                            <input type="text" class="form-control" name="panjang_kabel_m" placeholder="Isi Pj." required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Volume</label>
+                            <input type="text" class="form-control" name="volume" placeholder="Isi Vol." required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Jenis</label>
+                            <input type="text" class="form-control" name="jenis_ukb" placeholder="Isi Jenis" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Type / Model / No Seri</label>
+                            <input type="text" class="form-control" name="type" placeholder="Isi Type" required>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">NOPOL</label>
+                            <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Lokasi</label>
+                            <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="Digunakan">Sedang digunakan</option>
+                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                                <option value="Standby">Standby</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Keterangan</label>
+                            <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan" required></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">BPKB</label>
+                            <select class="form-select" name="status_bpkb" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">STNK</label>
+                            <select class="form-select" name="status_stnk" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Pajak Tahunan STNK</label>
+                            <input type="date" class="form-control" name="pajak_tahunan" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Pajak 5 Tahunan STNK</label>
+                            <input type="date" class="form-control" name="pajak_5tahunan" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">KIR</label>
+                            <select class="form-select" name="status_kir" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Masa Berlaku KIR</label>
+                            <input type="date" class="form-control" name="masa_berlaku_kir" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Service Mobil Terakhir</label>
+                            <input type="date" class="form-control" name="tgl_service_terakhir" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Dokumentasi</label>
+                            <input type="text" class="form-control" name="dokumentasi" placeholder="Isi Link Dokumentasi" required>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Kondisi</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Baik</option>
-                            <option>Rusak</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Merk</label>
-                        <input type="text" class="form-control" placeholder="Isi Merk" required>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Panjang</label>
-                        <input type="text" class="form-control" placeholder="Isi Pj." required>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Volume</label>
-                        <input type="text" class="form-control" placeholder="Isi Vol." required>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Jenis</label>
-                        <input type="text" class="form-control" placeholder="Isi Jenis" required>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Type / Model / No Seri</label>
-                        <input type="text" class="form-control" placeholder="Isi Type" required>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" placeholder="XX 0000 XX" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Lokasi" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Standby</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" placeholder="Isi Keterangan" required></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">BPKB</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">STNK</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">KIR</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Link Dokumentasi" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="createUnitUKBForm" class="btn btn-primary">Add</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -489,114 +513,120 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createUnitDeteksiModalLabel">Add Unit</h5>
+                <h5 class="modal-title" id="createUnitDeteksiModalLabel">Add Unit Deteksi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="createUnitDeteksiForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Deteksi</option>
-                        </select>
+
+            <form action="{{ route('admin.units.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="tipe_peralatan" value="DETEKSI">
+
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Unit</label>
+                            <select class="form-select" name="nama_unit" required>
+                                <option value="Deteksi" selected>Deteksi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Kondisi</label>
+                            <select class="form-select" name="kondisi_kendaraan" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="BAIK">Baik</option>
+                                <option value="RUSAK">Rusak</option>
+                                <option value="PERBAIKAN">Perbaikan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Merk</label>
+                            <select class="form-select" name="merk_kendaraan" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="BAUR">BAUR</option>
+                                <option value="MEGGER">MEGGER</option>
+                                <option value="CENTRIX">CENTRIX</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <label class="form-label">Fitur</label>
+                            <input type="text" class="form-control" name="fitur" placeholder="Isi Fitur" required>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label class="form-label">Type / Model / No Seri</label>
+                            <input type="text" class="form-control" name="type" placeholder="Isi Type" required>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <label class="form-label">NOPOL</label>
+                            <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Lokasi</label>
+                            <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="Digunakan">Sedang digunakan</option>
+                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                                <option value="Standby">Standby</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Keterangan</label>
+                            <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan" required></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">BPKB</label>
+                            <select class="form-select" name="status_bpkb" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">STNK</label>
+                            <select class="form-select" name="status_stnk" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Pajak Tahunan STNK</label>
+                            <input type="date" class="form-control" name="pajak_tahunan" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Pajak 5 Tahunan STNK</label>
+                            <input type="date" class="form-control" name="pajak_5tahunan" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">KIR</label>
+                            <select class="form-select" name="status_kir" required>
+                                <option value="" disabled selected>Pilih</option>
+                                <option value="1">Ada</option>
+                                <option value="0">Tidak Ada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Masa Berlaku KIR</label>
+                            <input type="date" class="form-control" name="masa_berlaku_kir" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Service Mobil Terakhir</label>
+                            <input type="date" class="form-control" name="tgl_service_terakhir" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Dokumentasi</label>
+                            <input type="text" class="form-control" name="dokumentasi" placeholder="Isi Link Dokumentasi" required>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Kondisi</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Baik</option>
-                            <option>Rusak</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Merk</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>BAUR</option>
-                            <option>MEGGER</option>
-                            <option>CENTRIX</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Fitur</label>
-                        <input type="text" class="form-control" placeholder="Isi Fitur" required>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <label class="form-label">Type / Model / No Seri</label>
-                        <input type="text" class="form-control" placeholder="Isi Type" required>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" placeholder="XX 0000 XX" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Lokasi" required>
-                    </div>
-                    <div class="col-md-6 col-lg-6">
-                        <label class="form-label">Status</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Standby</option>
-                        </select>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" placeholder="Isi Keterangan" required></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">BPKB</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">STNK</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">KIR</label>
-                        <select class="form-select" required>
-                            <option value="" disabled selected>Pilih</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" required>
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" placeholder="Isi Link Dokumentasi" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="createUnitDeteksiForm" class="btn btn-primary">Add</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
