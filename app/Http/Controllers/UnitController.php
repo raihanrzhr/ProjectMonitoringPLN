@@ -37,7 +37,7 @@ class UnitController extends Controller
             'nama_unit' => 'required|string|max:100',
             'tipe_peralatan' => 'required|in:UPS,UKB,DETEKSI',
 
-            'nopol' => 'required|string|max:15|unique:unit',
+            'nopol' => 'required|string|max:15|unique:units',
             'merk_kendaraan' => 'nullable|string|max:50',
             'tipe_kendaraan' => 'nullable|string|max:50',
             'kondisi_kendaraan' => 'required|in:BAIK,DIGUNAKAN,RUSAK,PERBAIKAN',
@@ -88,7 +88,7 @@ class UnitController extends Controller
             ]);
         }
 
-        return Redirect()->route('units');
+        return Redirect()->route('admin.units')->with('success', 'Unit added successfully.');
     }
 
     /**
@@ -96,8 +96,8 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        // $unit = Unit::with(['ups','ukb','deteksi'])->findOrFail($unit->unit_id);
-        // return view('admin.units', compact('unit'));
+        $unit = Unit::with(['ups','ukb','deteksi'])->findOrFail($unit->unit_id);
+        return view('admin.unit-detail', compact('unit'));
     }
 
     /**
@@ -119,7 +119,7 @@ class UnitController extends Controller
             'nama_unit' => 'required|string|max:100',
             'tipe_peralatan' => 'required|in:UPS,UKB,DETEKSI',
 
-            'nopol' => 'required|string|max:15|unique:unit,nopol,' . $unit->unit_id . ',unit_id',
+            'nopol' => 'required|string|max:15|unique:units,nopol,' . $unit->unit_id . ',unit_id',
             'merk_kendaraan' => 'nullable|string|max:50',
             'tipe_kendaraan' => 'nullable|string|max:50',
             'kondisi_kendaraan' => 'required|in:BAIK,DIGUNAKAN,RUSAK,PERBAIKAN',
@@ -173,7 +173,7 @@ class UnitController extends Controller
                 'type' => $request->type,
             ]);
         }
-        return Redirect()->route('units');
+        return Redirect()->route('admin.units');
     }
 
     /**
@@ -183,6 +183,6 @@ class UnitController extends Controller
     {
         $unit = Unit::findOrFail($unit->unit_id);
         $unit->delete();
-        return Redirect()->route('units');
+        return Redirect()->route('admin.units');
     }
 }

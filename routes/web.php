@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 // Landing (root)
 Route::get('/', function () {
@@ -34,9 +35,10 @@ Route::get('/login', function () {
 })->name('login');
 
 // Register
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+Route::middleware(['web'])->group(function () {
+    Route::get('/register', [RegisteredUserController::class, 'index'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
+});
 
 // Admin pages (views/admin/*)
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -52,8 +54,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])
     ->name('report');
 
-    Route::get('/units', [unitController::class, 'index'])
-    ->name('units');
+    Route::get('/units', [UnitController::class, 'index'])->name('units');
+    Route::get('/unit/{id}/detail', function ($id) {
+        
+    });
+    Route::post('/units/add', [UnitController::class, 'store'])->name('units.add');
 
     Route::get('/users', [UserController::class, 'index'])
     ->name('users');

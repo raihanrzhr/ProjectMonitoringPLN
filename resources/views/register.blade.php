@@ -4,32 +4,61 @@
 @section('bodyClass', 'bg-white min-h-screen')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <main class="container mx-auto px-4 py-12">
         <div class="flex justify-center items-center min-h-[calc(100vh-200px)]">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl overflow-hidden">
                 <div class="grid md:grid-cols-2 gap-0">
                     <div class="p-8 md:p-12">
                         <h1 class="font-serif-title text-4xl md:text-5xl font-bold text-[#002837] mb-10 text-center">Register</h1>
-                        <form class="space-y-6">
+                        <form class="space-y-6" method="POST" action="{{ route('register.store') }}">
+                            @csrf
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-gray-700 font-medium mb-2">Nama</label>
-                                    <input type="text" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your name">
+                                    <input name="name" type="text" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your name" value="{{ old('name') }}" required>
+                                    @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
                                 <div>
                                     <label class="block text-gray-700 font-medium mb-2">NIP</label>
-                                    <input id="nipInput" type="text" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Masukkan NIP">
+                                    <input name="NIP" type="text" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Masukkan NIP" value="{{ old('NIP') }}" required>
+                                    @error('NIP')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 </div>
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Email</label>
-                                <input type="email" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your email">
+                                <input name="email" type="email" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your email" value="{{ old('email') }}" required>
+                                @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                             <div>
                                 <label class="block text-gray-700 font-medium mb-2">Password</label>
-                                <input type="password" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your password">
+                                <input name="password" type="password" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Enter your password" required>
+                                @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             </div>
-                            <button type="button" onclick="registerHandler()" class="w-full bg-[#002837] text-white py-3 rounded-lg font-serif-title font-bold text-lg hover:bg-blue-800 transition">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+                                <input name="password_confirmation" type="password" class="w-full px-4 py-3 rounded-lg focus:outline-none" style="background-color:#f5f5f5;border:none" placeholder="Confirm your password" required>
+                                @error('password_confirmation')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                            <button type="submit" onclick="registerHandler()" class="w-full bg-[#002837] text-white py-3 rounded-lg font-serif-title font-bold text-lg hover:bg-blue-800 transition">
                                 Register
                             </button>
                         </form>
