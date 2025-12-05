@@ -8,6 +8,7 @@ use App\Models\DetailUps;
 use App\Models\DetailUkb;
 use App\Models\DetailDeteksi;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 class UnitController extends Controller
 {
@@ -94,9 +95,20 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Unit $unit)
+    public function show($id)
     {
-        $unit = Unit::with(['ups','ukb','deteksi'])->findOrFail($unit->unit_id);
+        // Pastikan ID bersih
+        $clean_id = trim($id); 
+
+        // Query Manual (Paling Aman untuk situasi Anda sekarang)
+        $unit = Unit::with(['detailUps', 'detailUkb', 'detailDeteksi', 'peminjaman'])
+                    ->where('unit_id', $clean_id)
+                    ->first();
+
+        if (!$unit) {
+            abort(404, 'Unit tidak ditemukan di Database');
+        }
+
         return view('admin.unit-detail', compact('unit'));
     }
 

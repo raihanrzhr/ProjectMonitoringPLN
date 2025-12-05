@@ -140,7 +140,7 @@
             <td>{{ Str::limit($unit->catatan, 30) }}</td>
 
             <td class="text-center">
-                <button class="btn-action info btn-view-detail" 
+                <a href="{{ route('admin.units.show', $unit->unit_id) }}" class="btn-action info btn-view-detail" title="Lihat Detail" 
                     data-unit-type="{{ $unit->tipe_peralatan }}"
                     data-unit="{{ $unit->nama_unit }}"
                     data-kondisi="{{ $unit->kondisi_kendaraan }}"
@@ -177,7 +177,7 @@
                     @endif
                 >
                     <i class="fa-solid fa-eye"></i>
-                </button>
+                </a>
 
                 <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" 
                     data-bs-target="#editUnit{{ $unit->tipe_peralatan == 'DETEKSI' ? 'Deteksi' : $unit->tipe_peralatan }}Modal"

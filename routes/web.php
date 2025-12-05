@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
     // GROUP A: USER AREA (Role 1 & 2)
     // ------------------------------------------------
     // Role 1 (Pending) dan 2 (User) bisa akses halaman form
-    Route::middleware(['role:1,2'])->group(function () {
+    Route::middleware(['role:2,3,4'])->group(function () {
         Route::get('/form', function () {
             // TIPS: Di dalam view 'form', Anda bisa gunakan @if(auth()->user()->role == 1)
             // untuk mendisable tombol submit atau input field agar "tidak bisa input"
@@ -93,10 +93,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
         Route::get('/report', [ReportController::class, 'index'])->name('report');
         
-        // Unit Controller (Semua admin bisa lihat index)
         Route::get('/units', [UnitController::class, 'index'])->name('units');
-        // Asumsi ada method show/detail
-        Route::get('/unit/{id}/detail', [UnitController::class, 'show'])->name('units.show'); 
+        Route::post('/units/add', [UnitController::class, 'store'])->name('units.add'); 
+        Route::get('/unit/{id}/detail', [UnitController::class, 'show'])->name('units.show');
 
         // User Controller (READ ONLY untuk Admin biasa)
         Route::get('/users', [UserController::class, 'index'])->name('users');
@@ -107,9 +106,6 @@ Route::middleware(['auth'])->group(function () {
     // ------------------------------------------------
     // Ini khusus PemakuKepentingan yang boleh Add/Edit/Delete
     Route::prefix('admin')->name('admin.')->middleware(['role:4'])->group(function () {
-        
-        // Add Unit (Admin biasa tidak bisa, hanya PemakuKepentingan)
-        Route::post('/units/add', [UnitController::class, 'store'])->name('units.add');
         
         // User Management (Create, Update, Delete)
         Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
