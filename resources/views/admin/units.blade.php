@@ -182,6 +182,7 @@
                 <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" 
                     data-bs-target="#editUnit{{ $unit->tipe_peralatan == 'DETEKSI' ? 'Deteksi' : $unit->tipe_peralatan }}Modal"
                     
+                    data-id="{{ $unit->unit_id }}"
                     data-unit="{{ $unit->tipe_peralatan }}" {{-- Penting untuk JS switch case --}}
                     data-kondisi="{{ $unit->kondisi_kendaraan }}"
                     data-merk="{{ $unit->merk_kendaraan }}"
@@ -636,127 +637,125 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUnitUPSModalLabel">Edit Unit</h5>
+                <h5 class="modal-title">Edit Unit UPS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editUnitUPSForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" id="editUPSUnit">
-                            <option>UPS</option>
-                        </select>
-                    </div>
+                {{-- Form Action akan diisi otomatis oleh Javascript --}}
+                <form id="editUnitUPSForm" method="POST" class="row g-3">
+                    @csrf
+                    @method('PUT')
+
+                    {{-- Hidden input untuk menjaga konsistensi tipe --}}
+                    <input type="hidden" name="tipe_peralatan" value="UPS">
+
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Jenis</label>
-                        <select class="form-select" id="editUPSJenis">
-                            <option>Mobile</option>
-                            <option>Portable</option>
-                        </select>
+                        {{-- Perhatikan penambahan name="..." --}}
+                        <input type="text" class="form-control" id="editUPSJenis" name="jenis_ups">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">KVA</label>
-                        <select class="form-select" id="editUPSKva">
-                            <option>10</option>
-                            <option>30</option>
-                            <option>100</option>
-                            <option>200</option>
-                            <option>250</option>
-                        </select>
+                        <input type="number" class="form-control" id="editUPSKva" name="kapasitas_kva">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Kondisi</label>
-                        <select class="form-select" id="editUPSKondisi">
-                            <option>Baik</option>
-                            <option>Rusak</option>
+                        <select class="form-select" id="editUPSKondisi" name="kondisi_kendaraan">
+                            <option value="BAIK">Baik</option>
+                            <option value="RUSAK">Rusak</option>
+                            <option value="PERBAIKAN">Perbaikan</option>
                         </select>
                     </div>
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                         <label class="form-label">Merk</label>
-                        <input type="text" class="form-control" id="editUPSMerk">
+                        <input type="text" class="form-control" id="editUPSMerk" name="merk_kendaraan">
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <label class="form-label">Model / No Seri</label>
-                        <input type="text" class="form-control" id="editUPSModel">
+                        <input type="text" class="form-control" id="editUPSModel" name="model_no_seri">
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" id="editUPSNopol">
+                        <input type="text" class="form-control" id="editUPSNopol" name="nopol">
                     </div>
-                    <div class="col-md-6 col-lg-6">
+                    <div class="col-md-6 col-lg-4">
                         <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" id="editUPSLokasi">
+                        <input type="text" class="form-control" id="editUPSLokasi" name="lokasi">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label class="form-label">Status</label>
-                        <select class="form-select" id="editUPSStatus">
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Standby</option>
+                        <select class="form-select" id="editUPSStatus" name="status">
+                            <option value="Digunakan">Digunakan</option>
+                            <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                            <option value="Standby">Standby</option>
                         </select>
                     </div>
                     <div class="col-12">
                         <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" id="editUPSKeterangan"></textarea>
+                        <textarea class="form-control" rows="3" id="editUPSKeterangan" name="catatan"></textarea>
                     </div>
+                    
+                    {{-- Detail Spesifik UPS --}}
                     <div class="col-md-4">
                         <label class="form-label">Merk Battery</label>
-                        <input type="text" class="form-control" id="editUPSMerkBattery">
+                        <input type="text" class="form-control" id="editUPSMerkBattery" name="batt_merk">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Jumlah Battery</label>
-                        <input type="number" class="form-control" id="editUPSJumlahBattery">
+                        <input type="number" class="form-control" id="editUPSJumlahBattery" name="batt_jumlah">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Kapasitas</label>
-                        <input type="number" class="form-control" id="editUPSKapasitasBattery">
+                        <input type="number" class="form-control" id="editUPSKapasitasBattery" name="batt_kapasitas">
                     </div>
+
+                    {{-- Data Administrasi --}}
                     <div class="col-md-4">
                         <label class="form-label">BPKB</label>
-                        <select class="form-select" id="editUPSBpkb">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUPSBpkb" name="status_bpkb">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">STNK</label>
-                        <select class="form-select" id="editUPSStnk">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUPSStnk" name="status_stnk">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editUPSPajakTahunan">
+                        <label class="form-label">Pajak Tahunan</label>
+                        <input type="date" class="form-control" id="editUPSPajakTahunan" name="pajak_tahunan">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editUPSPajak5Tahunan">
+                        <label class="form-label">Pajak 5 Tahunan</label>
+                        <input type="date" class="form-control" id="editUPSPajak5Tahunan" name="pajak_5tahunan">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">KIR</label>
-                        <select class="form-select" id="editUPSKir">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUPSKir" name="status_kir">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" id="editUPSMasaBerlakuKir">
+                        <input type="date" class="form-control" id="editUPSMasaBerlakuKir" name="masa_berlaku_kir">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" id="editUPSService">
+                        <label class="form-label">Service Terakhir</label>
+                        <input type="date" class="form-control" id="editUPSService" name="tgl_service_terakhir">
                     </div>
                     <div class="col-12">
                         <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" id="editUPSDokumentasi">
+                        <input type="text" class="form-control" id="editUPSDokumentasi" name="dokumentasi">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="editUnitUPSForm" class="btn btn-primary">Edit</button>
+                <button type="submit" form="editUnitUPSForm" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
     </div>
@@ -767,110 +766,111 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUnitUKBModalLabel">Edit Unit</h5>
+                <h5 class="modal-title">Edit Unit UKB</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editUnitUKBForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" id="editUKBUnit">
-                            <option>UKB</option>
-                        </select>
-                    </div>
+                <form id="editUnitUKBForm" method="POST" class="row g-3">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="tipe_peralatan" value="UKB">
+
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Kondisi</label>
-                        <select class="form-select" id="editUKBKondisi">
-                            <option>Baik</option>
-                            <option>Rusak</option>
+                        <select class="form-select" id="editUKBKondisi" name="kondisi_kendaraan">
+                            <option value="BAIK">Baik</option>
+                            <option value="RUSAK">Rusak</option>
+                            <option value="PERBAIKAN">Perbaikan</option>
                         </select>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Merk</label>
-                        <input type="text" class="form-control" id="editUKBMerk">
+                        <input type="text" class="form-control" id="editUKBMerk" name="merk_kendaraan">
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Panjang</label>
-                        <input type="text" class="form-control" id="editUKBPanjang">
+                        <label class="form-label">Panjang (m)</label>
+                        <input type="text" class="form-control" id="editUKBPanjang" name="panjang_kabel_m">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Volume</label>
-                        <input type="text" class="form-control" id="editUKBVolume">
+                        <input type="text" class="form-control" id="editUKBVolume" name="volume">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Jenis</label>
-                        <input type="text" class="form-control" id="editUKBJenis">
+                        <input type="text" class="form-control" id="editUKBJenis" name="jenis_ukb">
                     </div>
                     <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Type / Model / No Seri</label>
-                        <input type="text" class="form-control" id="editUKBModel">
+                        <label class="form-label">Type / Model</label>
+                        <input type="text" class="form-control" id="editUKBModel" name="type">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" id="editUKBNopol">
+                        <input type="text" class="form-control" id="editUKBNopol" name="nopol">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" id="editUKBLokasi">
+                        <input type="text" class="form-control" id="editUKBLokasi" name="lokasi">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label class="form-label">Status</label>
-                        <select class="form-select" id="editUKBStatus">
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Stand By</option>
+                        <select class="form-select" id="editUKBStatus" name="status">
+                            <option value="Digunakan">Digunakan</option>
+                            <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                            <option value="Standby">Standby</option>
                         </select>
                     </div>
                     <div class="col-12">
                         <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" id="editUKBKeterangan"></textarea>
+                        <textarea class="form-control" rows="3" id="editUKBKeterangan" name="catatan"></textarea>
                     </div>
+
+                    {{-- Administrasi --}}
                     <div class="col-md-4">
                         <label class="form-label">BPKB</label>
-                        <select class="form-select" id="editUKBBpkb">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUKBBpkb" name="status_bpkb">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">STNK</label>
-                        <select class="form-select" id="editUKBStnk">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUKBStnk" name="status_stnk">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editUKBPajakTahunan">
+                        <label class="form-label">Pajak Tahunan</label>
+                        <input type="date" class="form-control" id="editUKBPajakTahunan" name="pajak_tahunan">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editUKBPajak5Tahunan">
+                        <label class="form-label">Pajak 5 Tahunan</label>
+                        <input type="date" class="form-control" id="editUKBPajak5Tahunan" name="pajak_5tahunan">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">KIR</label>
-                        <select class="form-select" id="editUKBKir">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editUKBKir" name="status_kir">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" id="editUKBMasaBerlakuKir">
+                        <input type="date" class="form-control" id="editUKBMasaBerlakuKir" name="masa_berlaku_kir">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" id="editUKBService">
+                        <label class="form-label">Service Terakhir</label>
+                        <input type="date" class="form-control" id="editUKBService" name="tgl_service_terakhir">
                     </div>
                     <div class="col-12">
                         <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" id="editUKBDokumentasi">
+                        <input type="text" class="form-control" id="editUKBDokumentasi" name="dokumentasi">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="editUnitUKBForm" class="btn btn-primary">Edit</button>
+                <button type="submit" form="editUnitUKBForm" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
     </div>
@@ -881,105 +881,103 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUnitDeteksiModalLabel">Edit Unit</h5>
+                <h5 class="modal-title">Edit Unit Deteksi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editUnitDeteksiForm" class="row g-3">
-                    <div class="col-md-6 col-lg-3">
-                        <label class="form-label">Unit</label>
-                        <select class="form-select" id="editDeteksiUnit">
-                            <option>Deteksi</option>
-                        </select>
-                    </div>
+                <form id="editUnitDeteksiForm" method="POST" class="row g-3">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="tipe_peralatan" value="DETEKSI">
+
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Kondisi</label>
-                        <select class="form-select" id="editDeteksiKondisi">
-                            <option>Baik</option>
-                            <option>Rusak</option>
+                        <select class="form-select" id="editDeteksiKondisi" name="kondisi_kendaraan">
+                            <option value="BAIK">Baik</option>
+                            <option value="RUSAK">Rusak</option>
+                            <option value="PERBAIKAN">Perbaikan</option>
                         </select>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Merk</label>
-                        <input type="text" class="form-control" id="editDeteksiMerk">
+                        <input type="text" class="form-control" id="editDeteksiMerk" name="merk_kendaraan">
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <label class="form-label">Fitur</label>
-                        <input type="text" class="form-control" id="editDeteksiFitur">
+                        <input type="text" class="form-control" id="editDeteksiFitur" name="fitur">
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <label class="form-label">Type/Model/No Seri</label>
-                        <input type="text" class="form-control" id="editDeteksiModel">
+                        <label class="form-label">Type / Model</label>
+                        <input type="text" class="form-control" id="editDeteksiModel" name="type">
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <label class="form-label">NOPOL</label>
-                        <input type="text" class="form-control" id="editDeteksiNopol">
+                        <input type="text" class="form-control" id="editDeteksiNopol" name="nopol">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" id="editDeteksiLokasi">
+                        <input type="text" class="form-control" id="editDeteksiLokasi" name="lokasi">
                     </div>
                     <div class="col-md-6 col-lg-6">
                         <label class="form-label">Status</label>
-                        <select class="form-select" id="editDeteksiStatus">
-                            <option>-</option>
-                            <option>Sedang digunakan</option>
-                            <option>Tidak Siap Operasi</option>
-                            <option>Standby</option>
+                        <select class="form-select" id="editDeteksiStatus" name="status">
+                            <option value="Digunakan">Digunakan</option>
+                            <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                            <option value="Standby">Standby</option>
                         </select>
                     </div>
                     <div class="col-12">
                         <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" rows="3" id="editDeteksiKeterangan"></textarea>
+                        <textarea class="form-control" rows="3" id="editDeteksiKeterangan" name="catatan"></textarea>
                     </div>
+
+                    {{-- Administrasi --}}
                     <div class="col-md-4">
                         <label class="form-label">BPKB</label>
-                        <select class="form-select" id="editDeteksiBpkb">
-                            <option>-</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editDeteksiBpkb" name="status_bpkb">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">STNK</label>
-                        <select class="form-select" id="editDeteksiStnk">
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editDeteksiStnk" name="status_stnk">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editDeteksiPajakTahunan">
+                        <label class="form-label">Pajak Tahunan</label>
+                        <input type="date" class="form-control" id="editDeteksiPajakTahunan" name="pajak_tahunan">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Pajak 5 Tahunan STNK</label>
-                        <input type="date" class="form-control" id="editDeteksiPajak5Tahunan">
+                        <label class="form-label">Pajak 5 Tahunan</label>
+                        <input type="date" class="form-control" id="editDeteksiPajak5Tahunan" name="pajak_5tahunan">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">KIR</label>
-                        <select class="form-select" id="editDeteksiKir">
-                            <option>-</option>
-                            <option>Ada</option>
-                            <option>Tidak Ada</option>
+                        <select class="form-select" id="editDeteksiKir" name="status_kir">
+                            <option value="Ada">Ada</option>
+                            <option value="Tidak Ada">Tidak Ada</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Masa Berlaku KIR</label>
-                        <input type="date" class="form-control" id="editDeteksiMasaBerlakuKir">
+                        <input type="date" class="form-control" id="editDeteksiMasaBerlakuKir" name="masa_berlaku_kir">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Service Mobil Terakhir</label>
-                        <input type="date" class="form-control" id="editDeteksiService">
+                        <label class="form-label">Service Terakhir</label>
+                        <input type="date" class="form-control" id="editDeteksiService" name="tgl_service_terakhir">
                     </div>
                     <div class="col-12">
                         <label class="form-label">Dokumentasi</label>
-                        <input type="text" class="form-control" id="editDeteksiDokumentasi">
+                        <input type="text" class="form-control" id="editDeteksiDokumentasi" name="dokumentasi">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="editUnitDeteksiForm" class="btn btn-primary">Edit</button>
+                <button type="submit" form="editUnitDeteksiForm" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
     </div>
@@ -1021,69 +1019,87 @@
 
         // Edit UPS
         $('.btn-edit-unit').on('click', function () {
-            const button = $(this);
-            const unit = button.data('unit');
+            const btn = $(this);
+            const type = btn.data('unit'); // UPS, UKB, atau DETEKSI
+            const id = btn.data('id');     // ID dari database
 
-                if (unit === 'UPS') {
-                $('#editUPSUnit').val(button.data('unit'));
-                $('#editUPSJenis').val(button.data('jenis'));
-                $('#editUPSKva').val(button.data('kva'));
-                $('#editUPSKondisi').val(button.data('kondisi'));
-                $('#editUPSMerk').val(button.data('merk'));
-                $('#editUPSModel').val(button.data('model'));
-                $('#editUPSNopol').val(button.data('nopol'));
-                $('#editUPSLokasi').val(button.data('lokasi'));
-                $('#editUPSStatus').val(button.data('status'));
-                $('#editUPSKeterangan').val(button.data('keterangan'));
-                $('#editUPSMerkBattery').val(button.data('merk-battery'));
-                $('#editUPSJumlahBattery').val(button.data('jumlah-battery'));
-                $('#editUPSKapasitasBattery').val(button.data('kapasitas-battery'));
-                $('#editUPSBpkb').val(button.data('bpkb'));
-                $('#editUPSStnk').val(button.data('stnk'));
-                $('#editUPSPajakTahunan').val(button.data('pajak-tahunan'));
-                $('#editUPSPajak5Tahunan').val(button.data('pajak-5tahunan'));
-                $('#editUPSKir').val(button.data('kir'));
-                $('#editUPSMasaBerlakuKir').val(button.data('masa-berlaku-kir'));
-                $('#editUPSService').val(button.data('service'));
-                $('#editUPSDokumentasi').val(button.data('dokumentasi'));
-                } else if (unit === 'UKB') {
-                $('#editUKBUnit').val(button.data('unit'));
-                $('#editUKBKondisi').val(button.data('kondisi'));
-                $('#editUKBMerk').val(button.data('merk'));
-                $('#editUKBPanjang').val(button.data('panjang'));
-                $('#editUKBVolume').val(button.data('volume'));
-                $('#editUKBJenis').val(button.data('jenis'));
-                $('#editUKBModel').val(button.data('model'));
-                $('#editUKBNopol').val(button.data('nopol'));
-                $('#editUKBLokasi').val(button.data('lokasi'));
-                $('#editUKBStatus').val(button.data('status'));
-                $('#editUKBKeterangan').val(button.data('keterangan'));
-                $('#editUKBBpkb').val(button.data('bpkb'));
-                $('#editUKBStnk').val(button.data('stnk'));
-                $('#editUKBPajakTahunan').val(button.data('pajak-tahunan'));
-                $('#editUKBPajak5Tahunan').val(button.data('pajak-5tahunan'));
-                $('#editUKBKir').val(button.data('kir'));
-                $('#editUKBMasaBerlakuKir').val(button.data('masa-berlaku-kir'));
-                $('#editUKBService').val(button.data('service'));
-                $('#editUKBDokumentasi').val(button.data('dokumentasi'));
-            } else if (unit === 'Deteksi') {
-                $('#editDeteksiUnit').val(button.data('unit'));
-                $('#editDeteksiKondisi').val(button.data('kondisi'));
-                $('#editDeteksiMerk').val(button.data('merk'));
-                $('#editDeteksiFitur').val(button.data('fitur'));
-                $('#editDeteksiModel').val(button.data('model'));
-                $('#editDeteksiNopol').val(button.data('nopol'));
-                $('#editDeteksiLokasi').val(button.data('lokasi'));
-                $('#editDeteksiStatus').val(button.data('status'));
-                $('#editDeteksiKeterangan').val(button.data('keterangan'));
-                $('#editDeteksiBpkb').val(button.data('bpkb'));
-                $('#editDeteksiStnk').val(button.data('stnk'));
-                $('#editDeteksiPajakTahunan').val(button.data('pajak-tahunan'));
-                $('#editDeteksiPajak5Tahunan').val(button.data('pajak-5tahunan'));
-                $('#editDeteksiKir').val(button.data('kir'));
-                $('#editDeteksiMasaBerlakuKir').val(button.data('masa-berlaku-kir'));
-                $('#editDeteksiService').val(button.data('service'));
-                $('#editDeteksiDokumentasi').val(button.data('dokumentasi'));
+            // Setup URL Action Form (misal: /admin/units/1)
+            // Pastikan route 'admin.units.update' sudah ada di web.php
+            let url = "{{ route('admin.units.update', ':id') }}";
+            url = url.replace(':id', id);
+
+            // Helper untuk set value
+            const setVal = (id, val) => $(id).val(val).trigger('change');
+
+            if (type === 'UPS') {
+                $('#editUnitUPSForm').attr('action', url); // Set Action Form
+                
+                setVal('#editUPSJenis', btn.data('jenis'));
+                setVal('#editUPSKva', btn.data('kva'));
+                setVal('#editUPSKondisi', btn.data('kondisi'));
+                setVal('#editUPSMerk', btn.data('merk'));
+                setVal('#editUPSModel', btn.data('model'));
+                setVal('#editUPSNopol', btn.data('nopol'));
+                setVal('#editUPSLokasi', btn.data('lokasi'));
+                setVal('#editUPSStatus', btn.data('status'));
+                setVal('#editUPSKeterangan', btn.data('keterangan'));
+                setVal('#editUPSMerkBattery', btn.data('merk-battery'));
+                setVal('#editUPSJumlahBattery', btn.data('jumlah-battery'));
+                setVal('#editUPSKapasitasBattery', btn.data('kapasitas-battery'));
+                
+                // Administrasi
+                setVal('#editUPSBpkb', btn.data('bpkb'));
+                setVal('#editUPSStnk', btn.data('stnk'));
+                setVal('#editUPSPajakTahunan', btn.data('pajak-tahunan'));
+                setVal('#editUPSPajak5Tahunan', btn.data('pajak-5tahunan'));
+                setVal('#editUPSKir', btn.data('kir'));
+                setVal('#editUPSMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                setVal('#editUPSService', btn.data('service'));
+                setVal('#editUPSDokumentasi', btn.data('dokumentasi'));
+
+            } else if (type === 'UKB') {
+                $('#editUnitUKBForm').attr('action', url);
+
+                setVal('#editUKBKondisi', btn.data('kondisi'));
+                setVal('#editUKBMerk', btn.data('merk'));
+                setVal('#editUKBPanjang', btn.data('panjang'));
+                setVal('#editUKBVolume', btn.data('volume'));
+                setVal('#editUKBJenis', btn.data('jenis'));
+                setVal('#editUKBModel', btn.data('model'));
+                setVal('#editUKBNopol', btn.data('nopol'));
+                setVal('#editUKBLokasi', btn.data('lokasi'));
+                setVal('#editUKBStatus', btn.data('status'));
+                setVal('#editUKBKeterangan', btn.data('keterangan'));
+                
+                setVal('#editUKBBpkb', btn.data('bpkb'));
+                setVal('#editUKBStnk', btn.data('stnk'));
+                setVal('#editUKBPajakTahunan', btn.data('pajak-tahunan'));
+                setVal('#editUKBPajak5Tahunan', btn.data('pajak-5tahunan'));
+                setVal('#editUKBKir', btn.data('kir'));
+                setVal('#editUKBMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                setVal('#editUKBService', btn.data('service'));
+                setVal('#editUKBDokumentasi', btn.data('dokumentasi'));
+
+            } else if (type === 'DETEKSI' || type === 'Deteksi') { // Handle case sensitivity
+                $('#editUnitDeteksiForm').attr('action', url);
+
+                setVal('#editDeteksiKondisi', btn.data('kondisi'));
+                setVal('#editDeteksiMerk', btn.data('merk'));
+                setVal('#editDeteksiFitur', btn.data('fitur'));
+                setVal('#editDeteksiModel', btn.data('model'));
+                setVal('#editDeteksiNopol', btn.data('nopol'));
+                setVal('#editDeteksiLokasi', btn.data('lokasi'));
+                setVal('#editDeteksiStatus', btn.data('status'));
+                setVal('#editDeteksiKeterangan', btn.data('keterangan'));
+                
+                setVal('#editDeteksiBpkb', btn.data('bpkb'));
+                setVal('#editDeteksiStnk', btn.data('stnk'));
+                setVal('#editDeteksiPajakTahunan', btn.data('pajak-tahunan'));
+                setVal('#editDeteksiPajak5Tahunan', btn.data('pajak-5tahunan'));
+                setVal('#editDeteksiKir', btn.data('kir'));
+                setVal('#editDeteksiMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                setVal('#editDeteksiService', btn.data('service'));
+                setVal('#editDeteksiDokumentasi', btn.data('dokumentasi'));
             }
         });
 
