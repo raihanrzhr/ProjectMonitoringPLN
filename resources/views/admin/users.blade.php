@@ -159,6 +159,12 @@
                             {{-- Tambahkan name="email" --}}
                             <input type="email" class="form-control" id="editUserEmail" name="email" required>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Password Baru</label>
+                            {{-- name="password" sesuai controller --}}
+                            <input type="password" class="form-control" id="editUserPassword" name="password" placeholder="Kosongkan jika tidak ubah">
+                            <small class="text-muted" style="font-size: 0.75rem;">*Isi hanya jika ingin mengganti password</small>
+                        </div>
                         <div class="col-12">
                             <label class="form-label">Role</label>
                             {{-- Tambahkan name="role_id" --}}
@@ -201,29 +207,31 @@
         });
 
         $('.btn-edit-user').on('click', function () {
-    const button = $(this);
-    
-    // 1. Ambil data dari atribut tombol
-    const id = button.data('id');
-    const nama = button.data('nama');
-    const nip = button.data('nip');
-    const email = button.data('email');
-    const roleId = button.data('role-id'); // Ambil ID role
+            const button = $(this);
+            
+            // 1. Ambil data
+            const id = button.data('id');
+            const nama = button.data('nama');
+            const nip = button.data('nip');
+            const email = button.data('email');
+            const roleId = button.data('role-id');
 
-    // 2. Isi value ke dalam input form modal
-    $('#editUserNama').val(nama);
-    $('#editUserNip').val(nip);
-    $('#editUserEmail').val(email);
-    $('#editUserRole').val(roleId).change(); // Set dropdown sesuai ID
+            // 2. Isi value ke input text biasa
+            $('#editUserNama').val(nama);
+            $('#editUserNip').val(nip);
+            $('#editUserEmail').val(email);
+            $('#editUserRole').val(roleId).change();
+            
+            // 3. [PENTING] Reset/Kosongkan kolom password
+            // Kita tidak menampilkan password lama demi keamanan
+            $('#editUserPassword').val(''); 
 
-    // 3. Update Action URL pada form
-    // Ganti 'admin.users.update' sesuai nama route Anda di web.php
-    // Contoh URL hasil: /admin/users/5
-    let url = "{{ route('admin.users.update', ':id') }}";
-    url = url.replace(':id', id);
-    
-    $('#editUserForm').attr('action', url);
-});
+            // 4. Update Action URL
+            let url = "{{ route('admin.users.update', ':id') }}";
+            url = url.replace(':id', id);
+            
+            $('#editUserForm').attr('action', url);
+        });
     });
 </script>
 @endpush

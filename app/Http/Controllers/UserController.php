@@ -67,11 +67,19 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
+            'role_id' => 'nullable|integer|exists:roles,role_id',
             'name' => 'required|string|max:255',
             'NIP' => 'required|string|max:20|unique:users,NIP,' . $id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role_id' => 'nullable|integer|exists:roles,role_id',
+            'password' => 'nullable|string|min:8',
         ]);
+
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+
         User::where('id', $id)->update($validatedData);
 
         return redirect()->route('admin.users');
