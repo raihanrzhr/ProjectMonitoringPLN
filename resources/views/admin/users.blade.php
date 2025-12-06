@@ -30,32 +30,56 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Sofiatu Zahra</td>
-                        <td>12345678</td>
-                        <td>xxx@gmail.com</td>
-                        <td><span class="badge bg-primary">User</span></td>
-                        <td class="text-center">
-                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra Khalifah" data-nip="12345678" data-email="xxx@gmail.com" data-role="Assistant Manager">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    @foreach(range(1,7) as $index)
-                    <tr>
-                        <td>Sofiatu Zahra</td>
-                        <td>12345678</td>
-                        <td>xxx@gmail.com</td>
-                        <td><span class="badge bg-success">Admin</span></td>
-                        <td class="text-center">
-                            <button class="btn-action edit btn-edit-user" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nama="Sofiatu Zahra" data-nip="12345678" data-email="xxx@gmail.com" data-role="Admin">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                    @endforeach
+                    @forelse($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->NIP ?? '-' }}</td> {{-- Menampilkan '-' jika NIP null --}}
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                {{-- Ambil role_name dari relasi, jika null anggap 'User' --}}
+                                @php
+                                    // Perhatikan: Kita pakai 'role_name' sesuai file Role.php Anda
+                                    $roleName = $user->role->role_name ?? 'User'; 
+                                    
+                                    $badgeClass = match($roleName) {
+                                        'Admin' => 'bg-success',
+                                        'Assistant Manager' => 'bg-warning',
+                                        'Pending' => 'bg-secondary',
+                                        'User' => 'bg-primary', // Pastikan case 'User' tertangani
+                                        default => 'bg-primary',
+                                    };
+                                @endphp
+
+                                <span class="badge {{ $badgeClass }}">{{ $roleName }}</span>
+                            </td>
+                            <td class="text-center">
+                                {{-- Tombol Edit dengan Data Dinamis --}}
+                                <button class="btn-action edit btn-edit-user" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editUserModal" 
+                                    data-id="{{ $user->id }}"
+                                    data-nama="{{ $user->name }}" 
+                                    data-nip="{{ $user->nip }}" 
+                                    data-email="{{ $user->email }}" 
+                                    data-role="{{ $user->role }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                
+                                {{-- Tombol Delete (Disarankan menggunakan Form untuk keamanan) --}}
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-action delete ms-2" style="border:none; background:none;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada data user.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

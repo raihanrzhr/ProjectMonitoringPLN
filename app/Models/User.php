@@ -48,4 +48,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function role()
+    {
+        // Parameter: Model Tujuan, Foreign Key di table users, Primary Key di table roles
+        return $this->belongsTo(Role::class, 'role_id', 'role_id');
+    }
 }
