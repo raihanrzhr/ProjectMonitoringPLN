@@ -94,34 +94,58 @@
                 <h5 class="modal-title" id="createUserModalLabel">Add User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            
             <div class="modal-body">
-                <form id="createUserForm" class="row g-3">
+                {{-- Tambahkan Action ke route store dan Method POST --}}
+                <form id="createUserForm" action="{{ route('admin.users.store') }}" method="POST" class="row g-3">
+                    @csrf
+                    
                     <div class="col-md-6">
                         <label class="form-label">Nama</label>
-                        <input type="text" class="form-control" placeholder="Isi Nama" required>
+                        {{-- Tambahkan name="name" --}}
+                        <input type="text" class="form-control" name="name" placeholder="Isi Nama" required>
                     </div>
+                    
                     <div class="col-md-6">
                         <label class="form-label">NIP</label>
-                        <input type="text" class="form-control" placeholder="Isi NIP" required>
+                        {{-- Tambahkan name="NIP" --}}
+                        <input type="text" class="form-control" name="NIP" placeholder="Isi NIP" required>
                     </div>
-                    <div class="col-md-6">
+                    
+                    <div class="col-12">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="Isi Email" required>
+                        {{-- Tambahkan name="email" --}}
+                        <input type="email" class="form-control" name="email" placeholder="Isi Email" required>
                     </div>
+
+                    {{-- Tambahkan Password (Wajib untuk User Baru) --}}
+                    <div class="col-md-6">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+
+                    {{-- Tambahkan Konfirmasi Password (Wajib karena validasi 'confirmed') --}}
+                    <div class="col-md-6">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" class="form-control" name="password_confirmation" placeholder="Ulangi Password" required>
+                    </div>
+
                     <div class="col-12">
                         <label class="form-label">Role</label>
-                        <select class="form-select" required>
+                        {{-- Tambahkan name="role_id" dan Loop Data Role --}}
+                        <select class="form-select" name="role_id" required>
                             <option value="" disabled selected>Pilih Role</option>
-                            <option>User</option>
-                            <option>Admin</option>
-                            <option>Assistant Manager</option>
-                            <option>Pending</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </form>
             </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                {{-- Tombol submit menunjuk ke ID form di atas --}}
                 <button type="submit" form="createUserForm" class="btn btn-primary">Add</button>
             </div>
         </div>
