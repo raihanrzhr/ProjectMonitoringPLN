@@ -59,9 +59,9 @@
                                     data-bs-target="#editUserModal" 
                                     data-id="{{ $user->id }}"
                                     data-nama="{{ $user->name }}" 
-                                    data-nip="{{ $user->nip }}" 
+                                    data-nip="{{ $user->NIP }}"  {{-- Pastikan case NIP sesuai model --}}
                                     data-email="{{ $user->email }}" 
-                                    data-role="{{ $user->role }}">
+                                    data-role-id="{{ $user->role_id }}"> {{-- Kirim ID, bukan Object/Nama --}}
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 
@@ -136,35 +136,47 @@
                 <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="editUserForm" class="row g-3">
-                    <div class="col-md-6">
-                        <label class="form-label">Nama</label>
-                        <input type="text" class="form-control" id="editUserNama">
+            
+            {{-- Form Action akan di-set lewat Javascript --}}
+            <form id="editUserForm" method="POST" class="row g-3">
+                @csrf
+                @method('PUT') {{-- Method Spoofing untuk Update --}}
+                
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Nama</label>
+                            {{-- Tambahkan name="name" --}}
+                            <input type="text" class="form-control" id="editUserNama" name="name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">NIP</label>
+                            {{-- Tambahkan name="NIP" --}}
+                            <input type="text" class="form-control" id="editUserNip" name="NIP" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            {{-- Tambahkan name="email" --}}
+                            <input type="email" class="form-control" id="editUserEmail" name="email" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Role</label>
+                            {{-- Tambahkan name="role_id" --}}
+                            <select class="form-select" id="editUserRole" name="role_id" required>
+                                <option value="" disabled>Pilih Role</option>
+                                {{-- Looping Role agar value sesuai ID di database --}}
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">NIP</label>
-                        <input type="text" class="form-control" id="editUserNip">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control" id="editUserEmail">
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Role</label>
-                        <select class="form-select" id="editUserRole">
-                            <option>User</option>
-                            <option>Admin</option>
-                            <option>Assistant Manager</option>
-                            <option>Pending</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" form="editUserForm" class="btn btn-primary">Edit</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -189,12 +201,29 @@
         });
 
         $('.btn-edit-user').on('click', function () {
-            const button = $(this);
-            $('#editUserNama').val(button.data('nama'));
-            $('#editUserNip').val(button.data('nip'));
-            $('#editUserEmail').val(button.data('email'));
-            $('#editUserRole').val(button.data('role'));
-        });
+    const button = $(this);
+    
+    // 1. Ambil data dari atribut tombol
+    const id = button.data('id');
+    const nama = button.data('nama');
+    const nip = button.data('nip');
+    const email = button.data('email');
+    const roleId = button.data('role-id'); // Ambil ID role
+
+    // 2. Isi value ke dalam input form modal
+    $('#editUserNama').val(nama);
+    $('#editUserNip').val(nip);
+    $('#editUserEmail').val(email);
+    $('#editUserRole').val(roleId).change(); // Set dropdown sesuai ID
+
+    // 3. Update Action URL pada form
+    // Ganti 'admin.users.update' sesuai nama route Anda di web.php
+    // Contoh URL hasil: /admin/users/5
+    let url = "{{ route('admin.users.update', ':id') }}";
+    url = url.replace(':id', id);
+    
+    $('#editUserForm').attr('action', url);
+});
     });
 </script>
 @endpush
