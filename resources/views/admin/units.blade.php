@@ -220,9 +220,9 @@
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
                 
-                <form action="{{ route('admin.units') }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
+                <form action="{{ route('admin.units.destroy', $unit->unit_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
                      @csrf
-                     {{-- @method('DELETE') Jika Anda menggunakan resource controller --}}
+                     @method('DELETE')
                      <button type="submit" class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
                 </form>
             </td>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailUps;
 use App\Models\DetailUkb;
 use App\Models\DetailDeteksi;
+use App\Models\UnitArchive;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
@@ -208,10 +209,21 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Unit $unit)
+    public function destroy($id)
     {
-        $unit = Unit::findOrFail($unit->unit_id);
-        $unit->delete();
-        return Redirect()->route('admin.units');
+        // Gunakan Transaction agar data aman (kalau gagal arsip, unit asli tidak terhapus)
+        DB::transaction(function () use ($id) {
+            // 1. Ambil data unit asli
+            $unit = Unit::findOrFail($id);
+
+            // 2. Copy data ke tabel archive
+            // toArray() mengambil semua kolom
+            UnitArchive::create($unit->toArray());
+
+            // 3. Hapus data dari tabel utama
+            $unit->delete();
+        });
+
+        return redirect()->route('admin.units')->with('success', 'Unit berhasil diarsipkan dan dihapus.');
     }
 }

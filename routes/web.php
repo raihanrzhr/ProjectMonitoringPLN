@@ -97,7 +97,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/units/add', [UnitController::class, 'store'])->name('units.add'); 
         Route::get('/unit/{id}/detail', [UnitController::class, 'show'])->name('units.show');
         Route::put('/units/{id}', [UnitController::class, 'update'])->name('units.update');
-
+        Route::delete('/units/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
+        
         // User Controller (READ ONLY untuk Admin biasa)
         Route::get('/users', [UserController::class, 'index'])->name('users');
     });
