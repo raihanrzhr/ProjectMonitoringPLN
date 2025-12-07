@@ -226,4 +226,10 @@ class UnitController extends Controller
 
         return redirect()->route('admin.units')->with('success', 'Unit berhasil diarsipkan dan dihapus.');
     }
+
+    public function archive()
+    {
+        $archivedUnits = UnitArchive::all();
+        return view('admin.unit-archive', compact('archivedUnits'));
+    }
 }

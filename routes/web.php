@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/unit/{id}/detail', [UnitController::class, 'show'])->name('units.show');
         Route::put('/units/{id}', [UnitController::class, 'update'])->name('units.update');
         Route::delete('/units/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
+        Route::get('/unit-archive', [UnitController::class, 'archive'])->name('unit-archive');
         
         // User Controller (READ ONLY untuk Admin biasa)
         Route::get('/users', [UserController::class, 'index'])->name('users');

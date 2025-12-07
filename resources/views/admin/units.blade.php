@@ -92,154 +92,158 @@
                     </tr>
                 </thead>
                 <tbody>
-    @forelse($units as $unit)
-        <tr>
-            <td>{{ $unit->nama_unit }}</td>
+                    @forelse($units as $unit)
+                        <tr>
+                            <td>{{ $unit->nama_unit }}</td>
 
-            <td>
-                @php
-                    $badgeClass = match($unit->kondisi_kendaraan) {
-                        'BAIK' => 'green',
-                        'RUSAK', 'PERBAIKAN' => 'red',
-                        default => 'yellow'
-                    };
-                @endphp
-                <span class="badge-status {{ $badgeClass }}">{{ $unit->kondisi_kendaraan }}</span>
-            </td>
+                            <td>
+                                @php
+                                    $badgeClass = match($unit->kondisi_kendaraan) {
+                                        'BAIK' => 'green',
+                                        'RUSAK', 'PERBAIKAN' => 'red',
+                                        default => 'yellow'
+                                    };
+                                @endphp
+                                <span class="badge-status {{ $badgeClass }}">{{ $unit->kondisi_kendaraan }}</span>
+                            </td>
 
-            <td>{{ $unit->merk_kendaraan ?? '-' }}</td>
+                            <td>{{ $unit->merk_kendaraan ?? '-' }}</td>
 
-            <td>
-                @if($unit->tipe_peralatan === 'UPS')
-                    {{ $unit->detailUps->model_no_seri ?? '-' }}
-                @elseif($unit->tipe_peralatan === 'UKB')
-                    {{ $unit->detailUkb->type ?? '-' }}
-                @elseif($unit->tipe_peralatan === 'DETEKSI')
-                    {{ $unit->detailDeteksi->type ?? '-' }}
-                @else
-                    -
-                @endif
-            </td>
+                            <td>
+                                @if($unit->tipe_peralatan === 'UPS')
+                                    {{ $unit->detailUps->model_no_seri ?? '-' }}
+                                @elseif($unit->tipe_peralatan === 'UKB')
+                                    {{ $unit->detailUkb->type ?? '-' }}
+                                @elseif($unit->tipe_peralatan === 'DETEKSI')
+                                    {{ $unit->detailDeteksi->type ?? '-' }}
+                                @else
+                                    -
+                                @endif
+                            </td>
 
-            <td>{{ $unit->nopol }}</td>
+                            <td>{{ $unit->nopol }}</td>
 
-            <td>{{ $unit->lokasi }}</td>
+                            <td>{{ $unit->lokasi }}</td>
 
-            <td>
-                @php
-                    $statusClass = match($unit->status) {
-                        'Digunakan' => 'green',
-                        'Tidak Siap Oprasi' => 'red',
-                        'Standby' => 'yellow',
-                        default => 'yellow'
-                    };
-                @endphp
-                <span class="badge-status {{ $statusClass }}">{{ $unit->status }}</span>
-            </td>
+                            <td>
+                                @php
+                                    $statusClass = match($unit->status) {
+                                        'Digunakan' => 'green',
+                                        'Tidak Siap Oprasi' => 'red',
+                                        'Standby' => 'yellow',
+                                        default => 'yellow'
+                                    };
+                                @endphp
+                                <span class="badge-status {{ $statusClass }}">{{ $unit->status }}</span>
+                            </td>
 
-            <td>{{ Str::limit($unit->catatan, 30) }}</td>
+                            <td>{{ Str::limit($unit->catatan, 30) }}</td>
 
-            <td class="text-center">
-                <a href="{{ route('admin.units.show', $unit->unit_id) }}" class="btn-action info btn-view-detail" title="Lihat Detail" 
-                    data-unit-type="{{ $unit->tipe_peralatan }}"
-                    data-unit="{{ $unit->nama_unit }}"
-                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
-                    data-merk="{{ $unit->merk_kendaraan }}"
-                    data-nopol="{{ $unit->nopol }}"
-                    data-lokasi="{{ $unit->lokasi }}"
-                    data-status="{{ $unit->status }}"
-                    data-keterangan="{{ $unit->catatan }}"
-                    
-                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
-                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
-                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
-                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
-                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
-                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
-                    data-service="{{ $unit->tgl_service_terakhir }}"
-                    data-dokumentasi="{{ $unit->dokumentasi }}"
+                            <td class="text-center">
+                                <a href="{{ route('admin.units.show', $unit->unit_id) }}" class="btn-action info btn-view-detail" title="Lihat Detail" 
+                                    data-unit-type="{{ $unit->tipe_peralatan }}"
+                                    data-unit="{{ $unit->nama_unit }}"
+                                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
+                                    data-merk="{{ $unit->merk_kendaraan }}"
+                                    data-nopol="{{ $unit->nopol }}"
+                                    data-lokasi="{{ $unit->lokasi }}"
+                                    data-status="{{ $unit->status }}"
+                                    data-keterangan="{{ $unit->catatan }}"
+                                    
+                                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
+                                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
+                                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
+                                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
+                                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
+                                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
+                                    data-service="{{ $unit->tgl_service_terakhir }}"
+                                    data-dokumentasi="{{ $unit->dokumentasi }}"
 
-                    @if($unit->tipe_peralatan === 'UPS')
-                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
-                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
-                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
-                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
-                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
-                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
-                    @elseif($unit->tipe_peralatan === 'UKB')
-                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
-                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
-                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
-                        data-model="{{ $unit->detailUkb->type ?? '' }}"
-                    @elseif($unit->tipe_peralatan === 'DETEKSI')
-                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
-                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
-                    @endif
-                >
-                    <i class="fa-solid fa-eye"></i>
-                </a>
+                                    @if($unit->tipe_peralatan === 'UPS')
+                                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
+                                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
+                                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
+                                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
+                                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
+                                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
+                                    @elseif($unit->tipe_peralatan === 'UKB')
+                                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
+                                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
+                                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
+                                        data-model="{{ $unit->detailUkb->type ?? '' }}"
+                                    @elseif($unit->tipe_peralatan === 'DETEKSI')
+                                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
+                                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
+                                    @endif
+                                >
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
 
-                <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" 
-                    data-bs-target="#editUnit{{ $unit->tipe_peralatan == 'DETEKSI' ? 'Deteksi' : $unit->tipe_peralatan }}Modal"
-                    
-                    data-id="{{ $unit->unit_id }}"
-                    data-unit="{{ $unit->tipe_peralatan }}" {{-- Penting untuk JS switch case --}}
-                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
-                    data-merk="{{ $unit->merk_kendaraan }}"
-                    data-nopol="{{ $unit->nopol }}"
-                    data-lokasi="{{ $unit->lokasi }}"
-                    data-status="{{ $unit->status }}"
-                    data-keterangan="{{ $unit->catatan }}"
-                    
-                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
-                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
-                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
-                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
-                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
-                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
-                    data-service="{{ $unit->tgl_service_terakhir }}"
-                    data-dokumentasi="{{ $unit->dokumentasi }}"
+                                <button class="btn-action edit btn-edit-unit ms-2" data-bs-toggle="modal" 
+                                    data-bs-target="#editUnit{{ $unit->tipe_peralatan == 'DETEKSI' ? 'Deteksi' : $unit->tipe_peralatan }}Modal"
+                                    
+                                    data-id="{{ $unit->unit_id }}"
+                                    data-unit="{{ $unit->tipe_peralatan }}" {{-- Penting untuk JS switch case --}}
+                                    data-kondisi="{{ $unit->kondisi_kendaraan }}"
+                                    data-merk="{{ $unit->merk_kendaraan }}"
+                                    data-nopol="{{ $unit->nopol }}"
+                                    data-lokasi="{{ $unit->lokasi }}"
+                                    data-status="{{ $unit->status }}"
+                                    data-keterangan="{{ $unit->catatan }}"
+                                    
+                                    data-bpkb="{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}"
+                                    data-stnk="{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}"
+                                    data-pajak-tahunan="{{ $unit->pajak_tahunan }}"
+                                    data-pajak-5tahunan="{{ $unit->pajak_5tahunan }}"
+                                    data-kir="{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}"
+                                    data-masa-berlaku-kir="{{ $unit->masa_berlaku_kir }}"
+                                    data-service="{{ $unit->tgl_service_terakhir }}"
+                                    data-dokumentasi="{{ $unit->dokumentasi }}"
 
-                    @if($unit->tipe_peralatan === 'UPS')
-                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
-                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
-                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
-                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
-                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
-                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
-                    @elseif($unit->tipe_peralatan === 'UKB')
-                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
-                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
-                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
-                        data-model="{{ $unit->detailUkb->type ?? '' }}"
-                    @elseif($unit->tipe_peralatan === 'DETEKSI')
-                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
-                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
-                    @endif
-                >
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                
-                <form action="{{ route('admin.units.destroy', $unit->unit_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
-                     @csrf
-                     @method('DELETE')
-                     <button type="submit" class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                </form>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="9" class="text-center py-4 text-muted">
-                <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
-                Belum ada data unit yang tersedia.
-            </td>
-        </tr>
-    @endforelse
-</tbody>
+                                    @if($unit->tipe_peralatan === 'UPS')
+                                        data-jenis="{{ $unit->detailUps->jenis_ups ?? '' }}"
+                                        data-kva="{{ $unit->detailUps->kapasitas_kva ?? '' }}"
+                                        data-model="{{ $unit->detailUps->model_no_seri ?? '' }}"
+                                        data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
+                                        data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
+                                        data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
+                                    @elseif($unit->tipe_peralatan === 'UKB')
+                                        data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
+                                        data-volume="{{ $unit->detailUkb->volume ?? '' }}"
+                                        data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
+                                        data-model="{{ $unit->detailUkb->type ?? '' }}"
+                                    @elseif($unit->tipe_peralatan === 'DETEKSI')
+                                        data-fitur="{{ $unit->detailDeteksi->fitur ?? '' }}"
+                                        data-model="{{ $unit->detailDeteksi->type ?? '' }}"
+                                    @endif
+                                >
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                
+                                <form action="{{ route('admin.units.destroy', $unit->unit_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center py-4 text-muted">
+                                <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
+                                Belum ada data unit yang tersedia.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<a href="{{ route('admin.unit-archive') }}" class="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 rounded">
+    Arsip Unit
+</a>
 
 @if(session('success'))
     <div class="alert alert-success">
