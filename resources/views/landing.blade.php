@@ -4,34 +4,61 @@
 @section('bodyClass', 'bg-[#F3F7FF]')
 
 @section('content')
-    <section class="hero-bg px-4" style="
-        background-image: url('{{ asset('assets/image/Frame Foto Hero.png') }}');
-        background-size: cover; background-position: center bottom; background-repeat: no-repeat;
-        position: relative; min-height: 130vh; display: flex; align-items: flex-start;
-        padding-top: 2rem; padding-bottom: 4rem;">
-        <div class="container mx-auto text-center">
-            <h1 class="font-serif-title text-5xl md:text-7xl font-bold text-[#002837] mb-6">
+
+    {{-- BAGIAN 1: HERO SECTION (Hanya Foto Tim & Teks) --}}
+    <section class="hero-bg px-4 relative overflow-hidden" style="
+        background-image: linear-gradient(to bottom, rgba(0, 40, 55, 0.8), rgba(0, 40, 55, 0.6)), url('{{ asset('assets/image/team-photo.png') }}');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 4rem;
+        padding-bottom: 4rem;">
+
+        <div class="container mx-auto text-center z-10 relative">
+            <h1 class="font-serif-title text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
                 All Tools<br>One Website
             </h1>
-            <p class="text-gray-700 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+
+            <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-md">
                 Temukan, pantau, dan ajukan peminjaman alat listrik. Semua bisa dilakukan secara online dan efisien.
             </p>
+
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('form') }}" class="bg-white border-2 border-[#002837] text-[#002837] px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                <a href="{{ route('form') }}" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#002837] transition shadow-lg backdrop-blur-sm">
                     Isi Form
                 </a>
-                <a href="{{ route('layanan') }}" class="bg-[#002837] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
+                <a href="{{ route('layanan') }}" class="bg-[#E5AA17] text-[#002837] border-2 border-[#E5AA17] px-8 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition shadow-lg">
                     Our Service
                 </a>
             </div>
+
+            {{-- Gambar Mobil SUDAH DIHAPUS dari sini --}}
         </div>
     </section>
 
-    <section class="py-20 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <div class="bg-white rounded-lg border border-gray-300 shadow-md overflow-hidden">
+    {{-- BAGIAN 2: SERVICE SECTION (Gambar Mobil jadi Background Disini) --}}
+    <section class="py-20 px-4 relative overflow-hidden">
+
+        {{-- BACKGROUND GAMBAR MOBIL --}}
+        {{-- Ditaruh absolute di bawah (bottom-0), z-0 (belakang), dan opacity rendah --}}
+        <div class="absolute bottom-0 left-0 w-full flex justify-center z-0 pointer-events-none">
+             <img
+                src="{{ asset('assets/image/Frame Foto Hero.png') }}"
+                alt="Background Decoration"
+                class="w-full max-w-6xl object-contain opacity-20"
+                style="margin-bottom: -2rem;"
+            >
+        </div>
+
+        <div class="container mx-auto max-w-6xl relative z-10">
+            {{-- Tambahkan backdrop-blur agar kartu tetap jelas terbaca diatas gambar mobil --}}
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-300 shadow-md overflow-hidden">
                 <div class="grid md:grid-cols-3">
-                    <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
+                    <div class="bg-transparent p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
                             <img src="{{ asset('assets/image/Icon UPS.png') }}" alt="Unit Power Supply" class="max-w-full max-h-full object-contain">
                         </div>
@@ -46,7 +73,7 @@
                             Read More
                         </a>
                     </div>
-                    <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
+                    <div class="bg-transparent p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
                             <img src="{{ asset('assets/image/Icon Load Control.png') }}" alt="Load Control" class="max-w-full max-h-full object-contain">
                         </div>
@@ -61,7 +88,7 @@
                             Read More
                         </a>
                     </div>
-                    <div class="bg-white p-8 border-r border-gray-200 last:border-r-0">
+                    <div class="bg-transparent p-8 border-r border-gray-200 last:border-r-0">
                         <div class="mb-6 h-40 flex items-center justify-center">
                             <img src="{{ asset('assets/image/Icon Detection.png') }}" alt="Detection" class="max-w-full max-h-full object-contain">
                         </div>
@@ -81,6 +108,7 @@
         </div>
     </section>
 
+    {{-- BAGIAN 3: ABOUT US (Tidak Berubah) --}}
     <section class="py-20 px-4">
         <div class="container mx-auto">
             <div class="grid md:grid-cols-2 gap-12 items-center">

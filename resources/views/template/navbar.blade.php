@@ -15,9 +15,25 @@
             <a href="{{ route('form') }}" class="{{ request()->routeIs('form') ? 'text-[#002837] font-medium' : 'text-gray-600' }} hover:text-[#002837]">Form</a>
             <a href="#contact" class="text-gray-600 hover:text-[#002837]">Contact</a>
         </div>
-        <a href="{{ route('login') }}" class="bg-[#002837] text-white px-4 py-1.5 rounded-lg text-sm hover:bg-blue-800 transition">
-            Login
-        </a>
+        @auth
+    <div class="flex items-center gap-4">
+        <span class="hidden md:block text-sm text-gray-600">
+            Hi, {{ Auth::user()->name }}
+        </span>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="bg-red-500 text-white px-4 py-1.5 rounded-lg text-sm hover:bg-red-600 transition">
+                Logout
+            </button>
+        </form>
+    </div>
+
+@else
+    <a href="{{ route('login') }}" class="bg-[#002837] text-white px-4 py-1.5 rounded-lg text-sm hover:bg-blue-800 transition">
+        Login
+    </a>
+@endauth
         <button class="md:hidden text-[#002837]" id="mobileMenuBtn" aria-label="Toggle menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
