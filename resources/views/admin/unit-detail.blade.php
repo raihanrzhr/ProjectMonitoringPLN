@@ -6,93 +6,212 @@
 <style>
   .page-header h1 { font-weight: 700; }
   .detail-card { background:#fff; border-radius:20px; padding:24px; box-shadow:0 16px 40px rgba(15,23,42,.08); }
-  .detail-row label { font-weight:600; color:#0f172a; }
-  .detail-value { background:#eef6ff; padding:10px 14px; border-radius:12px; font-weight:600; color:#0f172a; }
-  .history-table thead th { font-weight:600; }
+  .detail-row label { font-weight:600; color:#64748b; font-size: 0.9rem; margin-bottom: 0.25rem; display: block; }
+  .detail-value { background:#f8fafc; padding:12px 16px; border-radius:12px; font-weight:600; color:#0f172a; border: 1px solid #e2e8f0; }
+  .history-table thead th { font-weight:600; background-color: #f1f5f9; }
   .back-btn { border-radius:12px; }
+  
+  /* Helper untuk status badge di detail */
+  .badge-status { padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+  .bg-green { background-color: #dcfce7; color: #166534; }
+  .bg-red { background-color: #fee2e2; color: #991b1b; }
+  .bg-yellow { background-color: #fef9c3; color: #854d0e; }
 </style>
 @endpush
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center page-header mb-4">
   <div>
-    <button class="btn btn-outline-dark back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
-    <h1 class="d-inline-block ms-3">Detail Unit</h1>
+    <a href="{{ route('admin.units') }}" class="btn btn-outline-dark back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+    <h1 class="d-inline-block ms-3 align-middle">Detail Unit: {{ $unit->nama_unit }}</h1>
+  </div>
+  <div>
+      @php
+        $statusClass = match($unit->status) {
+            'Digunakan' => 'bg-green',
+            'Tidak Siap Oprasi' => 'bg-red',
+            default => 'bg-yellow'
+        };
+      @endphp
+      <span class="badge-status {{ $statusClass }}">{{ $unit->status }}</span>
   </div>
 </div>
 
 <div class="detail-card mb-4">
-  <div id="unitDetailRender" class="row g-3 detail-row"></div>
+  <div class="row g-4">
+    {{-- === DATA UMUM (Semua Tipe Punya) === --}}
+    <div class="col-md-6 col-lg-3">
+        <label>Tipe Peralatan</label>
+        <div class="detail-value">{{ $unit->tipe_peralatan }}</div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <label>Kondisi</label>
+        <div class="detail-value">{{ $unit->kondisi_kendaraan }}</div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <label>Merk Kendaraan</label>
+        <div class="detail-value">{{ $unit->merk_kendaraan ?? '-' }}</div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <label>No. Polisi</label>
+        <div class="detail-value">{{ $unit->nopol }}</div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <label>Lokasi Saat Ini</label>
+        <div class="detail-value">{{ $unit->lokasi }}</div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <label>Keterangan / Catatan</label>
+        <div class="detail-value">{{ $unit->catatan ?? '-' }}</div>
+    </div>
+
+    <div class="col-12"><hr></div>
+
+    {{-- === DATA SPESIFIK BERDASARKAN TIPE === --}}
+    
+    {{-- 1. JIKA UPS --}}
+    @if($unit->tipe_peralatan === 'UPS' && $unit->detailUps)
+        <div class="col-12"><h5 class="fw-bold text-primary">Spesifikasi UPS</h5></div>
+        <div class="col-md-4">
+            <label>Jenis UPS</label>
+            <div class="detail-value">{{ $unit->detailUps->jenis_ups }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Kapasitas (KVA)</label>
+            <div class="detail-value">{{ $unit->detailUps->kapasitas_kva }} KVA</div>
+        </div>
+        <div class="col-md-4">
+            <label>Model / No Seri</label>
+            <div class="detail-value">{{ $unit->detailUps->model_no_seri }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Merk Baterai</label>
+            <div class="detail-value">{{ $unit->detailUps->batt_merk }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Jumlah Baterai</label>
+            <div class="detail-value">{{ $unit->detailUps->batt_jumlah }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Kapasitas Baterai</label>
+            <div class="detail-value">{{ $unit->detailUps->batt_kapasitas }} AH</div>
+        </div>
+    
+    {{-- 2. JIKA UKB --}}
+    @elseif($unit->tipe_peralatan === 'UKB' && $unit->detailUkb)
+        <div class="col-12"><h5 class="fw-bold text-primary">Spesifikasi UKB</h5></div>
+        <div class="col-md-4">
+            <label>Jenis UKB</label>
+            <div class="detail-value">{{ $unit->detailUkb->jenis_ukb }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Tipe / Model</label>
+            <div class="detail-value">{{ $unit->detailUkb->type }}</div>
+        </div>
+        <div class="col-md-4">
+            <label>Panjang Kabel</label>
+            <div class="detail-value">{{ $unit->detailUkb->panjang_kabel_m }} Meter</div>
+        </div>
+        <div class="col-md-4">
+            <label>Volume</label>
+            <div class="detail-value">{{ $unit->detailUkb->volume }}</div>
+        </div>
+
+    {{-- 3. JIKA DETEKSI --}}
+    @elseif($unit->tipe_peralatan === 'DETEKSI' && $unit->detailDeteksi)
+        <div class="col-12"><h5 class="fw-bold text-primary">Spesifikasi Deteksi</h5></div>
+        <div class="col-md-6">
+            <label>Tipe / Model</label>
+            <div class="detail-value">{{ $unit->detailDeteksi->type }}</div>
+        </div>
+        <div class="col-md-6">
+            <label>Fitur</label>
+            <div class="detail-value">{{ $unit->detailDeteksi->fitur }}</div>
+        </div>
+    @endif
+
+    <div class="col-12"><hr></div>
+
+    {{-- === DATA ADMINISTRASI (STNK, KIR, DLL) === --}}
+    <div class="col-12"><h5 class="fw-bold text-secondary">Data Administrasi</h5></div>
+    
+    <div class="col-md-3">
+        <label>BPKB</label>
+        <div class="detail-value">{{ $unit->status_bpkb ? 'Ada' : 'Tidak Ada' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>STNK</label>
+        <div class="detail-value">{{ $unit->status_stnk ? 'Ada' : 'Tidak Ada' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>Pajak Tahunan</label>
+        <div class="detail-value">{{ $unit->pajak_tahunan ? \Carbon\Carbon::parse($unit->pajak_tahunan)->format('d M Y') : '-' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>Pajak 5 Tahunan</label>
+        <div class="detail-value">{{ $unit->pajak_5tahunan ? \Carbon\Carbon::parse($unit->pajak_5tahunan)->format('d M Y') : '-' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>Status KIR</label>
+        <div class="detail-value">{{ $unit->status_kir ? 'Ada' : 'Tidak Ada' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>Masa Berlaku KIR</label>
+        <div class="detail-value">{{ $unit->masa_berlaku_kir ? \Carbon\Carbon::parse($unit->masa_berlaku_kir)->format('d M Y') : '-' }}</div>
+    </div>
+    <div class="col-md-3">
+        <label>Service Terakhir</label>
+        <div class="detail-value">{{ $unit->tgl_service_terakhir ? \Carbon\Carbon::parse($unit->tgl_service_terakhir)->format('d M Y') : '-' }}</div>
+    </div>
+    <div class="col-md-12">
+        <label>Dokumentasi (Link)</label>
+        <div class="detail-value">
+            @if($unit->dokumentasi)
+                <a href="{{ $unit->dokumentasi }}" target="_blank" class="text-decoration-none">
+                    <i class="fa-solid fa-link"></i> Buka Link Dokumentasi
+                </a>
+            @else
+                -
+            @endif
+        </div>
+    </div>
+  </div>
 </div>
 
 <div class="detail-card">
-  <h5 class="mb-3">History Peminjaman</h5>
+  <h5 class="mb-3 fw-bold">History Peminjaman</h5>
   <div class="table-responsive">
     <table class="table table-borderless align-middle history-table">
       <thead>
         <tr>
-          <th>Nama</th>
+          <th>Peminjam</th>
           <th>Tanggal Pinjam</th>
           <th>Tanggal Selesai</th>
           <th>Posko</th>
-          <th>UP3</th>
+          <th>Keterangan</th>
         </tr>
       </thead>
-      <tbody id="historyBody"></tbody>
+      <tbody>
+          @forelse($unit->peminjaman as $history)
+            <tr>
+                {{-- Sesuaikan nama kolom ini dengan tabel 'peminjaman' database Anda --}}
+                <td>{{ $history->nama_peminjam ?? 'User' }}</td>
+                <td>{{ \Carbon\Carbon::parse($history->tgl_pinjam)->format('d M Y') }}</td>
+                <td>
+                    {{ $history->tgl_selesai ? \Carbon\Carbon::parse($history->tgl_selesai)->format('d M Y') : 'Masih Dipinjam' }}
+                </td>
+                <td>{{ $history->posko ?? '-' }}</td>
+                <td>{{ $history->keterangan ?? '-' }}</td>
+            </tr>
+          @empty
+            <tr>
+                <td colspan="5" class="text-center text-muted py-3">
+                    Belum ada riwayat peminjaman untuk unit ini.
+                </td>
+            </tr>
+          @endforelse
+      </tbody>
     </table>
   </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-function renderDetail() {
-  let payload = {};
-  try { payload = JSON.parse(localStorage.getItem('unitDetailPayload')||'{}'); } catch(e) {}
-  const type = payload.unitType || payload.unit_type || payload['unit-type'] || '';
-  let sections = [];
-  if (type === 'UPS') {
-    sections = [
-      ['Unit', payload.unit], ['Jenis', payload.jenis], ['KVA', payload.kva], ['Kondisi', payload.kondisi],
-      ['Merk', payload.merk], ['Model/No Seri', payload.model], ['NOPOL', payload.nopol], ['Lokasi', payload.lokasi],
-      ['Status', payload.status], ['Keterangan', payload.keterangan], ['Merk Battery', payload['merk-battery']],
-      ['Jumlah Battery', payload['jumlah-battery']], ['Kapasitas', payload['kapasitas-battery']],
-      ['BPKB', payload.bpkb], ['STNK', payload.stnk], ['Pajak Tahunan STNK', payload['pajak-tahunan']],
-      ['Pajak 5 Tahunan STNK', payload['pajak-5tahunan']], ['KIR', payload.kir], ['Masa Berlaku KIR', payload['masa-berlaku-kir']],
-      ['Service Mobil Terakhir', payload.service], ['Dokumentasi', payload.dokumentasi]
-    ];
-  } else if (type === 'UKB') {
-    sections = [
-      ['Unit', payload.unit], ['Kondisi', payload.kondisi], ['Merk', payload.merk], ['Panjang', payload.panjang],
-      ['Volume', payload.volume], ['Jenis', payload.jenis], ['Type/Model/No Seri', payload.model], ['NOPOL', payload.nopol],
-      ['Lokasi', payload.lokasi], ['Status', payload.status], ['Keterangan', payload.keterangan], ['BPKB', payload.bpkb],
-      ['STNK', payload.stnk], ['Pajak Tahunan STNK', payload['pajak-tahunan']], ['Pajak 5 Tahunan STNK', payload['pajak-5tahunan']],
-      ['KIR', payload.kir], ['Masa Berlaku KIR', payload['masa-berlaku-kir']], ['Service Mobil Terakhir', payload.service],
-      ['Dokumentasi', payload.dokumentasi]
-    ];
-  } else if (type === 'Deteksi') {
-    sections = [
-      ['Unit', payload.unit], ['Kondisi', payload.kondisi], ['Merk', payload.merk], ['Fitur', payload.fitur],
-      ['Type/Model/No Seri', payload.model], ['NOPOL', payload.nopol], ['Lokasi', payload.lokasi], ['Status', payload.status],
-      ['Keterangan', payload.keterangan], ['BPKB', payload.bpkb], ['STNK', payload.stnk], ['Pajak Tahunan STNK', payload['pajak-tahunan']],
-      ['Pajak 5 Tahunan STNK', payload['pajak-5tahunan']], ['KIR', payload.kir], ['Masa Berlaku KIR', payload['masa-berlaku-kir']],
-      ['Service Mobil Terakhir', payload.service], ['Dokumentasi', payload.dokumentasi]
-    ];
-  }
-  const container = document.getElementById('unitDetailRender');
-  container.innerHTML = sections.filter(s=>s[1]!==undefined && s[1]!==null && s[1]!=='').map(([label,value])=>
-    `<div class='col-md-6'><label class='form-label'>${label}</label><div class='detail-value'>${value}</div></div>`
-  ).join('');
-
-  const hs = [
-    {nama:'Darby Day', pinjam:'2025-11-20', selesai:'2025-11-22', posko:'Disjaya', up3:'BDG'},
-    {nama:'Helt Diven', pinjam:'2025-11-18', selesai:'2025-11-19', posko:'Bandung Raya', up3:'BDG'},
-    {nama:'Raihan', pinjam:'2025-11-15', selesai:'2025-11-16', posko:'Bogor Raya', up3:'BGR'}
-  ];
-  document.getElementById('historyBody').innerHTML = hs.map(h=>
-    `<tr><td>${h.nama}</td><td>${h.pinjam}</td><td>${h.selesai}</td><td>${h.posko}</td><td>${h.up3}</td></tr>`
-  ).join('');
-}
-document.addEventListener('DOMContentLoaded', renderDetail);
-</script>
-@endpush

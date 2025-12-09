@@ -301,11 +301,12 @@
                     </a>
                 </nav>
             </div>
-            <div class="logout-btn">
-                <a class="nav-link" href="{{ url('logout') }}">
+            <form method="POST"  action="{{ route('logout') }}" class="logout-btn">
+                @csrf
+                <button type="submit" class="nav-link">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                </a>
-            </div>
+                </button>
+            </form>
         </aside>
         <main class="content-wrapper">
             @yield('content')
