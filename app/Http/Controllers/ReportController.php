@@ -29,6 +29,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $validatedData = $request->validate([
             'unit_id' => 'required|integer|exists:unit,unit_id',
             'user_id' => 'required|integer|exists:users,id',

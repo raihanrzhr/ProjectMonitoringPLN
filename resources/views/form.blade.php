@@ -38,7 +38,8 @@
             <!-- Peminjaman Form - UPS (Default) -->
             <div id="peminjamanForm" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Peminjaman</h2>
-                <form class="space-y-6" id="peminjamanFormContent">
+                <form class="space-y-6" method="POST" action="{{ route('peminjaman.form.store') }}" id="peminjamanFormContent">
+                    @csrf
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Nama <span class="text-red-600">*</span></label>
@@ -99,7 +100,8 @@
             <!-- Pelaporan Form - UPS (Default) -->
             <div id="pelaporanForm" class="hidden bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Pelaporan Anomali</h2>
-                <form class="space-y-6" id="pelaporanFormContent">
+                <form class="space-y-6" method="POST" action="{{ route('report.form.store') }}" id="pelaporanFormContent">
+                @csrf
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Nama Pelapor <span class="text-red-600">*</span></label>

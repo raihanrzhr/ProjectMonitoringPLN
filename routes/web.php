@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
             // untuk mendisable tombol submit atau input field agar "tidak bisa input"
             return view('form');
         })->name('form');
+
+        Route::post('/peminjamanform', [PeminjamanController::class, 'store'])->name('peminjaman.form.store');
+        Route::post('/reportform', [ReportController::class, 'store'])->name('report.form.store');
     });
 
     // Khusus Role 2 (User Aktif) yang boleh Submit Form (Input data)
@@ -99,6 +102,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/units/{id}', [UnitController::class, 'update'])->name('units.update');
         Route::delete('/units/{id}', [UnitController::class, 'destroy'])->name('units.destroy');
         Route::get('/unit-archive', [UnitController::class, 'archive'])->name('unit-archive');
+
+        
         
         // User Controller (READ ONLY untuk Admin biasa)
         Route::get('/users', [UserController::class, 'index'])->name('users');

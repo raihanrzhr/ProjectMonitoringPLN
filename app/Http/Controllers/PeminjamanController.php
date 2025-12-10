@@ -31,6 +31,8 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->all());
         $validatedData = $request->validate([
             'unit_id' => 'required|integer|exists:unit,unit_id',
             'user_id_pemohon' => 'required|integer|exists:users,id',
