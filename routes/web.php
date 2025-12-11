@@ -78,8 +78,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/peminjamanform', [PeminjamanController::class, 'store'])->name('peminjaman.form.store');
         Route::post('/reportform', [ReportController::class, 'store'])->name('report.form.store');
         
-        // API untuk mengambil data unit berdasarkan tipe (UPS/UKB/DETEKSI)
+        // API untuk mengambil data unit berdasarkan tipe (UPS/UKB/DETEKSI) - hanya status Standby
         Route::get('/api/units-by-type', [FormApiController::class, 'getUnitsByType'])->name('api.units-by-type');
+        
+        // API untuk mengambil SEMUA unit berdasarkan tipe (untuk Form Pelaporan Anomali)
+        Route::get('/api/all-units-by-type', [FormApiController::class, 'getAllUnitsByType'])->name('api.all-units-by-type');
     });
 
     // Khusus Role 2 (User Aktif) yang boleh Submit Form (Input data)

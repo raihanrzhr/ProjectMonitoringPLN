@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Models\Unit;
 use App\Models\Peminjaman;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,35 +33,64 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'tipe_unit' => 'required|string|in:UPS,UKB,Deteksi',
-            'unit_id' => 'required|integer|exists:units,unit_id',
-            'kondisi' => 'required|string|in:Ringan,Sedang,Berat',
-            'tanggal_kejadian' => 'required|date',
-            'lokasi_penggunaan' => 'required|string|max:255',
-            'noba' => 'required|string|max:100',
-            'posko_pelaksana' => 'required|string|max:255',
-            'up3' => 'required|string|max:255',
-            'keterangan' => 'required|string',
-            'anggaran' => 'required|string',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'tipe_unit' => 'required|string|in:UPS,UKB,Deteksi',
+                'unit_id' => 'required|integer|exists:units,unit_id',
+                'tanggal_kejadian' => 'required|date',
+                'lokasi_penggunaan' => 'required|string|max:255',
+                'noba' => 'required|string|max:100',
+                'posko_pelaksana' => 'required|string|max:255',
+                'up3' => 'required|string|max:255',
+                'keterangan' => 'required|string',
+                'anggaran' => 'nullable|string',
+                'bukti_foto' => 'required|array|min:1',
+                'bukti_foto.*' => 'image|mimes:jpg,jpeg,png|max:5120', // 5MB = 5120KB
+            ], [
+                'bukti_foto.required' => 'Bukti foto wajib diupload.',
+                'bukti_foto.*.image' => 'File harus berupa gambar.',
+                'bukti_foto.*.mimes' => 'Format gambar harus JPG, JPEG, atau PNG.',
+                'bukti_foto.*.max' => 'Ukuran file maksimal 5MB per file.',
+            ]);
 
-        // Ambil peminjaman terakhir untuk unit ini
-        $peminjaman = Peminjaman::where('unit_id', $request->unit_id)->latest()->first();
+            // Ambil peminjaman terakhir untuk unit ini
+            $peminjaman = Peminjaman::where('unit_id', $request->unit_id)->latest()->first();
 
-        // Ambil user_id dari user yang sedang login
-        $report = Report::create([
-            'unit_id' => $request->unit_id,
-            'peminjaman_id' => $peminjaman ? $peminjaman->peminjaman_id : 1,
-            'user_id_pelapor' => Auth::id(),
-            'tgl_kejadian' => $request->tanggal_kejadian,
-            'lokasi_kejadian' => $request->lokasi_penggunaan,
-            'deskripsi_kerusakan' => $request->keterangan . ' - Kondisi: ' . $request->kondisi,
-            'no_ba' => $request->noba,
-            'keperluan_anggaran' => $this->parseAnggaran($request->anggaran),
-        ]);
+            // Ambil user_id dari user yang sedang login
+            $report = Report::create([
+                'unit_id' => $request->unit_id,
+                'peminjaman_id' => $peminjaman ? $peminjaman->peminjaman_id : 1,
+                'user_id_pelapor' => Auth::id(),
+                'tgl_kejadian' => $request->tanggal_kejadian,
+                'lokasi_penggunaan' => $request->lokasi_penggunaan,
+                'deskripsi_kerusakan' => $request->keterangan,
+                'no_ba' => $request->noba,
+                'keperluan_anggaran' => $this->parseAnggaran($request->anggaran ?? '0'),
+            ]);
 
-        return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
+            // Upload dan simpan gambar
+            if ($request->hasFile('bukti_foto')) {
+                foreach ($request->file('bukti_foto') as $file) {
+                    // Simpan file ke storage/app/public/anomali/
+                    $path = $file->store('anomali', 'public');
+                    
+                    // Simpan path ke database menggunakan polymorphic relation
+                    $report->images()->create([
+                        'path' => $path,
+                    ]);
+                }
+            }
+
+            return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
+            
+        } catch (\Exception $e) {
+            dd([
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 
     /**
