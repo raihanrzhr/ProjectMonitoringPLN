@@ -66,4 +66,61 @@ class FormApiController extends Controller
         
         return response()->json($result);
     }
+
+    /**
+     * Get ALL units by type (UPS, UKB, DETEKSI) - tanpa filter status
+     * Digunakan untuk Form Pelaporan Anomali
+     */
+    public function getAllUnitsByType(Request $request)
+    {
+        $type = strtoupper($request->type);
+        
+        // Ambil semua unit tanpa filter status
+        $units = Unit::where('tipe_peralatan', $type)->get();
+        
+        $result = [];
+        
+        foreach ($units as $unit) {
+            $data = [
+                'unit_id' => $unit->unit_id,
+                'nama_unit' => $unit->nama_unit,
+                'nopol' => $unit->nopol,
+                'merk_kendaraan' => $unit->merk_kendaraan,
+                'tipe_kendaraan' => $unit->tipe_kendaraan,
+                'status' => $unit->status,
+            ];
+            
+            // Tambahkan detail berdasarkan tipe
+            switch ($type) {
+                case 'UPS':
+                    $detail = $unit->detailUps;
+                    if ($detail) {
+                        $data['kapasitas_kva'] = $detail->kapasitas_kva;
+                        $data['jenis_ups'] = $detail->jenis_ups;
+                    }
+                    break;
+                    
+                case 'UKB':
+                    $detail = $unit->detailUkb;
+                    if ($detail) {
+                        $data['jenis_ukb'] = $detail->jenis_ukb;
+                        $data['panjang_kabel_m'] = $detail->panjang_kabel_m;
+                        $data['volume'] = $detail->volume;
+                    }
+                    break;
+                    
+                case 'DETEKSI':
+                    $detail = $unit->detailDeteksi;
+                    if ($detail) {
+                        $data['fitur'] = $detail->fitur;
+                        $data['type'] = $detail->type;
+                    }
+                    break;
+            }
+            
+            $result[] = $data;
+        }
+        
+        return response()->json($result);
+    }
 }
