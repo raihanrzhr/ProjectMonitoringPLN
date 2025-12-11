@@ -35,42 +35,41 @@
                 </button>
             </div>
 
-            <!-- Peminjaman Form - UPS (Default) -->
+            <!-- Peminjaman Form -->
             <div id="peminjamanForm" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Peminjaman</h2>
                 <form class="space-y-6" method="POST" action="{{ route('peminjaman.form.store') }}" id="peminjamanFormContent">
                     @csrf
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Nama <span class="text-red-600">*</span></label>
-                            <input type="text" name="nama" placeholder="Isi Nama" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Email or No. Telepon <span class="text-red-600">*</span></label>
-                            <input type="text" name="kontak" placeholder="xxx@gmail.com/08xxxx" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
+                    <!-- Unit Selection -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Tipe Unit <span class="text-red-600">*</span></label>
+                        <select id="peminjamanUnit" name="tipe_unit" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                            <option value="">Pilih Tipe Unit</option>
+                            <option value="UPS">UPS</option>
+                            <option value="UKB">UKB</option>
+                            <option value="Deteksi">Deteksi</option>
+                        </select>
                     </div>
+                    
+                    <!-- Dynamic Unit Container (akan diisi via JavaScript) -->
+                    <div id="peminjamanNopolContainer"></div>
+                    
                     <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Unit <span class="text-red-600">*</span></label>
-                            <select id="peminjamanUnit" name="unit" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent" onchange="updatePeminjamanMerkNopol()">
-                                <option value="">Pilih Unit</option>
-                                <option value="UPS">UPS</option>
-                                <option value="UKB">UKB</option>
-                                <option value="Deteksi">Deteksi</option>
-                            </select>
-                        </div>
-                        <div id="peminjamanJenisKapasitasContainer"></div>
-                    </div>
-                    <div id="peminjamanMerkNopolContainer"></div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
-                            <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Tanggal Mobilisasi <span class="text-red-600">*</span></label>
                             <input type="date" name="tanggal_mobilisasi" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Tanggal Demobilisasi <span class="text-red-600">*</span></label>
+                            <input type="date" name="tanggal_demobilisasi" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Tanggal Event Mulai <span class="text-red-600">*</span></label>
+                            <input type="date" name="tanggal_event_mulai" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Tanggal Event Selesai <span class="text-red-600">*</span></label>
+                            <input type="date" name="tanggal_event_selesai" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                         </div>
                     </div>
                     <div>
@@ -79,8 +78,8 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-gray-700 font-medium mb-2">Tanggal Demobilisasi <span class="text-red-600">*</span></label>
-                            <input type="date" name="tanggal_demobilisasi" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                            <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
+                            <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                         </div>
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Posko Pelaksana <span class="text-red-600">*</span></label>
@@ -91,43 +90,43 @@
                         <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>
                         <input type="text" name="up3" placeholder="Isi UP3" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                     </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Tamu VIP/VVIP</label>
+                        <input type="text" name="tamu_vip" placeholder="Isi Tamu VIP/VVIP" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                    </div>
                     <button type="submit" class="w-full md:w-auto bg-[#002837] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
                         Submit Form
                     </button>
                 </form>
             </div>
 
-            <!-- Pelaporan Form - UPS (Default) -->
+            <!-- Pelaporan Form -->
             <div id="pelaporanForm" class="hidden bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Pelaporan Anomali</h2>
                 <form class="space-y-6" method="POST" action="{{ route('report.form.store') }}" id="pelaporanFormContent">
                 @csrf
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Nama Pelapor <span class="text-red-600">*</span></label>
-                            <input type="text" name="nama_pelapor" placeholder="Isi Nama" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Unit <span class="text-red-600">*</span></label>
-                            <select id="pelaporanUnit" name="unit" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent" onchange="updatePelaporanMerkNopol()">
-                                <option value="">Pilih Unit</option>
-                                <option value="UPS">UPS</option>
-                                <option value="UKB">UKB</option>
-                                <option value="Deteksi">Deteksi</option>
-                            </select>
-                        </div>
+                    <!-- Unit Selection -->
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Tipe Unit <span class="text-red-600">*</span></label>
+                        <select id="pelaporanUnit" name="tipe_unit" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                            <option value="">Pilih Tipe Unit</option>
+                            <option value="UPS">UPS</option>
+                            <option value="UKB">UKB</option>
+                            <option value="Deteksi">Deteksi</option>
+                        </select>
                     </div>
-                    <div id="pelaporanJenisKapasitasContainer"></div>
-                    <div id="pelaporanMerkNopolContainer"></div>
+                    
+                    <!-- Dynamic Unit Container (akan diisi via JavaScript) -->
+                    <div id="pelaporanNopolContainer"></div>
+                    
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Kondisi <span class="text-red-600">*</span></label>
                             <select name="kondisi" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                                 <option value="">Pilih Kondisi Kerusakan</option>
-                                <option>UPS</option>
-                                <option>Mobil</option>
-                                <option>UKB</option>
-                                <option>Deteksi</option>
+                                <option value="Ringan">Ringan</option>
+                                <option value="Sedang">Sedang</option>
+                                <option value="Berat">Berat</option>
                             </select>
                         </div>
                         <div>
@@ -198,60 +197,193 @@ function validateForm(e) {
         showErrorPopup('Semua kolom wajib diisi!');
         return false;
     }
-    // TODO: Submit as normal/submit ajax/whatever is needed
     form.submit();
 }
 
-// PEMINJAMAN
-const pemUnitData = {
-    UPS: [
-        { value: 'UPS1', label: 'UPS1 - DK 8001 AB' },
-        { value: 'UPS2', label: 'UPS2 - DK 8002 AB' },
-        { value: 'UPS3', label: 'UPS3 - DK 8003 AB' }
-    ],
-    UKB: [
-        { value: 'UKB1', label: 'UKB1 - D 8011 ZZ' },
-        { value: 'UKB2', label: 'UKB2 - D 8012 ZZ' },
-        { value: 'UKB3', label: 'UKB3 - D 8013 ZZ' }
-    ],
-    Deteksi: [
-        { value: 'DET1', label: 'Deteksi 1 - B 1234 XY' },
-        { value: 'DET2', label: 'Deteksi 2 - B 5678 XY' },
-        { value: 'DET3', label: 'Deteksi 3 - B 9087 XY' }
-    ]
-};
-function updatePeminjamanMerkNopol() {
+// Cache untuk data unit dari API
+let unitDataCache = {};
+
+// Fetch data unit dari API berdasarkan tipe
+async function fetchUnitsByType(type) {
+    if (unitDataCache[type]) {
+        return unitDataCache[type];
+    }
+    
+    try {
+        const response = await fetch(`{{ route('api.units-by-type') }}?type=${type}`);
+        const data = await response.json();
+        unitDataCache[type] = data;
+        return data;
+    } catch (error) {
+        console.error('Error fetching units:', error);
+        return [];
+    }
+}
+
+// ========== PEMINJAMAN FORM ==========
+async function updatePeminjamanFields() {
     const unit = document.getElementById('peminjamanUnit').value;
-    const merkNopolContainer = document.getElementById('peminjamanMerkNopolContainer');
-    let labelUnit = 'Merk dan Nopol ' + (unit || 'Unit');
-    let options = (pemUnitData[unit]||[]).map(o => `<option value="${o.value}">${o.label}</option>`).join('');
-    if (!unit) options = '<option value="">Pilih Unit Terlebih Dahulu</option>';
-    merkNopolContainer.innerHTML = `<label class="block text-gray-700 font-medium mb-2">${labelUnit} <span class="text-red-600">*</span></label><select name="merk_nopol" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">${options}</select>`;
-    updatePeminjamanJenisKapasitas(unit);
+    const nopolContainer = document.getElementById('peminjamanNopolContainer');
+    
+    // Reset container
+    nopolContainer.innerHTML = '';
+    
+    
+    if (!unit) {
+        nopolContainer.innerHTML = `
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Pilih Unit <span class="text-red-600">*</span></label>
+                <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent" disabled>
+                    <option value="">Pilih Tipe Unit Terlebih Dahulu</option>
+                </select>
+            </div>`;
+        return;
+    }
+    
+    // Fetch data dari API
+    const units = await fetchUnitsByType(unit);
+    
+    if (units.length === 0) {
+        nopolContainer.innerHTML = `
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Pilih Unit <span class="text-red-600">*</span></label>
+                <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                    <option value="">Tidak ada unit ${unit} yang tersedia (Standby)</option>
+                </select>
+            </div>`;
+        return;
+    }
+    
+    // Build dropdown dengan format gabungan berdasarkan tipe unit
+    let options = '<option value="">Pilih Unit</option>';
+    units.forEach(u => {
+        let label = '';
+        switch(unit) {
+            case 'UPS':
+                // Format: Nopol - KVA - Jenis (contoh: D 1750 MC - 1000 KVA - Mobile)
+                label = `${u.nopol} - ${u.kapasitas_kva || '-'} KVA - ${u.jenis_ups || '-'}`;
+                break;
+            case 'UKB':
+                // Format: Nopol - Panjang - Volume (contoh: D 1234 AB - 150m - 2 set)
+                label = `${u.nopol} - ${u.panjang_kabel_m || '-'}m - ${u.volume || '-'}`;
+                break;
+            case 'Deteksi':
+            case 'DETEKSI':
+                // Format: Nopol - Fitur (contoh: D 5678 XY - Thermal Camera)
+                label = `${u.nopol} - ${u.fitur || '-'}`;
+                break;
+            default:
+                label = u.nopol;
+        }
+        options += `<option value="${u.unit_id}">${label}</option>`;
+    });
+    
+    // Tentukan label berdasarkan tipe
+    let fieldLabel = 'Pilih Unit';
+    switch(unit) {
+        case 'UPS':
+            fieldLabel = 'Nopol - KVA - Jenis';
+            break;
+        case 'UKB':
+            fieldLabel = 'Nopol - Panjang - Volume';
+            break;
+        case 'Deteksi':
+        case 'DETEKSI':
+            fieldLabel = 'Nopol - Fitur';
+            break;
+    }
+    
+    nopolContainer.innerHTML = `
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">${fieldLabel} <span class="text-red-600">*</span></label>
+            <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                ${options}
+            </select>
+        </div>`;
 }
-function updatePeminjamanJenisKapasitas(unit) {
-    // tetap sesuai design lama atau modif bila ada permintaan lain
-    const el = document.getElementById('peminjamanJenisKapasitasContainer');
-    el.innerHTML = '<label class="block text-gray-700 font-medium mb-2">Jenis dan Kapasitas <span class="text-red-600">*</span></label><select name="jenis_kapasitas" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"><option value="">Pilih Jenis - Kapasitas</option><option>Mobile - 250 KVA</option><option>Portable - 110 KVA</option><option>Portable - 30 KVA</option></select>';
-}
-// PE<b>LAPORAN</b>
-const lapUnitData = pemUnitData; // sama dummy
-document.getElementById('peminjamanUnit').addEventListener('change', updatePeminjamanMerkNopol);
-function updatePelaporanMerkNopol() {
+
+// ========== PELAPORAN FORM ==========
+async function updatePelaporanFields() {
     const unit = document.getElementById('pelaporanUnit').value;
-    const merkNopolContainer = document.getElementById('pelaporanMerkNopolContainer');
-    let labelUnit = 'Merk dan Nopol ' + (unit || 'Unit');
-    let options = (lapUnitData[unit]||[]).map(o => `<option value="${o.value}">${o.label}</option>`).join('');
-    if (!unit) options = '<option value="">Pilih Unit Terlebih Dahulu</option>';
-    merkNopolContainer.innerHTML = `<label class="block text-gray-700 font-medium mb-2">${labelUnit} <span class="text-red-600">*</span></label><select name="merk_nopol" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">${options}</select>`;
-    updatePelaporanJenisKapasitas(unit);
+    const nopolContainer = document.getElementById('pelaporanNopolContainer');
+    
+    // Reset container
+    nopolContainer.innerHTML = '';
+    
+    if (!unit) {
+        nopolContainer.innerHTML = `
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Pilih Unit <span class="text-red-600">*</span></label>
+                <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent" disabled>
+                    <option value="">Pilih Tipe Unit Terlebih Dahulu</option>
+                </select>
+            </div>`;
+        return;
+    }
+    
+    // Fetch data dari API
+    const units = await fetchUnitsByType(unit);
+    
+    if (units.length === 0) {
+        nopolContainer.innerHTML = `
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Pilih Unit <span class="text-red-600">*</span></label>
+                <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                    <option value="">Tidak ada unit ${unit} yang tersedia (Standby)</option>
+                </select>
+            </div>`;
+        return;
+    }
+    
+    // Build dropdown dengan format gabungan berdasarkan tipe unit
+    let options = '<option value="">Pilih Unit</option>';
+    units.forEach(u => {
+        let label = '';
+        switch(unit) {
+            case 'UPS':
+                // Format: Nopol - KVA - Jenis (contoh: D 1750 MC - 1000 KVA - Mobile)
+                label = `${u.nopol} - ${u.kapasitas_kva || '-'} KVA - ${u.jenis_ups || '-'}`;
+                break;
+            case 'UKB':
+                // Format: Nopol - Panjang - Volume (contoh: D 1234 AB - 150m - 2 set)
+                label = `${u.nopol} - ${u.panjang_kabel_m || '-'}m - ${u.volume || '-'}`;
+                break;
+            case 'Deteksi':
+            case 'DETEKSI':
+                // Format: Nopol - Fitur (contoh: D 5678 XY - Thermal Camera)
+                label = `${u.nopol} - ${u.fitur || '-'}`;
+                break;
+            default:
+                label = u.nopol;
+        }
+        options += `<option value="${u.unit_id}">${label}</option>`;
+    });
+    
+    // Tentukan label berdasarkan tipe
+    let fieldLabel = 'Pilih Unit';
+    switch(unit) {
+        case 'UPS':
+            fieldLabel = 'Nopol - KVA - Jenis';
+            break;
+        case 'UKB':
+            fieldLabel = 'Nopol - Panjang - Volume';
+            break;
+        case 'Deteksi':
+        case 'DETEKSI':
+            fieldLabel = 'Nopol - Fitur';
+            break;
+    }
+    
+    nopolContainer.innerHTML = `
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">${fieldLabel} <span class="text-red-600">*</span></label>
+            <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                ${options}
+            </select>
+        </div>`;
 }
-function updatePelaporanJenisKapasitas(unit) {
-    // tetap dummy simple, sama
-    const el = document.getElementById('pelaporanJenisKapasitasContainer');
-    el.innerHTML = '<label class="block text-gray-700 font-medium mb-2">Jenis dan Kapasitas <span class="text-red-600">*</span></label><select name="jenis_kapasitas" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"><option value="">Pilih Jenis - Kapasitas</option><option>Mobile - 250 KVA</option><option>Portable - 110 KVA</option><option>Portable - 30 KVA</option></select>';
-}
-document.getElementById('pelaporanUnit').addEventListener('change', updatePelaporanMerkNopol);
+
+// ========== TAB SWITCHING ==========
 function showForm(type) {
     const pemForm = document.getElementById('peminjamanForm');
     const pelForm = document.getElementById('pelaporanForm');
@@ -273,21 +405,30 @@ function showForm(type) {
         pemTab.classList.remove('bg-[#002837]','text-white');
     }
 }
-// Init dummy on load
-updatePeminjamanMerkNopol();
-updatePelaporanMerkNopol();
-// Submit bind
-['peminjamanFormContent','pelaporanFormContent'].forEach(id => {
-    document.getElementById(id).onsubmit = validateForm;
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listeners for unit dropdowns
+    document.getElementById('peminjamanUnit').addEventListener('change', updatePeminjamanFields);
+    document.getElementById('pelaporanUnit').addEventListener('change', updatePelaporanFields);
+    
+    // Initialize fields
+    updatePeminjamanFields();
+    updatePelaporanFields();
+    
+    // Submit bind
+    ['peminjamanFormContent','pelaporanFormContent'].forEach(id => {
+        document.getElementById(id).onsubmit = validateForm;
+    });
 });
 </script>
 @endpush
 
-{{--  @if (!Auth::check())
+@if (!Auth::check())
 <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
   <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-xs text-center">
     <div class="text-lg font-semibold text-blue-900 mb-4">Silakan login terlebih dahulu</div>
-    <button onclick="window.location.href='/'" class="mt-2 px-6 py-2 bg-blue-900 text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
+    <button onclick="window.location.href='{{ route('login') }}'" class="mt-2 px-6 py-2 bg-blue-900 text-white rounded-lg font-semibold hover:bg-blue-800">Login</button>
   </div>
 </div>
-@endif  --}}
+@endif

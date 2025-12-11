@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\FormApiController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; // PENTING: Import ini dari branch Current
 
@@ -76,6 +77,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/peminjamanform', [PeminjamanController::class, 'store'])->name('peminjaman.form.store');
         Route::post('/reportform', [ReportController::class, 'store'])->name('report.form.store');
+        
+        // API untuk mengambil data unit berdasarkan tipe (UPS/UKB/DETEKSI)
+        Route::get('/api/units-by-type', [FormApiController::class, 'getUnitsByType'])->name('api.units-by-type');
     });
 
     // Khusus Role 2 (User Aktif) yang boleh Submit Form (Input data)
