@@ -100,7 +100,11 @@ Route::middleware(['auth'])->group(function () {
         
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance');
+
         Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+        Route::put('/peminjaman/{peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+        Route::delete('/peminjaman/{peminjaman}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+        
         Route::get('/report', [ReportController::class, 'index'])->name('report');
         
         Route::get('/units', [UnitController::class, 'index'])->name('units');

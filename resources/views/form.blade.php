@@ -76,15 +76,9 @@
                         <label class="block text-gray-700 font-medium mb-2">Tujuan Penggunaan / Kegiatan <span class="text-red-600">*</span></label>
                         <textarea rows="4" name="tujuan_penggunaan" placeholder="Tujuan Penggunaan / Kegiatan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"></textarea>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
-                            <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Posko Pelaksana <span class="text-red-600">*</span></label>
-                            <input type="text" name="posko_pelaksana" placeholder="Isi Posko Pelaksana" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
+                        <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>

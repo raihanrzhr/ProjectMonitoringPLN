@@ -15,7 +15,12 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $peminjamans = Peminjaman::with(['unit', 'userPemohon'])->get();
+        $peminjamans = Peminjaman::with([
+            'unit.detailUps',
+            'unit.detailUkb',
+            'unit.detailDeteksi',
+            'userPemohon'
+        ])->get();
         return view('admin.peminjaman', compact('peminjamans'));
     }
 
@@ -41,12 +46,12 @@ class PeminjamanController extends Controller
             'tanggal_event_mulai' => 'required|date',
             'tanggal_event_selesai' => 'required|date',
             'tujuan_penggunaan' => 'required|string',
-            'posko_pelaksana' => 'required|string|max:255',
             'up3' => 'required|string|max:255',
             'tamu_vip' => 'nullable|string|max:255',
         ]);
 
         // Ambil user_id dari user yang sedang login
+        // Posko pelaksana diambil dari unit->lokasi, tidak perlu di-input dari form
         $peminjaman = Peminjaman::create([
             'unit_id' => $request->unit_id,
             'user_id_pemohon' => Auth::id(),
@@ -59,7 +64,7 @@ class PeminjamanController extends Controller
             'lokasi_tujuan' => $request->lokasi_penggunaan,
             'up3_id' => $request->up3,
             'status_peminjaman' => 'Sedang Digunakan',
-            'keterangan' => $request->posko_pelaksana,
+            'keterangan' => null, // Keterangan diisi melalui edit modal di admin
         ]);
 
         // Update status unit menjadi 'Digunakan'
@@ -89,38 +94,44 @@ class PeminjamanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Peminjaman $peminjaman)
+    public function update(Request $request, $id)
     {
-        $peminjaman::findOrFail($peminjaman->peminjaman_id);
+        $peminjaman = Peminjaman::where('peminjaman_id', $id)->firstOrFail();
 
         $validatedData = $request->validate([
-            'unit_id' => 'required|integer|exists:unit,unit_id',
-            'user_id_pemohon' => 'required|integer|exists:users,id',
-
-            'tgl_mobilisasi' => 'required|date',
+            'tgl_mobilisasi' => 'nullable|date',
             'tgl_event_mulai' => 'nullable|date',
             'tgl_event_selesai' => 'nullable|date',
             'tgl_demobilisasi' => 'nullable|date',
-            'kegiatan' => 'required|string',
+            'kegiatan' => 'nullable|string',
             'Tamu_VIP' => 'nullable|string|max:255',
-            'lokasi_tujuan' => 'required|string|max:255',
-            'up3_id' => 'required|integer|exists:up3,up3_id',
-            'status_peminjaman' => 'required|in:Pending,Selesai,Cancel,Sedang Digunakan',
+            'lokasi_tujuan' => 'nullable|string|max:255',
+            'up3_id' => 'nullable|string|max:255',
+            'status_peminjaman' => 'required|in:Selesai,Cancel,Sedang Digunakan',
             'keterangan' => 'nullable|string',
         ]);
 
         $peminjaman->update($validatedData);
-        return redirect()->route('peminjaman');
+
+        // Jika status berubah menjadi Selesai atau Cancel, update status unit ke Standby
+        if (in_array($request->status_peminjaman, ['Selesai', 'Cancel'])) {
+            Unit::where('unit_id', $peminjaman->unit_id)->update(['status' => 'Standby']);
+        }
+
+        return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Peminjaman $peminjaman)
+    public function destroy($id)
     {
-        $peminjaman::findOrFail($peminjaman->peminjaman_id);
+        $peminjaman = Peminjaman::where('peminjaman_id', $id)->firstOrFail();
+        
+        // Update status unit kembali ke Standby
+        Unit::where('unit_id', $peminjaman->unit_id)->update(['status' => 'Standby']);
 
         $peminjaman->delete();
-        return redirect()->route('peminjaman');
+        return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil dihapus!');
     }
 }
