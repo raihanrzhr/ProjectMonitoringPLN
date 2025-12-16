@@ -16,7 +16,13 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
+        $reports = Report::with([
+            'unit.detailUps',
+            'unit.detailUkb',
+            'unit.detailDeteksi',
+            'userPelapor',
+            'images'
+        ])->get();
         return view('admin.report', compact('reports'));
     }
 
@@ -40,8 +46,7 @@ class ReportController extends Controller
                 'tanggal_kejadian' => 'required|date',
                 'lokasi_penggunaan' => 'required|string|max:255',
                 'noba' => 'required|string|max:100',
-                'posko_pelaksana' => 'required|string|max:255',
-                'up3' => 'required|string|max:255',
+                'up3' => 'nullable|string|max:255',
                 'keterangan' => 'required|string',
                 'anggaran' => 'nullable|string',
                 'bukti_foto' => 'required|array|min:1',
@@ -66,6 +71,7 @@ class ReportController extends Controller
                 'deskripsi_kerusakan' => $request->keterangan,
                 'no_ba' => $request->noba,
                 'keperluan_anggaran' => $this->parseAnggaran($request->anggaran ?? '0'),
+                'up3' => $request->up3,
             ]);
 
             // Upload dan simpan gambar
@@ -122,30 +128,74 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Report $report)
+    public function update(Request $request, $id)
     {
+        $report = Report::where('laporan_id', $id)->firstOrFail();
+
         $validatedData = $request->validate([
-            'unit_id' => 'required|integer|exists:unit,unit_id',
-            'user_id' => 'required|integer|exists:users,id',
-            'peminjaman_id' => 'required|integer|exists:peminjaman,peminjaman_id',
-            'user_id_pelapor' => 'required|integer|exists:users,id',
-            'tgl_kejadian' => 'required|date',
-            'lokasi_kejadian' => 'nullable|string|max:255',
-            'deskripsi_kerusakan' => 'required|string',
+            'tgl_kejadian' => 'nullable|date',
+            'lokasi_penggunaan' => 'nullable|string|max:255',
+            'deskripsi_kerusakan' => 'nullable|string',
             'no_ba' => 'nullable|string|max:100',
             'keperluan_anggaran' => 'nullable|numeric',
+            'up3' => 'nullable|string|max:255',
+            'new_images' => 'nullable|array',
+            'new_images.*' => 'image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
-        $report->update($validatedData);
-        return redirect()->route('report');
+        $report->update([
+            'tgl_kejadian' => $validatedData['tgl_kejadian'] ?? $report->tgl_kejadian,
+            'lokasi_penggunaan' => $validatedData['lokasi_penggunaan'] ?? $report->lokasi_penggunaan,
+            'deskripsi_kerusakan' => $validatedData['deskripsi_kerusakan'] ?? $report->deskripsi_kerusakan,
+            'no_ba' => $validatedData['no_ba'] ?? $report->no_ba,
+            'keperluan_anggaran' => $validatedData['keperluan_anggaran'] ?? $report->keperluan_anggaran,
+            'up3' => $validatedData['up3'] ?? $report->up3,
+        ]);
+
+        // Handle new image uploads
+        if ($request->hasFile('new_images')) {
+            foreach ($request->file('new_images') as $file) {
+                $path = $file->store('anomali', 'public');
+                $report->images()->create([
+                    'path' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.report')->with('success', 'Data laporan berhasil diperbarui!');
+    }
+
+    /**
+     * Delete a specific image from a report.
+     */
+    public function deleteImage($id)
+    {
+        $image = Image::findOrFail($id);
+        
+        // Delete file from storage
+        \Storage::disk('public')->delete($image->path);
+        
+        // Delete record from database
+        $image->delete();
+        
+        return response()->json(['success' => true, 'message' => 'Foto berhasil dihapus']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Report $report)
+    public function destroy($id)
     {
-        $report = Report::findOrFail($report->laporan_id);
-        return redirect()->route('report');
+        $report = Report::where('laporan_id', $id)->firstOrFail();
+        
+        // Delete associated images
+        foreach ($report->images as $image) {
+            // Delete file from storage
+            \Storage::disk('public')->delete($image->path);
+            $image->delete();
+        }
+        
+        $report->delete();
+        return redirect()->route('admin.report')->with('success', 'Data laporan berhasil dihapus!');
     }
 }

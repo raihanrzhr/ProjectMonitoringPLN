@@ -138,13 +138,9 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-gray-700 font-medium mb-2">Posko Pelaksana <span class="text-red-600">*</span></label>
-                            <input type="text" name="posko_pelaksana" placeholder="Isi Posko Pelaksana" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
                             <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>
                             <input type="text" name="up3" placeholder="Isi UP3" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Keterangan <span class="text-red-600">*</span></label>

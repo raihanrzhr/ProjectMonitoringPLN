@@ -106,6 +106,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/peminjaman/{peminjaman}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
         
         Route::get('/report', [ReportController::class, 'index'])->name('report');
+        Route::put('/report/{report}', [ReportController::class, 'update'])->name('report.update');
+        Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
+        Route::delete('/report/image/{image}', [ReportController::class, 'deleteImage'])->name('report.image.destroy');
         
         Route::get('/units', [UnitController::class, 'index'])->name('units');
         Route::post('/units/add', [UnitController::class, 'store'])->name('units.add'); 

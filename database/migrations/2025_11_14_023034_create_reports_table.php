@@ -25,6 +25,7 @@ return new class extends Migration
             // $table->enum('status_laporan', ['BARU', 'DIPERIKSA', 'PERBAIKKAN', 'SELESAI']);
             $table->string('no_ba', 100)->nullable();
             $table->decimal('keperluan_anggaran', 15, 2)->nullable();
+            $table->string('up3', 255)->nullable();
 
             // Foreign keys
             $table->foreign('unit_id')->references('unit_id')->on('units');

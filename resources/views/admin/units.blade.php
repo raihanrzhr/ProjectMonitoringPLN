@@ -92,7 +92,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($units as $unit)
+                    @foreach($units as $unit)
                         <tr>
                             <td>{{ $unit->nama_unit }}</td>
 
@@ -227,14 +227,7 @@
                                 </form>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9" class="text-center py-4 text-muted">
-                                <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
-                                Belum ada data unit yang tersedia.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>

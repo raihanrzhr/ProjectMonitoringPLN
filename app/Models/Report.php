@@ -21,6 +21,7 @@ class Report extends Model
         'status_laporan',
         'no_ba',
         'keperluan_anggaran',
+        'up3',
     ];
 
     // Relasi ke Unit
