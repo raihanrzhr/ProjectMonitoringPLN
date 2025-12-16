@@ -1,9 +1,9 @@
- @extends('admin.layout')
+@extends('admin.layout')
 
- @section('title', 'Maintenance - UP2D Pasundan')
+@section('title', 'Maintenance - UP2D Pasundan')
 
- @push('styles')
- <style>
+@push('styles')
+    <style>
         :root {
             --sidebar-width: 240px;
             --primary-color: #0c58d0;
@@ -218,76 +218,71 @@
     </style>
 @endpush
 
- @section('content')
+@section('content')
 
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <button class="btn btn-outline-dark btn-sm d-lg-none" id="toggleSidebar"><i
-                            class="fa-solid fa-bars"></i></button>
-                    <h1 class="mb-1">Maintenance</h1>
-                    <span class="text-muted">Kelola riwayat perawatan unit</span>
-                </div>
-                <button class="btn-add d-flex align-items-center gap-2" data-bs-toggle="modal"
-                    data-bs-target="#createMaintenanceModal">
-                    <i class="fa-solid fa-plus"></i> Add Maintenance
-                </button>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <button class="btn btn-outline-dark btn-sm d-lg-none" id="toggleSidebar"><i
+                    class="fa-solid fa-bars"></i></button>
+            <h1 class="mb-1">Maintenance</h1>
+            <span class="text-muted">Kelola riwayat perawatan unit</span>
+        </div>
+        <button class="btn-add d-flex align-items-center gap-2" data-bs-toggle="modal"
+            data-bs-target="#createMaintenanceModal">
+            <i class="fa-solid fa-plus"></i> Add Maintenance
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="maintenanceTable" class="table table-borderless align-middle">
+                    <thead>
+                        <tr>
+                            <th>Item Pekerjaan</th>
+                            <th>NOPOL</th>
+                            <th>Mobil</th>
+                            <th>No. Notdin</th>
+                            <th>Tanggal Notdin</th>
+                            <th>ACC KU</th>
+                            <th>Tanggal Eksekusi</th>
+                            <th>Nilai Pekerjaan</th>
+                            <th>Keterangan</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(range(1, 8) as $index)
+                            <tr>
+                                <td>Perbaikan rem, Penggantian oli, Penggantian seal roda depan dan roda belakang</td>
+                                <td>D 8021 ZF</td>
+                                <td>UPS 200 KVA BDG</td>
+                                <td>520</td>
+                                <td>03/07/2023</td>
+                                <td><span class="badge-status">OK</span></td>
+                                <td>03/07/2023</td>
+                                <td>Rp 1.550.000,00</td>
+                                <td>Sumber 3 fasa masih digunakan up3, rencana minggu 1 sep 23</td>
+                                <td class="text-center">
+                                    <button class="btn-action edit btn-edit-maintenance" data-bs-toggle="modal"
+                                        data-bs-target="#editMaintenanceModal"
+                                        data-item="Perbaikan rem, Penggantian oli, Penggantian seal roda depan dan roda belakang"
+                                        data-nopol="D 8021 ZF" data-mobil="UPS 200 KVA BDG" data-notdin="520"
+                                        data-tanggal-notdin="2023-07-03" data-acc="OK" data-tanggal-eksekusi="2023-07-03"
+                                        data-nilai="1550000"
+                                        data-keterangan="Sumber 3 fasa masih digunakan up3, rencana minggu 1 sep 23">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="maintenanceTable" class="table table-borderless align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Item Pekerjaan</th>
-                                    <th>NOPOL</th>
-                                    <th>Mobil</th>
-                                    <th>No. Notdin</th>
-                                    <th>Tanggal Notdin</th>
-                                    <th>ACC KU</th>
-                                    <th>Tanggal Eksekusi</th>
-                                    <th>Nilai Pekerjaan</th>
-                                    <th>Keterangan</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(range(1,8) as $index)
-                                    <tr>
-                                        <td>Perbaikan rem, Penggantian oli, Penggantian seal roda depan dan roda belakang</td>
-                                        <td>D 8021 ZF</td>
-                                        <td>UPS 200 KVA BDG</td>
-                                        <td>520</td>
-                                        <td>03/07/2023</td>
-                                        <td><span class="badge-status">OK</span></td>
-                                        <td>03/07/2023</td>
-                                        <td>Rp 1.550.000,00</td>
-                                        <td>Sumber 3 fasa masih digunakan up3, rencana minggu 1 sep 23</td>
-                                        <td class="text-center">
-                                            <button class="btn-action edit btn-edit-maintenance"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editMaintenanceModal"
-                                                data-item="Perbaikan rem, Penggantian oli, Penggantian seal roda depan dan roda belakang"
-                                                data-nopol="D 8021 ZF"
-                                                data-mobil="UPS 200 KVA BDG"
-                                                data-notdin="520"
-                                                data-tanggal-notdin="2023-07-03"
-                                                data-acc="OK"
-                                                data-tanggal-eksekusi="2023-07-03"
-                                                data-nilai="1550000"
-                                                data-keterangan="Sumber 3 fasa masih digunakan up3, rencana minggu 1 sep 23">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn-action delete ms-2"><i class="fa-solid fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        </div>
+    </div>
 
     </div>
 
@@ -302,46 +297,64 @@
                 </div>
                 <div class="modal-body">
                     <form id="createMaintenanceForm" class="row g-3">
+                        <!-- Informasi Pekerjaan -->
                         <div class="col-12">
-                            <label class="form-label">Item Pekerjaan</label>
-                            <input type="text" class="form-control" placeholder="Isi Item Pekerjaan" required>
+                            <div class="form-section-title"><i class="fa-solid fa-wrench me-2"></i>Informasi Pekerjaan</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label required">Item Pekerjaan</label>
+                            <textarea class="form-control" rows="2" placeholder="Deskripsi pekerjaan maintenance"
+                                required></textarea>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">NOPOL</label>
+                            <label class="form-label required">NOPOL</label>
                             <input type="text" class="form-control" placeholder="XX 0000 XX" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Mobil</label>
-                            <input type="text" class="form-control" placeholder="Isi Kolom" required>
+                            <label class="form-label required">Mobil</label>
+                            <input type="text" class="form-control" placeholder="Nama/Tipe Mobil" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">No. Notdin</label>
-                            <input type="text" class="form-control" placeholder="000" required>
+                            <label class="form-label required">No. Notdin</label>
+                            <input type="text" class="form-control" placeholder="Nomor Notdin" required>
+                        </div>
+
+                        <!-- Status & Jadwal -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-check me-2"></i>Status & Jadwal
+                            </div>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Tanggal Notdin</label>
+                            <label class="form-label required">Tanggal Notdin</label>
                             <input type="date" class="form-control" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">ACC KU</label>
+                            <label class="form-label required">ACC KU</label>
                             <select class="form-select" required>
-                                <option value="" selected disabled>Pilih</option>
+                                <option value="" selected disabled>Pilih Status</option>
                                 <option>OK</option>
                                 <option>Pending</option>
                                 <option>Rejected</option>
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Tanggal Eksekusi</label>
+                            <label class="form-label required">Tanggal Eksekusi</label>
                             <input type="date" class="form-control" required>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nilai Pekerjaan</label>
-                            <input type="text" class="form-control" placeholder="Rp X.XXXXX.XXX,XX" required>
-                        </div>
+
+                        <!-- Anggaran & Keterangan -->
                         <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" placeholder="Isi Keterangan" required></textarea>
+                            <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran & Keterangan
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Nilai Pekerjaan</label>
+                            <input type="text" class="form-control" placeholder="Rp 0" required>
+                        </div>
+                        <div class="col-md-6"></div>
+                        <div class="col-12">
+                            <label class="form-label required">Keterangan</label>
+                            <textarea class="form-control" rows="2" placeholder="Keterangan tambahan" required></textarea>
                         </div>
                     </form>
                 </div>
@@ -364,55 +377,70 @@
                 </div>
                 <div class="modal-body">
                     <form id="editMaintenanceForm" class="row g-3">
-                        <div class="col-12">
-                            <label class="form-label">Item Pekerjaan</label>
-                            <input type="text" class="form-control" id="editItemPekerjaan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">NOPOL</label>
-                            <input type="text" class="form-control" id="editNopol">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Mobil</label>
-                            <input type="text" class="form-control" id="editMobil">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">No. Notdin</label>
-                            <input type="text" class="form-control" id="editNoNotdin">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Tanggal Notdin</label>
-                            <input type="date" class="form-control" id="editTanggalNotdin">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">ACC KU</label>
-                            <select class="form-select" id="editAccKu">
-                                <option>OK</option>
-                                <option>Pending</option>
-                                <option>Rejected</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Tanggal Eksekusi</label>
-                            <input type="date" class="form-control" id="editTanggalEksekusi">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Nilai Pekerjaan</label>
-                            <input type="text" class="form-control" id="editNilaiPekerjaan">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="editKeterangan"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="editMaintenanceForm" class="btn btn-primary">Update</button>
+                        <!-- Informasi Pekerjaan -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-wrench me-2"></i>Informasi Pekerjaan</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label required">Item Pekerjaan</label>
+                                <textarea class="form-control" rows="2" id="editItemPekerjaan"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">NOPOL</label>
+                                <input type="text" class="form-control" id="editNopol">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Mobil</label>
+                                <input type="text" class="form-control" id="editMobil">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">No. Notdin</label>
+                                <input type="text" class="form-control" id="editNoNotdin">
+                            </div>
+
+                            <!-- Status & Jadwal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-check me-2"></i>Status & Jadwal</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Tanggal Notdin</label>
+                                <input type="date" class="form-control" id="editTanggalNotdin">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">ACC KU</label>
+                                <select class="form-select" id="editAccKu">
+                                    <option>OK</option>
+                                    <option>Pending</option>
+                                    <option>Rejected</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Tanggal Eksekusi</label>
+                                <input type="date" class="form-control" id="editTanggalEksekusi">
+                            </div>
+
+                            <!-- Anggaran & Keterangan -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran & Keterangan</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label required">Nilai Pekerjaan</label>
+                                <input type="text" class="form-control" id="editNilaiPekerjaan">
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-12">
+                                <label class="form-label required">Keterangan</label>
+                                <textarea class="form-control" rows="2" id="editKeterangan"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" form="editMaintenanceForm" class="btn btn-primary">Update</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 
 @push('scripts')
@@ -456,4 +484,3 @@
         });
     </script>
 @endpush
-

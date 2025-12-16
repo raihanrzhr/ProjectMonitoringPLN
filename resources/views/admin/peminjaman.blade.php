@@ -398,22 +398,31 @@
                 </div>
                 <div class="modal-body">
                     <form id="editLoanUPSForm" class="row g-3">
+                        <!-- Informasi Peminjam -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Peminjam</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama</label>
+                            <label class="form-label required">Nama</label>
                             <input type="text" class="form-control" id="loanUPSNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Email/No. Telepon</label>
+                            <label class="form-label required">Email/No. Telepon</label>
                             <input type="text" class="form-control" id="loanUPSKontak">
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-bolt me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="loanUPSUnit">
                                 <option>UPS</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jenis & Kapasitas</label>
+                            <label class="form-label required">Jenis & Kapasitas</label>
                             <select class="form-select" id="loanUPSJenis">
                                 <option>Mobile - 250 KVA</option>
                                 <option>Portable - 110 KVA</option>
@@ -421,34 +430,40 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol Unit</label>
+                            <label class="form-label required">Merk dan Nopol Unit</label>
                             <select class="form-select" id="loanUPSUnitTersedia">
                                 <option>Tescom - DK 8005 DE</option>
                                 <option>Schneider - B 9196 ECC</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
+                            <label class="form-label required">Lokasi Penggunaan</label>
                             <input type="text" class="form-control" id="loanUPSLokasi">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Tujuan Penggunaan</label>
-                            <textarea class="form-control" rows="3" id="loanUPSTujuan"></textarea>
+                            <label class="form-label required">Tujuan Penggunaan</label>
+                            <textarea class="form-control" rows="2" id="loanUPSTujuan"></textarea>
+                        </div>
+
+                        <!-- Jadwal & Lokasi -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Jadwal & Pelaksana
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Peminjaman</label>
+                            <label class="form-label required">Tanggal Mobilisasi</label>
                             <input type="date" class="form-control" id="loanUPSTanggalPinjam">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Selesai</label>
+                            <label class="form-label required">Tanggal Demobilisasi</label>
                             <input type="date" class="form-control" id="loanUPSTanggalSelesai">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="loanUPSPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="loanUPSUP3">
                         </div>
                     </form>
@@ -471,23 +486,32 @@
                 </div>
                 <div class="modal-body">
                     <form id="editLoanUKBForm" class="row g-3">
+                        <!-- Informasi Peminjam -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Peminjam</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama</label>
+                            <label class="form-label required">Nama</label>
                             <input type="text" class="form-control" id="loanUKBNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Email/No. Telepon</label>
+                            <label class="form-label required">Email/No. Telepon</label>
                             <input type="text" class="form-control" id="loanUKBKontak">
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-plug me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="loanUKBUnit">
                                 <option>Deteksi</option>
                                 <option>UKB</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Type & Panjang Kabel</label>
+                            <label class="form-label required">Type & Panjang Kabel</label>
                             <select class="form-select" id="loanUKBTypeKabel">
                                 <option>1C x 60SQMM - 6 x 200</option>
                                 <option>95 mm - 4 x 75</option>
@@ -495,14 +519,14 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol Unit</label>
+                            <label class="form-label required">Merk dan Nopol Unit</label>
                             <select class="form-select" id="loanUKBMerkNopol">
                                 <option>NULL - D 8934 FH</option>
                                 <option>NYYHY - NULL</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jenis & Volume UKB</label>
+                            <label class="form-label required">Jenis & Volume UKB</label>
                             <select class="form-select" id="loanUKBJenisVolume">
                                 <option>Karavan - 1 Set</option>
                                 <option>Karavan - 2 Set</option>
@@ -511,27 +535,33 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
+                            <label class="form-label required">Lokasi Penggunaan</label>
                             <input type="text" class="form-control" id="loanUKBLokasi">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Tujuan Penggunaan</label>
-                            <textarea class="form-control" rows="3" id="loanUKBTujuan"></textarea>
+                            <label class="form-label required">Tujuan Penggunaan</label>
+                            <textarea class="form-control" rows="2" id="loanUKBTujuan"></textarea>
+                        </div>
+
+                        <!-- Jadwal & Pelaksana -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Jadwal & Pelaksana
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Peminjaman</label>
+                            <label class="form-label required">Tanggal Mobilisasi</label>
                             <input type="date" class="form-control" id="loanUKBTanggalPinjam">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Selesai</label>
+                            <label class="form-label required">Tanggal Demobilisasi</label>
                             <input type="date" class="form-control" id="loanUKBTanggalSelesai">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="loanUKBPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="loanUKBUP3">
                         </div>
                     </form>
@@ -555,29 +585,38 @@
                 </div>
                 <div class="modal-body">
                     <form id="editLoanDeteksiForm" class="row g-3">
+                        <!-- Informasi Peminjam -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Peminjam</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama</label>
+                            <label class="form-label required">Nama</label>
                             <input type="text" class="form-control" id="loanDeteksiNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Email/No. Telepon</label>
+                            <label class="form-label required">Email/No. Telepon</label>
                             <input type="text" class="form-control" id="loanDeteksiKontak">
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-search me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="loanDeteksiUnit">
                                 <option>Deteksi</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Fitur & Type Deteksi</label>
+                            <label class="form-label required">Fitur & Type Deteksi</label>
                             <select class="form-select" id="loanDeteksiFiturType">
                                 <option>Assesment & Deteksi - Mobil</option>
                                 <option>Deteksi - Mobil</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol Unit</label>
+                            <label class="form-label required">Merk dan Nopol Unit</label>
                             <select class="form-select" id="loanDeteksiMerkNopol">
                                 <option>BAUR - B 9193 KCG</option>
                                 <option>CENTRIX - D 8657 ES</option>
@@ -586,27 +625,33 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
+                            <label class="form-label required">Lokasi Penggunaan</label>
                             <input type="text" class="form-control" id="loanDeteksiLokasi">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Tujuan Penggunaan</label>
-                            <textarea class="form-control" rows="3" id="loanDeteksiTujuan"></textarea>
+                            <label class="form-label required">Tujuan Penggunaan</label>
+                            <textarea class="form-control" rows="2" id="loanDeteksiTujuan"></textarea>
+                        </div>
+
+                        <!-- Jadwal & Pelaksana -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Jadwal & Pelaksana
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Peminjaman</label>
+                            <label class="form-label required">Tanggal Mobilisasi</label>
                             <input type="date" class="form-control" id="loanDeteksiTanggalPinjam">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Selesai</label>
+                            <label class="form-label required">Tanggal Demobilisasi</label>
                             <input type="date" class="form-control" id="loanDeteksiTanggalSelesai">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="loanDeteksiPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="loanDeteksiUP3">
                         </div>
                     </form>

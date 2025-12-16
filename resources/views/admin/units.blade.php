@@ -13,6 +13,112 @@
 
 @push('styles')
     <style>
+        .form-label.required::after {
+            content: " *";
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        /* Enhanced Modal Form Styles */
+        .modal-body .row.g-3 {
+            row-gap: 1rem !important;
+        }
+
+        .modal-body .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-body .form-control,
+        .modal-body .form-select {
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.9rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #fafafa;
+        }
+
+        .modal-body .form-control:focus,
+        .modal-body .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background-color: #fff;
+        }
+
+        .modal-body .form-control::placeholder {
+            color: #9ca3af;
+            font-size: 0.85rem;
+        }
+
+        .modal-body textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Form Section Dividers */
+        .form-section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            grid-column: 1 / -1;
+        }
+
+        .modal-body hr {
+            margin: 1.25rem 0;
+            border: none;
+            border-top: 1px dashed #d1d5db;
+        }
+
+        /* Modal Footer Styling */
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .modal-footer .btn {
+            padding: 0.625rem 1.5rem;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+
+        /* Modal Header Styling */
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header .modal-title {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        .modal-header .btn-close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
         .unit-type-card {
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -21,6 +127,8 @@
             text-align: center;
             border-radius: 16px;
             background: #fff;
+            position: relative;
+            z-index: 10;
         }
 
         .unit-type-card:hover {
@@ -83,10 +191,120 @@
                 font-size: 13px;
             }
         }
+
+        /* Toast notification styles */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            min-width: 300px;
+            max-width: 450px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .toast-notification.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+        }
+
+        .toast-notification.error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #fff;
+        }
+
+        .toast-notification .toast-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .toast-notification .toast-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .toast-notification .toast-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .toast-notification .toast-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(-100%);
+                opacity: 0;
+            }
+        }
     </style>
 @endpush
 
 @section('content')
+    {{-- Toast Notification --}}
+    @if(session('success'))
+        <div class="toast-notification success" id="toastNotification">
+            <div class="toast-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="toast-message">{{ session('success') }}</div>
+            <button class="toast-close" onclick="closeToast()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="toast-notification error" id="toastNotification">
+            <div class="toast-icon">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            <div class="toast-message">{{ session('error') }}</div>
+            <button class="toast-close" onclick="closeToast()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    @endif
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <button class="btn btn-outline-dark btn-sm d-lg-none" id="toggleSidebar">
@@ -258,12 +476,6 @@
         <i class="fa-solid fa-box-archive"></i> Arsip Unit
     </a>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <!-- Select Unit Type Modal -->
     <div class="modal fade" id="selectUnitTypeModal" tabindex="-1" aria-labelledby="selectUnitTypeModalLabel"
         aria-hidden="true">
@@ -322,22 +534,28 @@
 
                     <div class="modal-body">
                         <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar
+                                </div>
+                            </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label required">Unit</label>
                                 <select class="form-select" name="nama_unit" required>
                                     <option value="UPS" selected>UPS</option>
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Jenis</label>
+                                <label class="form-label required">Jenis</label>
                                 <input type="text" class="form-control" name="jenis_ups" placeholder="Jenis UPS" required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">KVA</label>
-                                <input type="number" class="form-control" name="kapasitas_kva" placeholder="KVA" required>
+                                <label class="form-label required">KVA</label>
+                                <input type="number" class="form-control" name="kapasitas_kva" placeholder="Kapasitas KVA"
+                                    required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Kondisi</label>
+                                <label class="form-label required">Kondisi</label>
                                 <select class="form-select" name="kondisi_kendaraan" required>
                                     <option value="BAIK" selected>Baik</option>
                                     <option value="RUSAK">Rusak</option>
@@ -345,25 +563,25 @@
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <label class="form-label">Merk</label>
-                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Isi Merk"
+                                <label class="form-label required">Merk</label>
+                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Merk Kendaraan"
                                     required>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <label class="form-label">Model / No Seri</label>
+                                <label class="form-label required">Model / No Seri</label>
                                 <input type="text" class="form-control" name="model_no_seri"
-                                    placeholder="Isi Model/No. Seri" required>
+                                    placeholder="Model atau No. Seri" required>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <label class="form-label">NOPOL</label>
+                                <label class="form-label required">NOPOL</label>
                                 <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Lokasi</label>
-                                <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                            <div class="col-md-6">
+                                <label class="form-label required">Lokasi</label>
+                                <input type="text" class="form-control" name="lokasi" placeholder="Lokasi Unit" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Status</label>
+                            <div class="col-md-6">
+                                <label class="form-label required">Status</label>
                                 <select class="form-select" name="status" required>
                                     <option value="Standby" selected>Standby</option>
                                     <option value="Digunakan">Digunakan</option>
@@ -371,66 +589,88 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Keterangan</label>
-                                <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan"
+                                <label class="form-label required">Keterangan</label>
+                                <textarea class="form-control" name="catatan" rows="2" placeholder="Keterangan tambahan"
                                     required></textarea>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Merk Battery</label>
-                                <input type="text" class="form-control" name="batt_merk" placeholder="Merk" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Jumlah Battery</label>
-                                <input type="number" class="form-control" name="batt_jumlah" placeholder="000" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Kapasitas</label>
-                                <input type="number" class="form-control" name="batt_kapasitas" placeholder="000" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">BPKB</label>
-                                <select class="form-select" name="status_bpkb" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">STNK</label>
-                                <select class="form-select" name="status_stnk" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak 5 Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_5tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">KIR</label>
-                                <select class="form-select" name="status_kir" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Masa Berlaku KIR</label>
-                                <input type="date" class="form-control" name="masa_berlaku_kir" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Service Mobil Terakhir</label>
-                                <input type="date" class="form-control" name="tgl_service_terakhir" required>
-                            </div>
+
+                            <!-- Battery -->
                             <div class="col-12">
-                                <label class="form-label">Dokumentasi</label>
+                                <div class="form-section-title"><i class="fa-solid fa-car-battery me-2"></i>Informasi
+                                    Battery</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Merk Battery</label>
+                                <input type="text" class="form-control" name="batt_merk" placeholder="Merk Battery"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Jumlah Battery</label>
+                                <input type="number" class="form-control" name="batt_jumlah" placeholder="Jumlah" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">Kapasitas (Ah)</label>
+                                <input type="number" class="form-control" name="batt_kapasitas" placeholder="Kapasitas"
+                                    required>
+                            </div>
+
+                            <!-- Administrasi -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen &
+                                    Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">BPKB</label>
+                                <select class="form-select" name="status_bpkb" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">STNK</label>
+                                <select class="form-select" name="status_stnk" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">KIR</label>
+                                <select class="form-select" name="status_kir" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal
+                                    Penting (Opsional)</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label required">Link Dokumentasi</label>
                                 <input type="text" class="form-control" name="dokumentasi"
-                                    placeholder="Isi Link Dokumentasi" required>
+                                    placeholder="https://drive.google.com/..." required>
                             </div>
                         </div>
                     </div>
@@ -461,14 +701,19 @@
 
                     <div class="modal-body">
                         <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar
+                                </div>
+                            </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label required">Unit</label>
                                 <select class="form-select" name="nama_unit" required>
                                     <option value="UKB" selected>UKB</option>
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Kondisi</label>
+                                <label class="form-label required">Kondisi</label>
                                 <select class="form-select" name="kondisi_kendaraan" required>
                                     <option value="BAIK" selected>Baik</option>
                                     <option value="RUSAK">Rusak</option>
@@ -476,92 +721,106 @@
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Merk</label>
-                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Isi Merk"
+                                <label class="form-label required">Merk</label>
+                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Merk Kendaraan"
                                     required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Panjang (m)</label>
-                                <input type="text" class="form-control" name="panjang_kabel_m" placeholder="Isi Pj."
+                                <label class="form-label required">Jenis</label>
+                                <input type="text" class="form-control" name="jenis_ukb" placeholder="Jenis UKB" required>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label required">Panjang (m)</label>
+                                <input type="text" class="form-control" name="panjang_kabel_m" placeholder="Panjang Kabel"
                                     required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Volume</label>
-                                <input type="text" class="form-control" name="volume" placeholder="Isi Vol." required>
+                                <label class="form-label required">Volume</label>
+                                <input type="text" class="form-control" name="volume" placeholder="Volume" required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Jenis</label>
-                                <input type="text" class="form-control" name="jenis_ukb" placeholder="Isi Jenis" required>
+                                <label class="form-label required">Type / Model</label>
+                                <input type="text" class="form-control" name="type" placeholder="Type atau Model" required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Type / Model / No Seri</label>
-                                <input type="text" class="form-control" name="type" placeholder="Isi Type" required>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <label class="form-label">NOPOL</label>
+                                <label class="form-label required">NOPOL</label>
                                 <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Lokasi</label>
-                                <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                            <div class="col-md-6">
+                                <label class="form-label required">Lokasi</label>
+                                <input type="text" class="form-control" name="lokasi" placeholder="Lokasi Unit" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Status</label>
+                            <div class="col-md-6">
+                                <label class="form-label required">Status</label>
                                 <select class="form-select" name="status" required>
                                     <option value="Standby" selected>Standby</option>
-                                    <option value="Digunakan">Sedang digunakan</option>
+                                    <option value="Digunakan">Digunakan</option>
                                     <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Keterangan</label>
-                                <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan"
+                                <label class="form-label required">Keterangan</label>
+                                <textarea class="form-control" name="catatan" rows="2" placeholder="Keterangan tambahan"
                                     required></textarea>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">BPKB</label>
-                                <select class="form-select" name="status_bpkb" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">STNK</label>
-                                <select class="form-select" name="status_stnk" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak 5 Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_5tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">KIR</label>
-                                <select class="form-select" name="status_kir" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Masa Berlaku KIR</label>
-                                <input type="date" class="form-control" name="masa_berlaku_kir" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Service Mobil Terakhir</label>
-                                <input type="date" class="form-control" name="tgl_service_terakhir" required>
-                            </div>
+
+                            <!-- Administrasi -->
                             <div class="col-12">
-                                <label class="form-label">Dokumentasi</label>
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen &
+                                    Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">BPKB</label>
+                                <select class="form-select" name="status_bpkb" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">STNK</label>
+                                <select class="form-select" name="status_stnk" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">KIR</label>
+                                <select class="form-select" name="status_kir" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal
+                                    Penting (Opsional)</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label required">Link Dokumentasi</label>
                                 <input type="text" class="form-control" name="dokumentasi"
-                                    placeholder="Isi Link Dokumentasi" required>
+                                    placeholder="https://drive.google.com/..." required>
                             </div>
                         </div>
                     </div>
@@ -590,14 +849,19 @@
 
                     <div class="modal-body">
                         <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar
+                                </div>
+                            </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label required">Unit</label>
                                 <select class="form-select" name="nama_unit" required>
                                     <option value="Deteksi" selected>Deteksi</option>
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Kondisi</label>
+                                <label class="form-label required">Kondisi</label>
                                 <select class="form-select" name="kondisi_kendaraan" required>
                                     <option value="BAIK" selected>Baik</option>
                                     <option value="RUSAK">Rusak</option>
@@ -605,83 +869,97 @@
                                 </select>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Merk</label>
-                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Isi Merk"
+                                <label class="form-label required">Merk</label>
+                                <input type="text" class="form-control" name="merk_kendaraan" placeholder="Merk Kendaraan"
                                     required>
                             </div>
                             <div class="col-md-6 col-lg-3">
-                                <label class="form-label">Fitur</label>
-                                <input type="text" class="form-control" name="fitur" placeholder="Isi Fitur" required>
+                                <label class="form-label required">Fitur</label>
+                                <input type="text" class="form-control" name="fitur" placeholder="Fitur Deteksi" required>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <label class="form-label">Type / Model / No Seri</label>
-                                <input type="text" class="form-control" name="type" placeholder="Isi Type" required>
+                                <label class="form-label required">Type / Model</label>
+                                <input type="text" class="form-control" name="type" placeholder="Type atau Model" required>
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <label class="form-label">NOPOL</label>
+                                <label class="form-label required">NOPOL</label>
                                 <input type="text" class="form-control" name="nopol" placeholder="XX 0000 XX" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Lokasi</label>
-                                <input type="text" class="form-control" name="lokasi" placeholder="Isi Lokasi" required>
+                            <div class="col-md-6">
+                                <label class="form-label required">Lokasi</label>
+                                <input type="text" class="form-control" name="lokasi" placeholder="Lokasi Unit" required>
                             </div>
-                            <div class="col-md-6 col-lg-6">
-                                <label class="form-label">Status</label>
+                            <div class="col-md-6">
+                                <label class="form-label required">Status</label>
                                 <select class="form-select" name="status" required>
                                     <option value="Standby" selected>Standby</option>
-                                    <option value="Digunakan">Sedang digunakan</option>
+                                    <option value="Digunakan">Digunakan</option>
                                     <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Keterangan</label>
-                                <textarea class="form-control" name="catatan" rows="3" placeholder="Isi Keterangan"
+                                <label class="form-label required">Keterangan</label>
+                                <textarea class="form-control" name="catatan" rows="2" placeholder="Keterangan tambahan"
                                     required></textarea>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">BPKB</label>
-                                <select class="form-select" name="status_bpkb" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">STNK</label>
-                                <select class="form-select" name="status_stnk" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Pajak 5 Tahunan STNK</label>
-                                <input type="date" class="form-control" name="pajak_5tahunan" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">KIR</label>
-                                <select class="form-select" name="status_kir" required>
-                                    <option value="" disabled selected>Pilih</option>
-                                    <option value="1">Ada</option>
-                                    <option value="0">Tidak Ada</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Masa Berlaku KIR</label>
-                                <input type="date" class="form-control" name="masa_berlaku_kir" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Service Mobil Terakhir</label>
-                                <input type="date" class="form-control" name="tgl_service_terakhir" required>
-                            </div>
+
+                            <!-- Administrasi -->
                             <div class="col-12">
-                                <label class="form-label">Dokumentasi</label>
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen &
+                                    Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">BPKB</label>
+                                <select class="form-select" name="status_bpkb" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">STNK</label>
+                                <select class="form-select" name="status_stnk" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label required">KIR</label>
+                                <select class="form-select" name="status_kir" required>
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option value="1">Ada</option>
+                                    <option value="0">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal
+                                    Penting (Opsional)</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label required">Link Dokumentasi</label>
                                 <input type="text" class="form-control" name="dokumentasi"
-                                    placeholder="Isi Link Dokumentasi" required>
+                                    placeholder="https://drive.google.com/..." required>
                             </div>
                         </div>
                     </div>
@@ -1064,129 +1342,150 @@
 
 @push('scripts')
     <script>
-            $(function () {             $('#unitsTable').DataTab                     le({
-                        responsive: true,
-                        pageLength: 10,
-                        lengthMenu: [5, 10, 25, 50],
-                        language: {
-                            search: "Search:",
-                            lengthMenu: "Show _MENU_ entries",
-                            info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                            paginate: {
-                                previous: "Previous",
-                                next: "Next"
-                            }
-                        }
-                    });
-
-                    // Edit UPS
-                    $('.btn-edit-unit').on('click', function () {
-                        const btn = $(this);
-                        const type = btn.data('unit'); // UPS, UKB, atau DETEKSI
-                        const id = btn.data('id');     // ID dari database
-
-                        // Setup URL Action Form (misal: /admin/units/1)
-                        // Pastikan route 'admin.units.update' sudah ada di web.php
-                        let url = "{{ route('admin.units.update', ':id') }}";
-                        url = url.replace(':id', id);
-
-                        // Helper untuk set value
-                        const setVal = (id, val) => $(id).val(val).trigger('change');
-
-                        if (type === 'UPS') {
-                            $('#editUnitUPSForm').attr('action', url); // Set Action Form
-
-                            setVal('#editUPSJenis', btn.data('jenis'));
-                            setVal('#editUPSKva', btn.data('kva'));
-                            setVal('#editUPSKondisi', btn.data('kondisi'));
-                            setVal('#editUPSMerk', btn.data('merk'));
-                            setVal('#editUPSModel', btn.data('model'));
-                            setVal('#editUPSNopol', btn.data('nopol'));
-                            setVal('#editUPSLokasi', btn.data('lokasi'));
-                            setVal('#editUPSStatus', btn.data('status'));
-                            setVal('#editUPSKeterangan', btn.data('keterangan'));
-                            setVal('#editUPSMerkBattery', btn.data('merk-battery'));
-                            setVal('#editUPSJumlahBattery', btn.data('jumlah-battery'));
-                            setVal('#editUPSKapasitasBattery', btn.data('kapasitas-battery'));
-
-                            // Administrasi
-                            setVal('#editUPSBpkb', btn.data('bpkb'));
-                            setVal('#editUPSStnk', btn.data('stnk'));
-                            setVal('#editUPSPajakTahunan', btn.data('pajak-tahunan'));
-                            setVal('#editUPSPajak5Tahunan', btn.data('pajak-5tahunan'));
-                            setVal('#editUPSKir', btn.data('kir'));
-                            setVal('#editUPSMasaBerlakuKir', btn.data('masa-berlaku-kir'));
-                            setVal('#editUPSService', btn.data('service'));
-                            setVal('#editUPSDokumentasi', btn.data('dokumentasi'));
-
-                        } else if (type === 'UKB') {
-                            $('#editUnitUKBForm').attr('action', url);
-
-                            setVal('#editUKBKondisi', btn.data('kondisi'));
-                            setVal('#editUKBMerk', btn.data('merk'));
-                            setVal('#editUKBPanjang', btn.data('panjang'));
-                            setVal('#editUKBVolume', btn.data('volume'));
-                            setVal('#editUKBJenis', btn.data('jenis'));
-                            setVal('#editUKBModel', btn.data('model'));
-                            setVal('#editUKBNopol', btn.data('nopol'));
-                            setVal('#editUKBLokasi', btn.data('lokasi'));
-                            setVal('#editUKBStatus', btn.data('status'));
-                            setVal('#editUKBKeterangan', btn.data('keterangan'));
-
-                            setVal('#editUKBBpkb', btn.data('bpkb'));
-                            setVal('#editUKBStnk', btn.data('stnk'));
-                            setVal('#editUKBPajakTahunan', btn.data('pajak-tahunan'));
-                            setVal('#editUKBPajak5Tahunan', btn.data('pajak-5tahunan'));
-                            setVal('#editUKBKir', btn.data('kir'));
-                            setVal('#editUKBMasaBerlakuKir', btn.data('masa-berlaku-kir'));
-                            setVal('#editUKBService', btn.data('service'));
-                            setVal('#editUKBDokumentasi', btn.data('dokumentasi'));
-
-                        } else if (type === 'DETEKSI' || type === 'Deteksi') { // Handle case sensitivity
-                            $('#editUnitDeteksiForm').attr('action', url);
-
-                            setVal('#editDeteksiKondisi', btn.data('kondisi'));
-                            setVal('#editDeteksiMerk', btn.data('merk'));
-                            setVal('#editDeteksiFitur', btn.data('fitur'));
-                            setVal('#editDeteksiModel', btn.data('model'));
-                            setVal('#editDeteksiNopol', btn.data('nopol'));
-                            setVal('#editDeteksiLokasi', btn.data('lokasi'));
-                            setVal('#editDeteksiStatus', btn.data('status'));
-                            setVal('#editDeteksiKeterangan', btn.data('keterangan'));
-
-                            setVal('#editDeteksiBpkb', btn.data('bpkb'));
-                            setVal('#editDeteksiStnk', btn.data('stnk'));
-                            setVal('#editDeteksiPajakTahunan', btn.data('pajak-tahunan'));
-                            setVal('#editDeteksiPajak5Tahunan', btn.data('pajak-5tahunan'));
-                            setVal('#editDeteksiKir', btn.data('kir'));
-                            setVal('#editDeteksiMasaBerlakuKir', btn.data('masa-berlaku-kir'));
-                            setVal('#editDeteksiService', btn.data('service'));
-                            setVal('#editDeteksiDokumentasi', btn.data('dokumentasi'));
-                        }
-                    });
-
-                    // View Detail -> redirect to page with persisted data
-                    $('.btn-view-detail').on('click', function () {
-                        const button = $(this);
-                        const payload = button.data();
-                        try {
-                            localStorage.setItem('unitDetailPayload', JSON.stringify(payload));
-                        } catch (e) { }
-                        window.location.href = '/admin/unit-detail';
-                    });
-                });
-
-                function openCreateModal(type) {
-                    $('#selectUnitTypeModal').modal('hide');
-                    setTimeout(() => {
-                        if (type === 'UPS') {
-                            $('#createUnitUPSModal').modal('show');
-                        } else if (type === 'UKB') {
-                            $('#createUnitUKBModal').modal('show');
-                        } else if (type === 'Deteksi') {
-                            $('#createUnitDeteksiModal').modal('show');
-                        }
-                    }, 300);
+        $(function () {
+            $('#unitsTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                language: {
+                    search: "Search:",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    }
                 }
-            </script>
+            });
+
+            // Edit UPS
+            $('.btn-edit-unit').on('click', function () {
+                const btn = $(this);
+                const type = btn.data('unit'); // UPS, UKB, atau DETEKSI
+                const id = btn.data('id');     // ID dari database
+
+                // Setup URL Action Form (misal: /admin/units/1)
+                // Pastikan route 'admin.units.update' sudah ada di web.php
+                let url = "{{ route('admin.units.update', ':id') }}";
+                url = url.replace(':id', id);
+
+                // Helper untuk set value
+                const setVal = (id, val) => $(id).val(val).trigger('change');
+
+                if (type === 'UPS') {
+                    $('#editUnitUPSForm').attr('action', url); // Set Action Form
+
+                    setVal('#editUPSJenis', btn.data('jenis'));
+                    setVal('#editUPSKva', btn.data('kva'));
+                    setVal('#editUPSKondisi', btn.data('kondisi'));
+                    setVal('#editUPSMerk', btn.data('merk'));
+                    setVal('#editUPSModel', btn.data('model'));
+                    setVal('#editUPSNopol', btn.data('nopol'));
+                    setVal('#editUPSLokasi', btn.data('lokasi'));
+                    setVal('#editUPSStatus', btn.data('status'));
+                    setVal('#editUPSKeterangan', btn.data('keterangan'));
+                    setVal('#editUPSMerkBattery', btn.data('merk-battery'));
+                    setVal('#editUPSJumlahBattery', btn.data('jumlah-battery'));
+                    setVal('#editUPSKapasitasBattery', btn.data('kapasitas-battery'));
+
+                    // Administrasi
+                    setVal('#editUPSBpkb', btn.data('bpkb'));
+                    setVal('#editUPSStnk', btn.data('stnk'));
+                    setVal('#editUPSPajakTahunan', btn.data('pajak-tahunan'));
+                    setVal('#editUPSPajak5Tahunan', btn.data('pajak-5tahunan'));
+                    setVal('#editUPSKir', btn.data('kir'));
+                    setVal('#editUPSMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                    setVal('#editUPSService', btn.data('service'));
+                    setVal('#editUPSDokumentasi', btn.data('dokumentasi'));
+
+                } else if (type === 'UKB') {
+                    $('#editUnitUKBForm').attr('action', url);
+
+                    setVal('#editUKBKondisi', btn.data('kondisi'));
+                    setVal('#editUKBMerk', btn.data('merk'));
+                    setVal('#editUKBPanjang', btn.data('panjang'));
+                    setVal('#editUKBVolume', btn.data('volume'));
+                    setVal('#editUKBJenis', btn.data('jenis'));
+                    setVal('#editUKBModel', btn.data('model'));
+                    setVal('#editUKBNopol', btn.data('nopol'));
+                    setVal('#editUKBLokasi', btn.data('lokasi'));
+                    setVal('#editUKBStatus', btn.data('status'));
+                    setVal('#editUKBKeterangan', btn.data('keterangan'));
+
+                    setVal('#editUKBBpkb', btn.data('bpkb'));
+                    setVal('#editUKBStnk', btn.data('stnk'));
+                    setVal('#editUKBPajakTahunan', btn.data('pajak-tahunan'));
+                    setVal('#editUKBPajak5Tahunan', btn.data('pajak-5tahunan'));
+                    setVal('#editUKBKir', btn.data('kir'));
+                    setVal('#editUKBMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                    setVal('#editUKBService', btn.data('service'));
+                    setVal('#editUKBDokumentasi', btn.data('dokumentasi'));
+
+                } else if (type === 'DETEKSI' || type === 'Deteksi') { // Handle case sensitivity
+                    $('#editUnitDeteksiForm').attr('action', url);
+
+                    setVal('#editDeteksiKondisi', btn.data('kondisi'));
+                    setVal('#editDeteksiMerk', btn.data('merk'));
+                    setVal('#editDeteksiFitur', btn.data('fitur'));
+                    setVal('#editDeteksiModel', btn.data('model'));
+                    setVal('#editDeteksiNopol', btn.data('nopol'));
+                    setVal('#editDeteksiLokasi', btn.data('lokasi'));
+                    setVal('#editDeteksiStatus', btn.data('status'));
+                    setVal('#editDeteksiKeterangan', btn.data('keterangan'));
+
+                    setVal('#editDeteksiBpkb', btn.data('bpkb'));
+                    setVal('#editDeteksiStnk', btn.data('stnk'));
+                    setVal('#editDeteksiPajakTahunan', btn.data('pajak-tahunan'));
+                    setVal('#editDeteksiPajak5Tahunan', btn.data('pajak-5tahunan'));
+                    setVal('#editDeteksiKir', btn.data('kir'));
+                    setVal('#editDeteksiMasaBerlakuKir', btn.data('masa-berlaku-kir'));
+                    setVal('#editDeteksiService', btn.data('service'));
+                    setVal('#editDeteksiDokumentasi', btn.data('dokumentasi'));
+                }
+            });
+
+            // View Detail -> redirect to page with persisted data
+            $('.btn-view-detail').on('click', function () {
+                const button = $(this);
+                const payload = button.data();
+                try {
+                    localStorage.setItem('unitDetailPayload', JSON.stringify(payload));
+                } catch (e) { }
+                window.location.href = '/admin/unit-detail';
+            });
+        });
+
+        function openCreateModal(type) {
+            $('#selectUnitTypeModal').modal('hide');
+            setTimeout(() => {
+                if (type === 'UPS') {
+                    $('#createUnitUPSModal').modal('show');
+                } else if (type === 'UKB') {
+                    $('#createUnitUKBModal').modal('show');
+                } else if (type === 'Deteksi') {
+                    $('#createUnitDeteksiModal').modal('show');
+                }
+            }, 300);
+        }
+        // Toast notification functi    ons
+        function closeToast() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.style.animation = 'slideUp 0.3s ease-out forwards';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }
+        }
+
+        // Auto-dismiss toast after 4 seconds
+        $(function () {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                setTimeout(() => {
+                    closeToast();
+                }, 4000);
+            }
+        });
+    </script>
 @endpush

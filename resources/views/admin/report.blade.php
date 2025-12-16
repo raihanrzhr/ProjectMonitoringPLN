@@ -524,18 +524,27 @@
                 </div>
                 <div class="modal-body">
                     <form id="editReportUPSForm" class="row g-3">
+                        <!-- Informasi Pelapor -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama Pelapor</label>
+                            <label class="form-label required">Nama Pelapor</label>
                             <input type="text" class="form-control" id="reportUPSNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="reportUPSUnit">
                                 <option>UPS</option>
                             </select>
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-bolt me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jenis & Kapasitas</label>
+                            <label class="form-label required">Jenis & Kapasitas</label>
                             <select class="form-select" id="reportUPSJenis">
                                 <option>Mobile - 250 KVA</option>
                                 <option>Portable - 110 KVA</option>
@@ -543,47 +552,60 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol Unit</label>
+                            <label class="form-label required">Merk dan Nopol Unit</label>
                             <select class="form-select" id="reportUPSMerkNopol">
                                 <option>Tescom - DK 8005 DE</option>
                                 <option>Schneider - B 9196 ECC</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
+                            <label class="form-label required">Kondisi</label>
                             <select class="form-select" id="reportUPSKondisi">
                                 <option>Baik</option>
                                 <option>Rusak</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Kejadian</label>
+                            <label class="form-label required">Lokasi Penggunaan</label>
+                            <input type="text" class="form-control" id="reportUPSLokasi">
+                        </div>
+
+                        <!-- Detail Kejadian -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail Kejadian
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Tanggal Kejadian</label>
                             <input type="date" class="form-control" id="reportUPSTanggal">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
-                            <input type="text" class="form-control" id="reportUPSLokasi">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">No. BA</label>
+                            <label class="form-label required">No. BA</label>
                             <input type="text" class="form-control" id="reportUPSNoBA">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="reportUPSPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="reportUPSUP3">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="reportUPSKeterangan"></textarea>
+                            <label class="form-label required">Keterangan</label>
+                            <textarea class="form-control" rows="2" id="reportUPSKeterangan"></textarea>
                         </div>
+
+                        <!-- Anggaran & Dokumentasi -->
                         <div class="col-12">
-                            <label class="form-label">Keperluan Anggaran</label>
-                            <input type="text" class="form-control" id="reportUPSAnggaran" placeholder="Rp 0,00">
+                            <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran &
+                                Dokumentasi</div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Keperluan Anggaran</label>
+                            <input type="text" class="form-control" id="reportUPSAnggaran" placeholder="Rp 0">
+                        </div>
+                        <div class="col-md-6"></div>
                         <div class="col-12">
                             <label class="form-label d-block">Bukti Foto</label>
                             <div class="upload-control">
@@ -612,18 +634,27 @@
                 </div>
                 <div class="modal-body">
                     <form id="editReportUKBForm" class="row g-3">
+                        <!-- Informasi Pelapor -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama Pelapor</label>
+                            <label class="form-label required">Nama Pelapor</label>
                             <input type="text" class="form-control" id="reportUKBNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="reportUKBUnit">
                                 <option>UKB</option>
                             </select>
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-plug me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Type & Panjang Kabel</label>
+                            <label class="form-label required">Type & Panjang Kabel</label>
                             <select class="form-select" id="reportUKBTypeKabel">
                                 <option>95 mm - 4 x 75</option>
                                 <option>1C x 60SQMM - 6 x 200</option>
@@ -631,7 +662,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol UKB</label>
+                            <label class="form-label required">Merk dan Nopol UKB</label>
                             <select class="form-select" id="reportUKBMerkNopol">
                                 <option>150 mm - 4 x 50</option>
                                 <option>NULL - D 8934 FH</option>
@@ -639,7 +670,7 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Jenis & Volume UKB</label>
+                            <label class="form-label required">Jenis & Volume UKB</label>
                             <select class="form-select" id="reportUKBJenisVolume">
                                 <option>Karavan - 2 Set</option>
                                 <option>NULL - 1 Set</option>
@@ -647,40 +678,53 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
+                            <label class="form-label required">Kondisi</label>
                             <select class="form-select" id="reportUKBKondisi">
                                 <option>Baik</option>
                                 <option>Rusak</option>
                             </select>
                         </div>
+                        <div class="col-12">
+                            <label class="form-label required">Lokasi Penggunaan</label>
+                            <input type="text" class="form-control" id="reportUKBLokasi">
+                        </div>
+
+                        <!-- Detail Kejadian -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail Kejadian
+                            </div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Kejadian</label>
+                            <label class="form-label required">Tanggal Kejadian</label>
                             <input type="date" class="form-control" id="reportUKBTanggal">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
-                            <input type="text" class="form-control" id="reportUKBLokasi">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">No. BA</label>
+                            <label class="form-label required">No. BA</label>
                             <input type="text" class="form-control" id="reportUKBNoBA">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="reportUKBPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="reportUKBUP3">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="reportUKBKeterangan"></textarea>
+                            <label class="form-label required">Keterangan</label>
+                            <textarea class="form-control" rows="2" id="reportUKBKeterangan"></textarea>
                         </div>
+
+                        <!-- Anggaran & Dokumentasi -->
                         <div class="col-12">
-                            <label class="form-label">Keperluan Anggaran</label>
-                            <input type="text" class="form-control" id="reportUKBAnggaran" placeholder="Rp 0,00">
+                            <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran &
+                                Dokumentasi</div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Keperluan Anggaran</label>
+                            <input type="text" class="form-control" id="reportUKBAnggaran" placeholder="Rp 0">
+                        </div>
+                        <div class="col-md-6"></div>
                         <div class="col-12">
                             <label class="form-label d-block">Bukti Foto</label>
                             <div class="upload-control">
@@ -709,33 +753,42 @@
                 </div>
                 <div class="modal-body">
                     <form id="editReportDeteksiForm" class="row g-3">
+                        <!-- Informasi Pelapor -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Nama Pelapor</label>
+                            <label class="form-label required">Nama Pelapor</label>
                             <input type="text" class="form-control" id="reportDeteksiNama">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Unit</label>
+                            <label class="form-label required">Unit</label>
                             <select class="form-select" id="reportDeteksiUnit">
                                 <option>UPS</option>
                                 <option>Deteksi</option>
                             </select>
                         </div>
+
+                        <!-- Informasi Unit -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-search me-2"></i>Informasi Unit</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Fitur & Type Deteksi</label>
+                            <label class="form-label required">Fitur & Type Deteksi</label>
                             <select class="form-select" id="reportDeteksiFiturType">
                                 <option>Assesment & Deteksi - Mobil</option>
                                 <option>Deteksi - Mobil</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Kondisi</label>
+                            <label class="form-label required">Kondisi</label>
                             <select class="form-select" id="reportDeteksiKondisi">
                                 <option>Baik</option>
                                 <option>Rusak</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Merk dan Nopol Unit</label>
+                            <label class="form-label required">Merk dan Nopol Unit</label>
                             <select class="form-select" id="reportDeteksiMerkNopol">
                                 <option>BAUR - B 9193 KCG</option>
                                 <option>CENTRIX - D 8657 ES</option>
@@ -744,33 +797,46 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Tanggal Kejadian</label>
+                            <label class="form-label required">Lokasi Penggunaan</label>
+                            <input type="text" class="form-control" id="reportDeteksiLokasi">
+                        </div>
+
+                        <!-- Detail Kejadian -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail Kejadian
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Tanggal Kejadian</label>
                             <input type="date" class="form-control" id="reportDeteksiTanggal">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Lokasi Penggunaan</label>
-                            <input type="text" class="form-control" id="reportDeteksiLokasi">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">No. BA</label>
+                            <label class="form-label required">No. BA</label>
                             <input type="text" class="form-control" id="reportDeteksiNoBA">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Posko Pelaksanaan</label>
+                            <label class="form-label required">Posko Pelaksanaan</label>
                             <input type="text" class="form-control" id="reportDeteksiPosko">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">UP3</label>
+                            <label class="form-label required">UP3</label>
                             <input type="text" class="form-control" id="reportDeteksiUP3">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="reportDeteksiKeterangan"></textarea>
+                            <label class="form-label required">Keterangan</label>
+                            <textarea class="form-control" rows="2" id="reportDeteksiKeterangan"></textarea>
                         </div>
+
+                        <!-- Anggaran & Dokumentasi -->
                         <div class="col-12">
-                            <label class="form-label">Keperluan Anggaran</label>
-                            <input type="text" class="form-control" id="reportDeteksiAnggaran" placeholder="Rp 0,00">
+                            <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran &
+                                Dokumentasi</div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Keperluan Anggaran</label>
+                            <input type="text" class="form-control" id="reportDeteksiAnggaran" placeholder="Rp 0">
+                        </div>
+                        <div class="col-md-6"></div>
                         <div class="col-12">
                             <label class="form-label d-block">Bukti Foto</label>
                             <div class="upload-control">
@@ -911,10 +977,10 @@
             if (type === 'UPS') {
                 $('#tableUPS').addClass('active');
                 $('.tab-button:first').addClass('active');
-                } else if (type === 'UKB') {
-                    $('#tableUKB').addClass('active');
-                    $('.tab-button:nth-child(2)').addClass('active');
-                } else if (type === 'Deteksi') {
+            } else if (type === 'UKB') {
+                $('#tableUKB').addClass('active');
+                $('.tab-button:nth-child(2)').addClass('active');
+            } else if (type === 'Deteksi') {
                 $('#tableDeteksi').addClass('active');
                 $('.tab-button:last').addClass('active');
             }

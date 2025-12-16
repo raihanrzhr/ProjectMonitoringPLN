@@ -99,40 +99,43 @@
                     <form id="createUserForm" action="{{ route('admin.users.store') }}" method="POST" class="row g-3">
                         @csrf
 
-                        <div class="col-md-6">
-                            <label class="form-label">Nama</label>
-                            {{-- Tambahkan name="name" --}}
-                            <input type="text" class="form-control" name="name" placeholder="Isi Nama" required>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">NIP</label>
-                            {{-- Tambahkan name="NIP" --}}
-                            <input type="text" class="form-control" name="NIP" placeholder="Isi NIP" required>
-                        </div>
-
+                        <!-- Informasi Personal -->
                         <div class="col-12">
-                            <label class="form-label">Email</label>
-                            {{-- Tambahkan name="email" --}}
-                            <input type="email" class="form-control" name="email" placeholder="Isi Email" required>
+                            <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Personal</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">Nama</label>
+                            <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label required">NIP</label>
+                            <input type="text" class="form-control" name="NIP" placeholder="Nomor Induk Pegawai" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label required">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
                         </div>
 
-                        {{-- Tambahkan Password (Wajib untuk User Baru) --}}
+                        <!-- Keamanan -->
+                        <div class="col-12">
+                            <div class="form-section-title"><i class="fa-solid fa-lock me-2"></i>Keamanan</div>
+                        </div>
                         <div class="col-md-6">
-                            <label class="form-label">Password</label>
+                            <label class="form-label required">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
-
-                        {{-- Tambahkan Konfirmasi Password (Wajib karena validasi 'confirmed') --}}
                         <div class="col-md-6">
-                            <label class="form-label">Konfirmasi Password</label>
+                            <label class="form-label required">Konfirmasi Password</label>
                             <input type="password" class="form-control" name="password_confirmation"
                                 placeholder="Ulangi Password" required>
                         </div>
 
+                        <!-- Akses -->
                         <div class="col-12">
-                            <label class="form-label">Role</label>
-                            {{-- Tambahkan name="role_id" dan Loop Data Role --}}
+                            <div class="form-section-title"><i class="fa-solid fa-shield-halved me-2"></i>Hak Akses</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label required">Role</label>
                             <select class="form-select" name="role_id" required>
                                 <option value="" disabled selected>Pilih Role</option>
                                 @foreach($roles as $role)
@@ -168,35 +171,41 @@
 
                     <div class="modal-body">
                         <div class="row g-3">
+                            <!-- Informasi Personal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Personal</div>
+                            </div>
                             <div class="col-md-6">
-                                <label class="form-label">Nama</label>
-                                {{-- Tambahkan name="name" --}}
+                                <label class="form-label required">Nama</label>
                                 <input type="text" class="form-control" id="editUserNama" name="name" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">NIP</label>
-                                {{-- Tambahkan name="NIP" --}}
+                                <label class="form-label required">NIP</label>
                                 <input type="text" class="form-control" id="editUserNip" name="NIP" required>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Email</label>
-                                {{-- Tambahkan name="email" --}}
+                            <div class="col-12">
+                                <label class="form-label required">Email</label>
                                 <input type="email" class="form-control" id="editUserEmail" name="email" required>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Password Baru</label>
-                                {{-- name="password" sesuai controller --}}
-                                <input type="password" class="form-control" id="editUserPassword" name="password"
-                                    placeholder="Kosongkan jika tidak ubah">
-                                <small class="text-muted" style="font-size: 0.75rem;">*Isi hanya jika ingin mengganti
-                                    password</small>
+
+                            <!-- Keamanan -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-lock me-2"></i>Keamanan</div>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Role</label>
-                                {{-- Tambahkan name="role_id" --}}
+                                <label class="form-label">Password Baru</label>
+                                <input type="password" class="form-control" id="editUserPassword" name="password" placeholder="Kosongkan jika tidak ubah">
+                                <small class="text-muted" style="font-size: 0.75rem;">*Isi hanya jika ingin mengganti password</small>
+                            </div>
+
+                            <!-- Akses -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-shield-halved me-2"></i>Hak Akses</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label required">Role</label>
                                 <select class="form-select" id="editUserRole" name="role_id" required>
                                     <option value="" disabled>Pilih Role</option>
-                                    {{-- Looping Role agar value sesuai ID di database --}}
                                     @foreach($roles as $role)
                                         <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
                                     @endforeach
