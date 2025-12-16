@@ -246,10 +246,14 @@
                                 <option value="Cancel">Cancel</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-12">
+                            <label class="form-label">Keterangan</label>
+                            <textarea class="form-control" rows="3" name="keterangan" id="loanKeterangan"></textarea>
+                        </div>
+                        <!-- <div class="col-md-6">
                             <label class="form-label">Keterangan</label>
                             <input type="text" class="form-control" name="keterangan" id="loanKeterangan">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">

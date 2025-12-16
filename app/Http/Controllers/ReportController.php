@@ -87,6 +87,12 @@ class ReportController extends Controller
                 }
             }
 
+            // Update kondisi_kendaraan dan status unit menjadi RUSAK / Tidak Siap Oprasi
+            Unit::where('unit_id', $request->unit_id)->update([
+                'kondisi_kendaraan' => 'RUSAK',
+                'status' => 'Tidak Siap Oprasi'
+            ]);
+
             return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
             
         } 
@@ -140,6 +146,7 @@ class ReportController extends Controller
             'no_ba' => 'nullable|string|max:100',
             'keperluan_anggaran' => 'nullable|numeric',
             'up3' => 'nullable|string|max:255',
+            'kondisi_kendaraan' => 'nullable|in:BAIK,DIGUNAKAN,RUSAK,PERBAIKAN',
             'new_images' => 'nullable|array',
             'new_images.*' => 'image|mimes:jpg,jpeg,png|max:5120',
         ]);
@@ -152,6 +159,13 @@ class ReportController extends Controller
             'keperluan_anggaran' => $validatedData['keperluan_anggaran'] ?? $report->keperluan_anggaran,
             'up3' => $validatedData['up3'] ?? $report->up3,
         ]);
+
+        // Update kondisi_kendaraan di tabel units jika ada perubahan
+        if ($request->filled('kondisi_kendaraan')) {
+            Unit::where('unit_id', $report->unit_id)->update([
+                'kondisi_kendaraan' => $request->kondisi_kendaraan
+            ]);
+        }
 
         // Handle new image uploads
         if ($request->hasFile('new_images')) {

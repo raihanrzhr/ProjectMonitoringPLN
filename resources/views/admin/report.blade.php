@@ -86,6 +86,7 @@
                         <th>Unit</th>
                         <th>Kapasitas / Panjang / Fitur</th>
                         <th>Nopol</th>
+                        <th>Kondisi Kendaraan</th>
                         <th>Tanggal Kejadian</th>
                         <th>Lokasi Penggunaan</th>
                         <th>No. BA</th>
@@ -141,6 +142,17 @@
                         <td><span class="badge {{ $badgeClass }}">{{ $tipePeralatan }}</span></td>
                         <td>{{ $kapasitasPanjangFitur }}</td>
                         <td>{{ $item->unit->nopol ?? '-' }}</td>
+                        <td>
+                            @php
+                                $kondisiClass = match($item->unit->kondisi_kendaraan ?? '') {
+                                    'BAIK' => 'green',
+                                    'DIGUNAKAN' => 'yellow',
+                                    'RUSAK', 'PERBAIKAN' => 'red',
+                                    default => 'yellow'
+                                };
+                            @endphp
+                            <span class="badge-status {{ $kondisiClass }}">{{ $item->unit->kondisi_kendaraan ?? '-' }}</span>
+                        </td>
                         <td>{{ $tglKejadian }}</td>
                         <td>{{ $item->lokasi_penggunaan ?? '-' }}</td>
                         <td>{{ $item->no_ba ?? '-' }}</td>
@@ -170,6 +182,7 @@
                                 data-nama="{{ $item->userPelapor->name ?? '' }}"
                                 data-peralatan="{{ $tipePeralatan }}"
                                 data-nopol="{{ $item->unit->nopol ?? '' }}"
+                                data-kondisi="{{ $item->unit->kondisi_kendaraan ?? '' }}"
                                 data-tgl-kejadian="{{ $item->tgl_kejadian ? \Carbon\Carbon::parse($item->tgl_kejadian)->format('Y-m-d') : '' }}"
                                 data-lokasi="{{ $item->lokasi_penggunaan ?? '' }}"
                                 data-no-ba="{{ $item->no_ba ?? '' }}"
@@ -254,6 +267,15 @@
                         <div class="col-md-6">
                             <label class="form-label">Keperluan Anggaran</label>
                             <input type="number" class="form-control" name="keperluan_anggaran" id="reportAnggaran" placeholder="0">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Kondisi Kendaraan</label>
+                            <select class="form-select" name="kondisi_kendaraan" id="reportKondisi">
+                                <option value="BAIK">Baik</option>
+                                <option value="DIGUNAKAN">Digunakan</option>
+                                <option value="RUSAK">Rusak</option>
+                                <option value="PERBAIKAN">Perbaikan</option>
+                            </select>
                         </div>
                         
                         <!-- Existing Images Section -->
@@ -368,6 +390,7 @@
             $('#reportNama').val(button.data('nama'));
             $('#reportPeralatan').val(button.data('peralatan'));
             $('#reportNopol').val(button.data('nopol'));
+            $('#reportKondisi').val(button.data('kondisi'));
             $('#reportTglKejadian').val(button.data('tgl-kejadian'));
             $('#reportLokasi').val(button.data('lokasi'));
             $('#reportNoBA').val(button.data('no-ba'));
