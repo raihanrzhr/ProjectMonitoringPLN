@@ -45,7 +45,7 @@
         <div class="detail-value">{{ $unit->tipe_peralatan }}</div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <label>Kondisi</label>
+        <label>Kondisi Kendaraan</label>
         <div class="detail-value">{{ $unit->kondisi_kendaraan }}</div>
     </div>
     <div class="col-md-6 col-lg-3">

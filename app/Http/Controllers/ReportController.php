@@ -89,13 +89,14 @@ class ReportController extends Controller
 
             return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
             
-        } catch (\Exception $e) {
-            dd([
-                'error' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString(),
-            ]);
+        } 
+        catch (\Exception $e) {
+            // dd([
+            //     'error' => $e->getMessage(),
+            //     'file' => $e->getFile(),
+            //     'line' => $e->getLine(),
+            //     'trace' => $e->getTraceAsString(),
+            // ]);
         }
     }
 

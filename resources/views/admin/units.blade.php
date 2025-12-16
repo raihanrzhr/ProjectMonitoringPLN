@@ -81,7 +81,7 @@
                 <thead>
                     <tr>
                         <th>Unit</th>
-                        <th>Kondisi</th>
+                        <th>Kondisi Kendaraan</th>
                         <th>Merk</th>
                         <th>Type / Model / No Seri</th>
                         <th>NOPOL</th>
@@ -128,9 +128,9 @@
                             <td>
                                 @php
                                     $statusClass = match($unit->status) {
-                                        'Digunakan' => 'green',
+                                        'Digunakan' => 'yellow',
                                         'Tidak Siap Oprasi' => 'red',
-                                        'Standby' => 'yellow',
+                                        'Standby' => 'green',
                                         default => 'yellow'
                                     };
                                 @endphp
@@ -659,6 +659,7 @@
                         <label class="form-label">Kondisi</label>
                         <select class="form-select" id="editUPSKondisi" name="kondisi_kendaraan">
                             <option value="BAIK">Baik</option>
+                            <option value="DIGUNAKAN">Digunakan</option>
                             <option value="RUSAK">Rusak</option>
                             <option value="PERBAIKAN">Perbaikan</option>
                         </select>
@@ -776,6 +777,7 @@
                         <label class="form-label">Kondisi</label>
                         <select class="form-select" id="editUKBKondisi" name="kondisi_kendaraan">
                             <option value="BAIK">Baik</option>
+                            <option value="DIGUNAKAN">Digunakan</option>
                             <option value="RUSAK">Rusak</option>
                             <option value="PERBAIKAN">Perbaikan</option>
                         </select>
@@ -891,6 +893,7 @@
                         <label class="form-label">Kondisi</label>
                         <select class="form-select" id="editDeteksiKondisi" name="kondisi_kendaraan">
                             <option value="BAIK">Baik</option>
+                            <option value="DIGUNAKAN">Digunakan</option>
                             <option value="RUSAK">Rusak</option>
                             <option value="PERBAIKAN">Perbaikan</option>
                         </select>

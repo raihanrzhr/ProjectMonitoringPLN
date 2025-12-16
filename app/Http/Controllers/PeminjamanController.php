@@ -67,8 +67,11 @@ class PeminjamanController extends Controller
             'keterangan' => null, // Keterangan diisi melalui edit modal di admin
         ]);
 
-        // Update status unit menjadi 'Digunakan'
-        Unit::where('unit_id', $request->unit_id)->update(['status' => 'Digunakan']);
+        // Update status dan kondisi_kendaraan unit menjadi 'Digunakan'
+        Unit::where('unit_id', $request->unit_id)->update([
+            'status' => 'Digunakan',
+            'kondisi_kendaraan' => 'DIGUNAKAN'
+        ]);
 
         return redirect()->route('landing')->with('success', 'Form peminjaman berhasil dikirim!');
     }
@@ -113,9 +116,12 @@ class PeminjamanController extends Controller
 
         $peminjaman->update($validatedData);
 
-        // Jika status berubah menjadi Selesai atau Cancel, update status unit ke Standby
+        // Jika status berubah menjadi Selesai atau Cancel, update status dan kondisi unit
         if (in_array($request->status_peminjaman, ['Selesai', 'Cancel'])) {
-            Unit::where('unit_id', $peminjaman->unit_id)->update(['status' => 'Standby']);
+            Unit::where('unit_id', $peminjaman->unit_id)->update([
+                'status' => 'Standby',
+                'kondisi_kendaraan' => 'BAIK'
+            ]);
         }
 
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil diperbarui!');
@@ -128,8 +134,11 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::where('peminjaman_id', $id)->firstOrFail();
         
-        // Update status unit kembali ke Standby
-        Unit::where('unit_id', $peminjaman->unit_id)->update(['status' => 'Standby']);
+        // Update status dan kondisi unit kembali ke Standby/BAIK
+        Unit::where('unit_id', $peminjaman->unit_id)->update([
+            'status' => 'Standby',
+            'kondisi_kendaraan' => 'BAIK'
+        ]);
 
         $peminjaman->delete();
         return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil dihapus!');
