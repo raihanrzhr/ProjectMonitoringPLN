@@ -337,7 +337,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($units as $unit)
+                        @foreach($units as $unit)
                             <tr>
                                 <td>{{ $unit->nama_unit }}</td>
 
@@ -456,14 +456,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="9" class="text-center py-4 text-muted">
-                                    <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
-                                    Belum ada data unit yang tersedia.
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -971,6 +964,7 @@
         </div>
     </div>
 
+
     <!-- Edit UPS Modal -->
     <div class="modal fade" id="editUnitUPSModal" tabindex="-1" aria-labelledby="editUnitUPSModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -979,123 +973,140 @@
                     <h5 class="modal-title">Edit Unit UPS</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    {{-- Form Action akan diisi otomatis oleh Javascript --}}
-                    <form id="editUnitUPSForm" method="POST" class="row g-3">
-                        @csrf
-                        @method('PUT')
 
-                        {{-- Hidden input untuk menjaga konsistensi tipe --}}
-                        <input type="hidden" name="tipe_peralatan" value="UPS">
+                <form id="editUnitUPSForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="tipe_peralatan" value="UPS">
 
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Jenis</label>
-                            {{-- Perhatikan penambahan name="..." --}}
-                            <input type="text" class="form-control" id="editUPSJenis" name="jenis_ups">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">KVA</label>
-                            <input type="number" class="form-control" id="editUPSKva" name="kapasitas_kva">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Kondisi</label>
-                            <select class="form-select" id="editUPSKondisi" name="kondisi_kendaraan">
-                                <option value="BAIK">Baik</option>
-                                <option value="RUSAK">Rusak</option>
-                                <option value="PERBAIKAN">Perbaikan</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Merk</label>
-                            <input type="text" class="form-control" id="editUPSMerk" name="merk_kendaraan">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">Model / No Seri</label>
-                            <input type="text" class="form-control" id="editUPSModel" name="model_no_seri">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">NOPOL</label>
-                            <input type="text" class="form-control" id="editUPSNopol" name="nopol">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="editUPSLokasi" name="lokasi">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editUPSStatus" name="status">
-                                <option value="Digunakan">Digunakan</option>
-                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                <option value="Standby">Standby</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="editUPSKeterangan" name="catatan"></textarea>
-                        </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Jenis</label>
+                                <input type="text" class="form-control" id="editUPSJenis" name="jenis_ups" placeholder="Jenis UPS">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">KVA</label>
+                                <input type="number" class="form-control" id="editUPSKva" name="kapasitas_kva" placeholder="Kapasitas KVA">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Kondisi</label>
+                                <select class="form-select" id="editUPSKondisi" name="kondisi_kendaraan">
+                                    <option value="BAIK">Baik</option>
+                                    <option value="RUSAK">Rusak</option>
+                                    <option value="PERBAIKAN">Perbaikan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Merk</label>
+                                <input type="text" class="form-control" id="editUPSMerk" name="merk_kendaraan" placeholder="Merk Kendaraan">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Model / No Seri</label>
+                                <input type="text" class="form-control" id="editUPSModel" name="model_no_seri" placeholder="Model atau No. Seri">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">NOPOL</label>
+                                <input type="text" class="form-control" id="editUPSNopol" name="nopol" placeholder="XX 0000 XX">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Lokasi</label>
+                                <input type="text" class="form-control" id="editUPSLokasi" name="lokasi" placeholder="Lokasi Unit">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="editUPSStatus" name="status">
+                                    <option value="Standby">Standby</option>
+                                    <option value="Digunakan">Digunakan</option>
+                                    <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Keterangan</label>
+                                <textarea class="form-control" rows="2" id="editUPSKeterangan" name="catatan" placeholder="Keterangan tambahan"></textarea>
+                            </div>
 
-                        {{-- Detail Spesifik UPS --}}
-                        <div class="col-md-4">
-                            <label class="form-label">Merk Battery</label>
-                            <input type="text" class="form-control" id="editUPSMerkBattery" name="batt_merk">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Jumlah Battery</label>
-                            <input type="number" class="form-control" id="editUPSJumlahBattery" name="batt_jumlah">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Kapasitas</label>
-                            <input type="number" class="form-control" id="editUPSKapasitasBattery" name="batt_kapasitas">
-                        </div>
+                            <!-- Battery -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-car-battery me-2"></i>Informasi Battery</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Merk Battery</label>
+                                <input type="text" class="form-control" id="editUPSMerkBattery" name="batt_merk" placeholder="Merk Battery">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Jumlah Battery</label>
+                                <input type="number" class="form-control" id="editUPSJumlahBattery" name="batt_jumlah" placeholder="Jumlah">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Kapasitas (Ah)</label>
+                                <input type="number" class="form-control" id="editUPSKapasitasBattery" name="batt_kapasitas" placeholder="Kapasitas">
+                            </div>
 
-                        {{-- Data Administrasi --}}
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <select class="form-select" id="editUPSBpkb" name="status_bpkb">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
+                            <!-- Administrasi -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen & Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">BPKB</label>
+                                <select class="form-select" id="editUPSBpkb" name="status_bpkb">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">STNK</label>
+                                <select class="form-select" id="editUPSStnk" name="status_stnk">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">KIR</label>
+                                <select class="form-select" id="editUPSKir" name="status_kir">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal Penting</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" id="editUPSPajakTahunan" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" id="editUPSPajak5Tahunan" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" id="editUPSMasaBerlakuKir" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" id="editUPSService" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label">Link Dokumentasi</label>
+                                <input type="text" class="form-control" id="editUPSDokumentasi" name="dokumentasi" placeholder="https://drive.google.com/...">
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <select class="form-select" id="editUPSStnk" name="status_stnk">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan</label>
-                            <input type="date" class="form-control" id="editUPSPajakTahunan" name="pajak_tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan</label>
-                            <input type="date" class="form-control" id="editUPSPajak5Tahunan" name="pajak_5tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <select class="form-select" id="editUPSKir" name="status_kir">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <input type="date" class="form-control" id="editUPSMasaBerlakuKir" name="masa_berlaku_kir">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Terakhir</label>
-                            <input type="date" class="form-control" id="editUPSService" name="tgl_service_terakhir">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <input type="text" class="form-control" id="editUPSDokumentasi" name="dokumentasi">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="editUnitUPSForm" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1108,109 +1119,127 @@
                     <h5 class="modal-title">Edit Unit UKB</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="editUnitUKBForm" method="POST" class="row g-3">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="tipe_peralatan" value="UKB">
 
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Kondisi</label>
-                            <select class="form-select" id="editUKBKondisi" name="kondisi_kendaraan">
-                                <option value="BAIK">Baik</option>
-                                <option value="RUSAK">Rusak</option>
-                                <option value="PERBAIKAN">Perbaikan</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Merk</label>
-                            <input type="text" class="form-control" id="editUKBMerk" name="merk_kendaraan">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Panjang (m)</label>
-                            <input type="text" class="form-control" id="editUKBPanjang" name="panjang_kabel_m">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Volume</label>
-                            <input type="text" class="form-control" id="editUKBVolume" name="volume">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Jenis</label>
-                            <input type="text" class="form-control" id="editUKBJenis" name="jenis_ukb">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Type / Model</label>
-                            <input type="text" class="form-control" id="editUKBModel" name="type">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">NOPOL</label>
-                            <input type="text" class="form-control" id="editUKBNopol" name="nopol">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="editUKBLokasi" name="lokasi">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editUKBStatus" name="status">
-                                <option value="Digunakan">Digunakan</option>
-                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                <option value="Standby">Standby</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="editUKBKeterangan" name="catatan"></textarea>
-                        </div>
+                <form id="editUnitUKBForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="tipe_peralatan" value="UKB">
 
-                        {{-- Administrasi --}}
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <select class="form-select" id="editUKBBpkb" name="status_bpkb">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Kondisi</label>
+                                <select class="form-select" id="editUKBKondisi" name="kondisi_kendaraan">
+                                    <option value="BAIK">Baik</option>
+                                    <option value="RUSAK">Rusak</option>
+                                    <option value="PERBAIKAN">Perbaikan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Merk</label>
+                                <input type="text" class="form-control" id="editUKBMerk" name="merk_kendaraan" placeholder="Merk Kendaraan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Jenis</label>
+                                <input type="text" class="form-control" id="editUKBJenis" name="jenis_ukb" placeholder="Jenis UKB">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Panjang (m)</label>
+                                <input type="text" class="form-control" id="editUKBPanjang" name="panjang_kabel_m" placeholder="Panjang Kabel">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Volume</label>
+                                <input type="text" class="form-control" id="editUKBVolume" name="volume" placeholder="Volume">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Type / Model</label>
+                                <input type="text" class="form-control" id="editUKBModel" name="type" placeholder="Type atau Model">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">NOPOL</label>
+                                <input type="text" class="form-control" id="editUKBNopol" name="nopol" placeholder="XX 0000 XX">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Lokasi</label>
+                                <input type="text" class="form-control" id="editUKBLokasi" name="lokasi" placeholder="Lokasi Unit">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="editUKBStatus" name="status">
+                                    <option value="Standby">Standby</option>
+                                    <option value="Digunakan">Digunakan</option>
+                                    <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Keterangan</label>
+                                <textarea class="form-control" rows="2" id="editUKBKeterangan" name="catatan" placeholder="Keterangan tambahan"></textarea>
+                            </div>
+
+                            <!-- Administrasi -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen & Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">BPKB</label>
+                                <select class="form-select" id="editUKBBpkb" name="status_bpkb">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">STNK</label>
+                                <select class="form-select" id="editUKBStnk" name="status_stnk">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">KIR</label>
+                                <select class="form-select" id="editUKBKir" name="status_kir">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal Penting</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" id="editUKBPajakTahunan" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" id="editUKBPajak5Tahunan" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" id="editUKBMasaBerlakuKir" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" id="editUKBService" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label">Link Dokumentasi</label>
+                                <input type="text" class="form-control" id="editUKBDokumentasi" name="dokumentasi" placeholder="https://drive.google.com/...">
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <select class="form-select" id="editUKBStnk" name="status_stnk">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan</label>
-                            <input type="date" class="form-control" id="editUKBPajakTahunan" name="pajak_tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan</label>
-                            <input type="date" class="form-control" id="editUKBPajak5Tahunan" name="pajak_5tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <select class="form-select" id="editUKBKir" name="status_kir">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <input type="date" class="form-control" id="editUKBMasaBerlakuKir" name="masa_berlaku_kir">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Terakhir</label>
-                            <input type="date" class="form-control" id="editUKBService" name="tgl_service_terakhir">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <input type="text" class="form-control" id="editUKBDokumentasi" name="dokumentasi">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="editUnitUKBForm" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1224,500 +1253,123 @@
                     <h5 class="modal-title">Edit Unit Deteksi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="editUnitDeteksiForm" method="POST" class="row g-3">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="tipe_peralatan" value="DETEKSI">
 
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Kondisi</label>
-                            <select class="form-select" id="editDeteksiKondisi" name="kondisi_kendaraan">
-                                <option value="BAIK">Baik</option>
-                                <option value="RUSAK">Rusak</option>
-                                <option value="PERBAIKAN">Perbaikan</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Merk</label>
-                            <input type="text" class="form-control" id="editDeteksiMerk" name="merk_kendaraan">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Fitur</label>
-                            <input type="text" class="form-control" id="editDeteksiFitur" name="fitur">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">Type / Model</label>
-                            <input type="text" class="form-control" id="editDeteksiModel" name="type">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">NOPOL</label>
-                            <input type="text" class="form-control" id="editDeteksiNopol" name="nopol">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="editDeteksiLokasi" name="lokasi">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editDeteksiStatus" name="status">
-                                <option value="Digunakan">Digunakan</option>
-                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                <option value="Standby">Standby</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="editDeteksiKeterangan" name="catatan"></textarea>
-                        </div>
+                <form id="editUnitDeteksiForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="tipe_peralatan" value="DETEKSI">
 
-                        {{-- Administrasi --}}
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <select class="form-select" id="editDeteksiBpkb" name="status_bpkb">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <!-- Informasi Dasar -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-info-circle me-2"></i>Informasi Dasar</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Kondisi</label>
+                                <select class="form-select" id="editDeteksiKondisi" name="kondisi_kendaraan">
+                                    <option value="BAIK">Baik</option>
+                                    <option value="RUSAK">Rusak</option>
+                                    <option value="PERBAIKAN">Perbaikan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Merk</label>
+                                <input type="text" class="form-control" id="editDeteksiMerk" name="merk_kendaraan" placeholder="Merk Kendaraan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Fitur</label>
+                                <input type="text" class="form-control" id="editDeteksiFitur" name="fitur" placeholder="Fitur Deteksi">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Type / Model</label>
+                                <input type="text" class="form-control" id="editDeteksiModel" name="type" placeholder="Type atau Model">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">NOPOL</label>
+                                <input type="text" class="form-control" id="editDeteksiNopol" name="nopol" placeholder="XX 0000 XX">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Lokasi</label>
+                                <input type="text" class="form-control" id="editDeteksiLokasi" name="lokasi" placeholder="Lokasi Unit">
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="editDeteksiStatus" name="status">
+                                    <option value="Standby">Standby</option>
+                                    <option value="Digunakan">Digunakan</option>
+                                    <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Keterangan</label>
+                                <textarea class="form-control" rows="2" id="editDeteksiKeterangan" name="catatan" placeholder="Keterangan tambahan"></textarea>
+                            </div>
+
+                            <!-- Administrasi -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-folder-open me-2"></i>Dokumen & Administrasi</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">BPKB</label>
+                                <select class="form-select" id="editDeteksiBpkb" name="status_bpkb">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">STNK</label>
+                                <select class="form-select" id="editDeteksiStnk" name="status_stnk">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">KIR</label>
+                                <select class="form-select" id="editDeteksiKir" name="status_kir">
+                                    <option value="Ada">Ada</option>
+                                    <option value="Tidak Ada">Tidak Ada</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Tanggal Penting</div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak Tahunan</label>
+                                <input type="date" class="form-control" id="editDeteksiPajakTahunan" name="pajak_tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Pajak 5 Tahunan</label>
+                                <input type="date" class="form-control" id="editDeteksiPajak5Tahunan" name="pajak_5tahunan">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Masa Berlaku KIR</label>
+                                <input type="date" class="form-control" id="editDeteksiMasaBerlakuKir" name="masa_berlaku_kir">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Service Terakhir</label>
+                                <input type="date" class="form-control" id="editDeteksiService" name="tgl_service_terakhir">
+                            </div>
+
+                            <!-- Dokumentasi -->
+                            <div class="col-12">
+                                <label class="form-label">Link Dokumentasi</label>
+                                <input type="text" class="form-control" id="editDeteksiDokumentasi" name="dokumentasi" placeholder="https://drive.google.com/...">
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <select class="form-select" id="editDeteksiStnk" name="status_stnk">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan</label>
-                            <input type="date" class="form-control" id="editDeteksiPajakTahunan" name="pajak_tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan</label>
-                            <input type="date" class="form-control" id="editDeteksiPajak5Tahunan" name="pajak_5tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <select class="form-select" id="editDeteksiKir" name="status_kir">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <input type="date" class="form-control" id="editDeteksiMasaBerlakuKir" name="masa_berlaku_kir">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Terakhir</label>
-                            <input type="date" class="form-control" id="editDeteksiService" name="tgl_service_terakhir">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <input type="text" class="form-control" id="editDeteksiDokumentasi" name="dokumentasi">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="editUnitDeteksiForm" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Edit UPS Modal -->
-    <div class="modal fade" id="editUnitUPSModal" tabindex="-1" aria-labelledby="editUnitUPSModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Unit UPS</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- Form Action akan diisi otomatis oleh Javascript --}}
-                    <form id="editUnitUPSForm" method="POST" class="row g-3">
-                        @csrf
-                        @method('PUT')
-
-                        {{-- Hidden input untuk menjaga konsistensi tipe --}}
-                        <input type="hidden" name="tipe_peralatan" value="UPS">
-
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Jenis</label>
-                            {{-- Perhatikan penambahan name="..." --}}
-                            <input type="text" class="form-control" id="editUPSJenis" name="jenis_ups">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">KVA</label>
-                            <input type="number" class="form-control" id="editUPSKva" name="kapasitas_kva">
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Kondisi</label>
-                            <select class="form-select" id="editUPSKondisi" name="kondisi_kendaraan">
-                                <option value="BAIK">Baik</option>
-                                <option value="DIGUNAKAN">Digunakan</option>
-                                <option value="RUSAK">Rusak</option>
-                                <option value="PERBAIKAN">Perbaikan</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <label class="form-label">Merk</label>
-                            <input type="text" class="form-control" id="editUPSMerk" name="merk_kendaraan">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">Model / No Seri</label>
-                            <input type="text" class="form-control" id="editUPSModel" name="model_no_seri">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">NOPOL</label>
-                            <input type="text" class="form-control" id="editUPSNopol" name="nopol">
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" id="editUPSLokasi" name="lokasi">
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <label class="form-label">Status</label>
-                            <select class="form-select" id="editUPSStatus" name="status">
-                                <option value="Digunakan">Digunakan</option>
-                                <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                <option value="Standby">Standby</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Keterangan</label>
-                            <textarea class="form-control" rows="3" id="editUPSKeterangan" name="catatan"></textarea>
-                        </div>
-
-                        {{-- Detail Spesifik UPS --}}
-                        <div class="col-md-4">
-                            <label class="form-label">Merk Battery</label>
-                            <input type="text" class="form-control" id="editUPSMerkBattery" name="batt_merk">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Jumlah Battery</label>
-                            <input type="number" class="form-control" id="editUPSJumlahBattery" name="batt_jumlah">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Kapasitas</label>
-                            <input type="number" class="form-control" id="editUPSKapasitasBattery" name="batt_kapasitas">
-                        </div>
-
-                        {{-- Data Administrasi --}}
-                        <div class="col-md-4">
-                            <label class="form-label">BPKB</label>
-                            <select class="form-select" id="editUPSBpkb" name="status_bpkb">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">STNK</label>
-                            <select class="form-select" id="editUPSStnk" name="status_stnk">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak Tahunan</label>
-                            <input type="date" class="form-control" id="editUPSPajakTahunan" name="pajak_tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Pajak 5 Tahunan</label>
-                            <input type="date" class="form-control" id="editUPSPajak5Tahunan" name="pajak_5tahunan">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">KIR</label>
-                            <select class="form-select" id="editUPSKir" name="status_kir">
-                                <option value="Ada">Ada</option>
-                                <option value="Tidak Ada">Tidak Ada</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Masa Berlaku KIR</label>
-                            <input type="date" class="form-control" id="editUPSMasaBerlakuKir" name="masa_berlaku_kir">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Service Terakhir</label>
-                            <input type="date" class="form-control" id="editUPSService" name="tgl_service_terakhir">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Dokumentasi</label>
-                            <input type="text" class="form-control" id="editUPSDokumentasi" name="dokumentasi">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" form="editUnitUPSForm" class="btn btn-primary">Simpan Perubahan</button>
-                </div>
-            </div>
-        </div>
-
-         <!-- Detail Unit Modal -->
-            <div class="modal fade" id="detailUnitModal" tabindex="-1" aria-labelledby="detailUnitModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="detailUnitModalLabel">Detail Unit</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="detailUnitContent">
-                            <!-- Content will be dynamically loaded -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            =======
-            <!-- Edit UKB Modal -->
-            <div class="modal fade" id="editUnitUKBModal" tabindex="-1" aria-labelledby="editUnitUKBModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Unit UKB</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editUnitUKBForm" method="POST" class="row g-3">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="tipe_peralatan" value="UKB">
-
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Kondisi</label>
-                                    <select class="form-select" id="editUKBKondisi" name="kondisi_kendaraan">
-                                        <option value="BAIK">Baik</option>
-                                        <option value="DIGUNAKAN">Digunakan</option>
-                                        <option value="RUSAK">Rusak</option>
-                                        <option value="PERBAIKAN">Perbaikan</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Merk</label>
-                                    <input type="text" class="form-control" id="editUKBMerk" name="merk_kendaraan">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Panjang (m)</label>
-                                    <input type="text" class="form-control" id="editUKBPanjang" name="panjang_kabel_m">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Volume</label>
-                                    <input type="text" class="form-control" id="editUKBVolume" name="volume">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Jenis</label>
-                                    <input type="text" class="form-control" id="editUKBJenis" name="jenis_ukb">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Type / Model</label>
-                                    <input type="text" class="form-control" id="editUKBModel" name="type">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">NOPOL</label>
-                                    <input type="text" class="form-control" id="editUKBNopol" name="nopol">
-                                </div>
-                                <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Lokasi</label>
-                                    <input type="text" class="form-control" id="editUKBLokasi" name="lokasi">
-                                </div>
-                                <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" id="editUKBStatus" name="status">
-                                        <option value="Digunakan">Digunakan</option>
-                                        <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                        <option value="Standby">Standby</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea class="form-control" rows="3" id="editUKBKeterangan"
-                                        name="catatan"></textarea>
-                                </div>
-
-                                {{-- Administrasi --}}
-                                <div class="col-md-4">
-                                    <label class="form-label">BPKB</label>
-                                    <select class="form-select" id="editUKBBpkb" name="status_bpkb">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">STNK</label>
-                                    <select class="form-select" id="editUKBStnk" name="status_stnk">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Pajak Tahunan</label>
-                                    <input type="date" class="form-control" id="editUKBPajakTahunan" name="pajak_tahunan">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Pajak 5 Tahunan</label>
-                                    <input type="date" class="form-control" id="editUKBPajak5Tahunan" name="pajak_5tahunan">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">KIR</label>
-                                    <select class="form-select" id="editUKBKir" name="status_kir">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Masa Berlaku KIR</label>
-                                    <input type="date" class="form-control" id="editUKBMasaBerlakuKir"
-                                        name="masa_berlaku_kir">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Service Terakhir</label>
-                                    <input type="date" class="form-control" id="editUKBService" name="tgl_service_terakhir">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Dokumentasi</label>
-                                    <input type="text" class="form-control" id="editUKBDokumentasi" name="dokumentasi">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" form="editUnitUKBForm" class="btn btn-primary">Simpan Perubahan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Edit Deteksi Modal -->
-            <div class="modal fade" id="editUnitDeteksiModal" tabindex="-1" aria-labelledby="editUnitDeteksiModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Unit Deteksi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editUnitDeteksiForm" method="POST" class="row g-3">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="tipe_peralatan" value="DETEKSI">
-
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Kondisi</label>
-                                    <select class="form-select" id="editDeteksiKondisi" name="kondisi_kendaraan">
-                                        <option value="BAIK">Baik</option>
-                                        <option value="DIGUNAKAN">Digunakan</option>
-                                        <option value="RUSAK">Rusak</option>
-                                        <option value="PERBAIKAN">Perbaikan</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Merk</label>
-                                    <input type="text" class="form-control" id="editDeteksiMerk" name="merk_kendaraan">
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <label class="form-label">Fitur</label>
-                                    <input type="text" class="form-control" id="editDeteksiFitur" name="fitur">
-                                </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <label class="form-label">Type / Model</label>
-                                    <input type="text" class="form-control" id="editDeteksiModel" name="type">
-                                </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <label class="form-label">NOPOL</label>
-                                    <input type="text" class="form-control" id="editDeteksiNopol" name="nopol">
-                                </div>
-                                <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Lokasi</label>
-                                    <input type="text" class="form-control" id="editDeteksiLokasi" name="lokasi">
-                                </div>
-                                <div class="col-md-6 col-lg-6">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" id="editDeteksiStatus" name="status">
-                                        <option value="Digunakan">Digunakan</option>
-                                        <option value="Tidak Siap Oprasi">Tidak Siap Operasi</option>
-                                        <option value="Standby">Standby</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Keterangan</label>
-                                    <textarea class="form-control" rows="3" id="editDeteksiKeterangan"
-                                        name="catatan"></textarea>
-                                </div>
-
-                                {{-- Administrasi --}}
-                                <div class="col-md-4">
-                                    <label class="form-label">BPKB</label>
-                                    <select class="form-select" id="editDeteksiBpkb" name="status_bpkb">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">STNK</label>
-                                    <select class="form-select" id="editDeteksiStnk" name="status_stnk">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Pajak Tahunan</label>
-                                    <input type="date" class="form-control" id="editDeteksiPajakTahunan"
-                                        name="pajak_tahunan">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Pajak 5 Tahunan</label>
-                                    <input type="date" class="form-control" id="editDeteksiPajak5Tahunan"
-                                        name="pajak_5tahunan">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">KIR</label>
-                                    <select class="form-select" id="editDeteksiKir" name="status_kir">
-                                        <option value="Ada">Ada</option>
-                                        <option value="Tidak Ada">Tidak Ada</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Masa Berlaku KIR</label>
-                                    <input type="date" class="form-control" id="editDeteksiMasaBerlakuKir"
-                                        name="masa_berlaku_kir">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Service Terakhir</label>
-                                    <input type="date" class="form-control" id="editDeteksiService"
-                                        name="tgl_service_terakhir">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label">Dokumentasi</label>
-                                    <input type="text" class="form-control" id="editDeteksiDokumentasi" name="dokumentasi">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" form="editUnitDeteksiForm" class="btn btn-primary">Simpan
-                                Perubahan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Detail Unit Modal -->
-            <div class="modal fade" id="detailUnitModal" tabindex="-1" aria-labelledby="detailUnitModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="detailUnitModalLabel">Detail Unit</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="detailUnitContent">
-                            <!-- Content will be dynamically loaded -->
-                        </div>
-                    </div>
-                </div>
-            </div>
 @endsection
 
         @push('scripts')
@@ -1734,7 +1386,9 @@
                             paginate: {
                                 previous: "Previous",
                                 next: "Next"
-                            }
+                            },
+                            emptyTable: "Belum ada data unit yang tersedia.",
+                            zeroRecords: "Tidak ada data yang cocok ditemukan."
                         }
                     });
 
