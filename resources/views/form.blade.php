@@ -76,15 +76,9 @@
                         <label class="block text-gray-700 font-medium mb-2">Tujuan Penggunaan / Kegiatan <span class="text-red-600">*</span></label>
                         <textarea rows="4" name="tujuan_penggunaan" placeholder="Tujuan Penggunaan / Kegiatan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"></textarea>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
-                            <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Posko Pelaksana <span class="text-red-600">*</span></label>
-                            <input type="text" name="posko_pelaksana" placeholder="Isi Posko Pelaksana" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Lokasi Penggunaan <span class="text-red-600">*</span></label>
+                        <input type="text" name="lokasi_penggunaan" placeholder="Isi Lokasi Penggunaan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>
@@ -103,7 +97,7 @@
             <!-- Pelaporan Form -->
             <div id="pelaporanForm" class="hidden bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Pelaporan Anomali</h2>
-                <form class="space-y-6" method="POST" action="{{ route('report.form.store') }}" id="pelaporanFormContent">
+                <form class="space-y-6" method="POST" action="{{ route('report.form.store') }}" id="pelaporanFormContent" enctype="multipart/form-data">
                 @csrf
                     <!-- Unit Selection -->
                     <div>
@@ -120,7 +114,7 @@
                     <div id="pelaporanNopolContainer"></div>
                     
                     <div class="grid md:grid-cols-2 gap-6">
-                        <div>
+                        <!-- <div>
                             <label class="block text-gray-700 font-medium mb-2">Kondisi <span class="text-red-600">*</span></label>
                             <select name="kondisi" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                                 <option value="">Pilih Kondisi Kerusakan</option>
@@ -128,7 +122,7 @@
                                 <option value="Sedang">Sedang</option>
                                 <option value="Berat">Berat</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Tanggal Kejadian <span class="text-red-600">*</span></label>
                             <input type="date" name="tanggal_kejadian" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
@@ -144,27 +138,24 @@
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-gray-700 font-medium mb-2">Posko Pelaksana <span class="text-red-600">*</span></label>
-                            <input type="text" name="posko_pelaksana" placeholder="Isi Posko Pelaksana" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
-                        <div>
                             <label class="block text-gray-700 font-medium mb-2">UP3 <span class="text-red-600">*</span></label>
                             <input type="text" name="up3" placeholder="Isi UP3" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                        </div>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Keterangan <span class="text-red-600">*</span></label>
                         <textarea rows="3" name="keterangan" placeholder="Isi Keterangan" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent"></textarea>
                     </div>
                     <div>
-                        <label class="block text-gray-700 font-medium mb-2">Keperluan Anggaran <span class="text-red-600">*</span></label>
-                        <input type="text" name="anggaran" placeholder="Rp 0,00" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
+                        <label class="block text-gray-700 font-medium mb-2">Keperluan Anggaran</label>
+                        <input type="text" name="anggaran" placeholder="Rp 0,00" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Bukti Foto <span class="text-red-600">*</span></label>
-                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                            <button type="button" class="bg-gray-200 px-4 py-2 rounded-lg mb-2">Upload File</button>
-                            <p class="text-sm text-gray-500">File.jpg</p>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                            <input type="file" name="bukti_foto[]" id="bukti_foto" multiple accept="image/jpeg,image/jpg,image/png" class="required-field w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#002837] file:text-white hover:file:bg-blue-800 file:cursor-pointer">
+                            <p class="text-sm text-gray-500 mt-2">Format: JPG, JPEG, PNG. Maksimal 5MB per file. Bisa upload lebih dari 1 file.</p>
+                            <div id="preview-container" class="mt-3 grid grid-cols-3 gap-2"></div>
                         </div>
                     </div>
                     <button type="submit" class="w-full md:w-auto bg-[#002837] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
@@ -202,8 +193,9 @@ function validateForm(e) {
 
 // Cache untuk data unit dari API
 let unitDataCache = {};
+let allUnitDataCache = {};
 
-// Fetch data unit dari API berdasarkan tipe
+// Fetch data unit dari API berdasarkan tipe (hanya status Standby - untuk Peminjaman)
 async function fetchUnitsByType(type) {
     if (unitDataCache[type]) {
         return unitDataCache[type];
@@ -216,6 +208,23 @@ async function fetchUnitsByType(type) {
         return data;
     } catch (error) {
         console.error('Error fetching units:', error);
+        return [];
+    }
+}
+
+// Fetch SEMUA unit dari API berdasarkan tipe (untuk Pelaporan Anomali)
+async function fetchAllUnitsByType(type) {
+    if (allUnitDataCache[type]) {
+        return allUnitDataCache[type];
+    }
+    
+    try {
+        const response = await fetch(`{{ route('api.all-units-by-type') }}?type=${type}`);
+        const data = await response.json();
+        allUnitDataCache[type] = data;
+        return data;
+    } catch (error) {
+        console.error('Error fetching all units:', error);
         return [];
     }
 }
@@ -321,15 +330,15 @@ async function updatePelaporanFields() {
         return;
     }
     
-    // Fetch data dari API
-    const units = await fetchUnitsByType(unit);
+    // Fetch SEMUA data dari API (tanpa filter status)
+    const units = await fetchAllUnitsByType(unit);
     
     if (units.length === 0) {
         nopolContainer.innerHTML = `
             <div>
                 <label class="block text-gray-700 font-medium mb-2">Pilih Unit <span class="text-red-600">*</span></label>
                 <select name="unit_id" class="required-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent">
-                    <option value="">Tidak ada unit ${unit} yang tersedia (Standby)</option>
+                    <option value="">Tidak ada unit ${unit} yang tersedia</option>
                 </select>
             </div>`;
         return;

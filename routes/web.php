@@ -78,8 +78,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/peminjamanform', [PeminjamanController::class, 'store'])->name('peminjaman.form.store');
         Route::post('/reportform', [ReportController::class, 'store'])->name('report.form.store');
         
-        // API untuk mengambil data unit berdasarkan tipe (UPS/UKB/DETEKSI)
+        // API untuk mengambil data unit berdasarkan tipe (UPS/UKB/DETEKSI) - hanya status Standby
         Route::get('/api/units-by-type', [FormApiController::class, 'getUnitsByType'])->name('api.units-by-type');
+        
+        // API untuk mengambil SEMUA unit berdasarkan tipe (untuk Form Pelaporan Anomali)
+        Route::get('/api/all-units-by-type', [FormApiController::class, 'getAllUnitsByType'])->name('api.all-units-by-type');
     });
 
     // Khusus Role 2 (User Aktif) yang boleh Submit Form (Input data)
@@ -97,8 +100,15 @@ Route::middleware(['auth'])->group(function () {
         
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance');
+
         Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
+        Route::put('/peminjaman/{peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+        Route::delete('/peminjaman/{peminjaman}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+        
         Route::get('/report', [ReportController::class, 'index'])->name('report');
+        Route::put('/report/{report}', [ReportController::class, 'update'])->name('report.update');
+        Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
+        Route::delete('/report/image/{image}', [ReportController::class, 'deleteImage'])->name('report.image.destroy');
         
         Route::get('/units', [UnitController::class, 'index'])->name('units');
         Route::post('/units/add', [UnitController::class, 'store'])->name('units.add'); 

@@ -16,11 +16,12 @@ class Report extends Model
         'peminjaman_id',
         'user_id_pelapor',
         'tgl_kejadian',
-        'lokasi_kejadian',
+        'lokasi_penggunaan',
         'deskripsi_kerusakan',
         'status_laporan',
         'no_ba',
         'keperluan_anggaran',
+        'up3',
     ];
 
     // Relasi ke Unit
@@ -39,5 +40,11 @@ class Report extends Model
     public function userPelapor()
     {
         return $this->belongsTo(User::class, 'user_id_pelapor', 'id');
+    }
+
+    // Relasi polymorphic ke Images
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
