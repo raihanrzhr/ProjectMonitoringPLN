@@ -73,7 +73,7 @@ class PeminjamanController extends Controller
             'kondisi_kendaraan' => 'DIGUNAKAN'
         ]);
 
-        return redirect()->route('landing')->with('success', 'Form peminjaman berhasil dikirim!');
+        return redirect()->back()->with('success', 'Form peminjaman berhasil dikirim!');
     }
 
     /**

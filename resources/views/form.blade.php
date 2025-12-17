@@ -198,10 +198,39 @@
 function showErrorPopup(message) {
     const modalHtml = `<div id="formErrorModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
         <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
+            <div class="text-red-500 text-6xl mb-4"><i class="fa-solid fa-circle-xmark"></i></div>
             <p class="text-red-600 text-lg font-semibold mb-6">${message}</p>
             <button onclick="document.getElementById('formErrorModal').remove()" class="mt-2 px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
         </div></div>`;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function showSuccessPopup(message) {
+    const modalHtml = `<div id="formSuccessModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+        <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
+            <div class="text-green-500 text-6xl mb-4"><i class="fa-solid fa-circle-check"></i></div>
+            <p class="text-green-600 text-lg font-semibold mb-6">${message}</p>
+            <button onclick="document.getElementById('formSuccessModal').remove()" class="mt-2 px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function showConfirmation(message, onConfirm) {
+    const modalHtml = `<div id="formConfirmModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40">
+        <div class="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
+            <div class="text-yellow-500 text-6xl mb-4"><i class="fa-solid fa-circle-question"></i></div>
+            <p class="text-gray-800 text-lg font-semibold mb-6">${message}</p>
+            <div class="flex justify-center gap-4">
+                <button id="confirmCancel" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-400">Batal</button>
+                <button id="confirmOk" class="px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">Ya, Submit</button>
+            </div>
+        </div></div>`;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById('confirmCancel').onclick = () => document.getElementById('formConfirmModal').remove();
+    document.getElementById('confirmOk').onclick = () => {
+        document.getElementById('formConfirmModal').remove();
+        onConfirm();
+    };
 }
 
 function validateForm(e) {
@@ -213,7 +242,10 @@ function validateForm(e) {
         showErrorPopup('Semua kolom wajib diisi!');
         return false;
     }
-    form.submit();
+    // Show confirmation before submit
+    showConfirmation('Apakah Anda yakin ingin mengirim form ini?', () => {
+        form.submit();
+    });
 }
 
 // Cache untuk data unit dari API
@@ -454,6 +486,14 @@ document.addEventListener('DOMContentLoaded', function() {
     ['peminjamanFormContent','pelaporanFormContent'].forEach(id => {
         document.getElementById(id).onsubmit = validateForm;
     });
+
+    // Show popup for session success/error
+    @if(session('success'))
+        showSuccessPopup(@json(session('success')));
+    @endif
+    @if(session('error'))
+        showErrorPopup(@json(session('error')));
+    @endif
 });
 </script>
 @endpush

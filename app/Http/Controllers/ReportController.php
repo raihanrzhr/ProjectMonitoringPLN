@@ -97,7 +97,7 @@ class ReportController extends Controller
                 ]);
             }
 
-            return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
+            return redirect()->back()->with('success', 'Form pelaporan anomali berhasil dikirim!');
             
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Re-throw validation exceptions untuk ditangani Laravel
