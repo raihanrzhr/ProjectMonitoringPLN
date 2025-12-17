@@ -255,17 +255,96 @@
         <span>{{ \Carbon\Carbon::now()->translatedFormat('l, d M Y · H:i') }}</span>
     </div>
     <div class="d-flex align-items-center gap-3">
-        @if($unitsNeedingAttention->count() > 0)
         <div class="dropdown me-2">
             <button class="btn btn-light position-relative shadow-none" data-bs-toggle="dropdown">
                 <i class="fa-solid fa-bell fa-lg"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ $unitsNeedingAttention->count() }}
+                @php
+                    $totalNotifications = $unitsNeedingAttention->count() + $pendingUsers->count() + $newPeminjaman->count() + $newReports->count();
+                @endphp
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" style="{{ $totalNotifications > 0 ? '' : 'display:none;' }}">
+                    <span id="notificationCount">{{ $totalNotifications }}</span>
                 </span>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end p-3" style="min-width: 320px;">
+            <ul class="dropdown-menu dropdown-menu-end p-3" style="min-width: 360px; max-height: 450px; overflow-y: auto;">
+                {{-- Pending Users Section --}}
+                <div id="pendingUsersSection">
+                    @if($pendingUsers->count() > 0)
+                    <li class="fw-bold mb-2 d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-user-plus me-1"></i> Ada User Baru</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="dismissNotification('pendingUsers', {{ $pendingUsers->count() }})" title="Abaikan sementara">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </li>
+                    @foreach($pendingUsers->take(3) as $user)
+                    <li class="alert-item mb-2" style="background: #e0e7ff; border-left-color: #6366f1;">
+                        <div class="alert-icon" style="background: #c7d2fe; color: #4f46e5;"><i class="fa-solid fa-user"></i></div>
+                        <div class="alert-content">
+                            <div class="alert-title">{{ $user->name }}</div>
+                            <div class="alert-desc">{{ $user->email }} - Menunggu persetujuan</div>
+                        </div>
+                    </li>
+                    @endforeach
+                    @if($pendingUsers->count() > 3)
+                    <li class="text-center mb-2">
+                        <a href="{{ route('admin.users') }}" class="btn btn-sm btn-outline-primary">Lihat semua ({{ $pendingUsers->count() }})</a>
+                    </li>
+                    @endif
+                    <li><hr class="dropdown-divider"></li>
+                    @endif
+                </div>
+
+                {{-- New Peminjaman Section --}}
+                <div id="newPeminjamanSection">
+                    @if($newPeminjaman->count() > 0)
+                    <li class="fw-bold mb-2 d-flex justify-content-between align-items-center">
+                        <span><i class="fa-solid fa-key me-1 text-success"></i> Peminjaman Aktif</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="dismissNotification('newPeminjaman', {{ $newPeminjaman->count() }})" title="Abaikan sementara">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </li>
+                    @foreach($newPeminjaman->take(3) as $p)
+                    <li class="alert-item mb-2" style="background: #dcfce7; border-left-color: #22c55e;">
+                        <div class="alert-icon" style="background: #bbf7d0; color: #16a34a;"><i class="fa-solid fa-key"></i></div>
+                        <div class="alert-content">
+                            <div class="alert-title">{{ $p->userPemohon->name ?? 'N/A' }}</div>
+                            <div class="alert-desc">{{ $p->unit->nopol ?? 'N/A' }} - {{ $p->tujuan_penggunaan ?? '' }}</div>
+                        </div>
+                    </li>
+                    @endforeach
+                    @if($newPeminjaman->count() > 3)
+                    <li class="text-center mb-2">
+                        <a href="{{ route('admin.peminjaman') }}" class="btn btn-sm btn-outline-success">Lihat semua ({{ $newPeminjaman->count() }})</a>
+                    </li>
+                    @endif
+                    <li><hr class="dropdown-divider"></li>
+                    @endif
+                </div>
+
+                {{-- New Reports Section (Non-dismissable like tax warning) --}}
+                @if($newReports->count() > 0)
+                <li class="fw-bold mb-2">
+                    <i class="fa-solid fa-file-alt me-1 text-warning"></i> Unit Rusak/Perbaikan
+                </li>
+                    @foreach($newReports->take(3) as $r)
+                    <li class="alert-item mb-2" style="background: #fef9c3; border-left-color: #f59e0b;">
+                        <div class="alert-icon" style="background: #fde68a; color: #d97706;"><i class="fa-solid fa-file-alt"></i></div>
+                        <div class="alert-content">
+                            <div class="alert-title">{{ $r->userPelapor->name ?? 'N/A' }}</div>
+                            <div class="alert-desc">{{ $r->unit->nopol ?? 'N/A' }} - {{ Str::limit($r->keterangan ?? '', 30) }}</div>
+                        </div>
+                    </li>
+                @endforeach
+                @if($newReports->count() > 3)
+                <li class="text-center mb-2">
+                    <a href="{{ route('admin.report') }}" class="btn btn-sm btn-outline-warning">Lihat semua ({{ $newReports->count() }})</a>
+                </li>
+                @endif
+                @endif
+
+                {{-- Units Needing Attention Section --}}
+                @if($unitsNeedingAttention->count() > 0)
                 <li class="fw-bold mb-2">Unit Perlu Perhatian</li>
-                @foreach($unitsNeedingAttention->take(5) as $unit)
+                @foreach($unitsNeedingAttention->take(3) as $unit)
                 <li class="alert-item mb-2">
                     <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     <div class="alert-content">
@@ -274,9 +353,15 @@
                     </div>
                 </li>
                 @endforeach
+                @endif
+
+                {{-- Empty State --}}
+                <li id="emptyNotification" class="text-center text-muted py-3" style="{{ $totalNotifications > 0 ? 'display:none;' : '' }}">
+                    <i class="fa-solid fa-check-circle fa-2x mb-2 d-block text-success"></i>
+                    Tidak ada notifikasi
+                </li>
             </ul>
         </div>
-        @endif
         
         <form method="GET" action="{{ route('admin.dashboard') }}" class="d-flex">
             <select class="form-select form-select-sm shadow-none" name="filter" onchange="this.form.submit()" style="min-width: 125px;">
@@ -595,5 +680,64 @@
     setTimeout(function() {
         location.reload();
     }, 300000);
+
+    // Notification counts from server
+    const notificationCounts = {
+        pendingUsers: {{ $pendingUsers->count() }},
+        newPeminjaman: {{ $newPeminjaman->count() }},
+        newReports: {{ $newReports->count() }},
+        unitsNeedingAttention: {{ $unitsNeedingAttention->count() }}
+    };
+
+    // Check dismissed notifications on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        ['pendingUsers', 'newPeminjaman'].forEach(function(type) {
+            if (sessionStorage.getItem('dismissed_' + type) === 'true') {
+                hideNotificationSection(type);
+            }
+        });
+    });
+
+    // Generic dismiss notification function
+    function dismissNotification(type, count) {
+        sessionStorage.setItem('dismissed_' + type, 'true');
+        hideNotificationSection(type);
+    }
+
+    // Hide notification section and update badge count
+    function hideNotificationSection(type) {
+        const sectionMap = {
+            pendingUsers: 'pendingUsersSection',
+            newPeminjaman: 'newPeminjamanSection'
+        };
+        
+        const section = document.getElementById(sectionMap[type]);
+        if (section) {
+            section.style.display = 'none';
+        }
+
+        // Calculate remaining count (newReports and unitsNeedingAttention are non-dismissable)
+        let totalRemaining = notificationCounts.unitsNeedingAttention + notificationCounts.newReports;
+        
+        ['pendingUsers', 'newPeminjaman'].forEach(function(t) {
+            if (sessionStorage.getItem('dismissed_' + t) !== 'true') {
+                totalRemaining += notificationCounts[t];
+            }
+        });
+        
+        const countElement = document.getElementById('notificationCount');
+        const badgeElement = document.querySelector('.notification-badge');
+        
+        if (countElement && badgeElement) {
+            countElement.textContent = totalRemaining;
+            if (totalRemaining === 0) {
+                badgeElement.style.display = 'none';
+                const emptyNotif = document.getElementById('emptyNotification');
+                if (emptyNotif) {
+                    emptyNotif.style.display = '';
+                }
+            }
+        }
+    }
 </script>
 @endpush
