@@ -1,15 +1,6 @@
 @extends('admin.layout')
 
 @section('title', 'Units - UP2D Pasundan')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 @push('styles')
     <style>
@@ -299,6 +290,24 @@
                 <i class="fa-solid fa-circle-xmark"></i>
             </div>
             <div class="toast-message">{{ session('error') }}</div>
+            <button class="toast-close" onclick="closeToast()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="toast-notification error" id="toastNotification">
+            <div class="toast-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="toast-message">
+                <ul class="mb-0 ps-3">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             <button class="toast-close" onclick="closeToast()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -1515,7 +1524,8 @@
                 // Auto-dismiss toast after 4 seconds
                 $(function () {
                     const toast = document.getElementById('toastNotification');
-                    if (toast) {
+                    // Hanya auto-close jika BUKAN error / danger
+                    if (toast && !toast.classList.contains('error')) {
                         setTimeout(() => {
                             closeToast();
                         }, 4000);
