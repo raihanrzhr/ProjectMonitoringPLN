@@ -252,7 +252,6 @@
                                 <select class="form-select" id="reportUPSUnit">
                                     <option>UPS</option>
                                 </select>
-                                =======
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label class="form-label">Nama Pelapor</label>
@@ -261,7 +260,6 @@
                                     <div class="col-md-6">
                                         <label class="form-label">Unit</label>
                                         <input type="text" class="form-control" id="reportPeralatan" readonly>
-                                        >>>>>>> 016f404efd05096e59e9cb8c409a58f9bbef7ad6
                                     </div>
 
                                     <!-- Informasi Unit -->

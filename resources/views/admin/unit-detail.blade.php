@@ -178,7 +178,7 @@
   </div>
 </div>
 
-<div class="detail-card">
+<!-- <div class="detail-card">
   <h5 class="mb-3 fw-bold">History Peminjaman</h5>
   <div class="table-responsive">
     <table class="table table-borderless align-middle history-table">
@@ -207,6 +207,52 @@
             <tr>
                 <td colspan="5" class="text-center text-muted py-3">
                     Belum ada riwayat peminjaman untuk unit ini.
+                </td>
+            </tr>
+          @endforelse
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+{{-- Section Riwayat Aktivitas Unit --}}
+<div class="detail-card mt-4">
+  <h5 class="mb-3 fw-bold">Riwayat Aktivitas Unit</h5>
+  <div class="table-responsive">
+    <table class="table table-borderless align-middle history-table">
+      <thead>
+        <tr>
+          <th style="width: 160px;">Tanggal & Waktu</th>
+          <th style="width: 120px;">Kategori</th>
+          <th>Keterangan</th>
+          <th style="width: 150px;">User</th>
+        </tr>
+      </thead>
+      <tbody>
+          @forelse($unit->unitLogs as $log)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($log->date_time)->format('d M Y, H:i') }}</td>
+                <td>
+                    @php
+                        $badgeClass = match($log->kategori_histori) {
+                            'Status' => 'bg-primary',
+                            'Servis' => 'bg-info text-dark',
+                            'Peminjaman' => 'bg-success',
+                            'Pajak' => 'bg-warning text-dark',
+                            'Mutasi' => 'bg-secondary',
+                            'Anomali' => 'bg-danger',
+                            default => 'bg-secondary'
+                        };
+                    @endphp
+                    <span class="badge {{ $badgeClass }}">{{ $log->kategori_histori }}</span>
+                </td>
+                <td>{{ $log->keterangan }}</td>
+                <td>{{ $log->user->name ?? '-' }}</td>
+            </tr>
+          @empty
+            <tr>
+                <td colspan="4" class="text-center text-muted py-3">
+                    Belum ada riwayat aktivitas untuk unit ini.
                 </td>
             </tr>
           @endforelse

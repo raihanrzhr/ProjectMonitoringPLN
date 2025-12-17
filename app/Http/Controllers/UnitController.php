@@ -102,7 +102,7 @@ class UnitController extends Controller
         $clean_id = trim($id); 
 
         // Query Manual (Paling Aman untuk situasi Anda sekarang)
-        $unit = Unit::with(['detailUps', 'detailUkb', 'detailDeteksi', 'peminjaman'])
+        $unit = Unit::with(['detailUps', 'detailUkb', 'detailDeteksi', 'peminjaman', 'unitLogs.user'])
                     ->where('unit_id', $clean_id)
                     ->first();
 

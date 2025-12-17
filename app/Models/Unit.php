@@ -66,4 +66,10 @@ class Unit extends Model
     {
         return $this->hasMany(Maintenance::class, 'unit_id', 'unit_id');
     }
+
+    // Relasi ke UnitLog (Riwayat Aktivitas)
+    public function unitLogs()
+    {
+        return $this->hasMany(UnitLog::class, 'unit_id', 'unit_id')->orderBy('date_time', 'desc');
+    }
 }
