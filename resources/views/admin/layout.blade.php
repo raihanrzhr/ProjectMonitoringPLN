@@ -182,21 +182,126 @@
             color: #16a34a;
         }
 
+        /* ========================================
+           MODAL FORM STYLING (GLOBAL)
+           ======================================== */
         .modal-content {
             border-radius: 20px;
             border: none;
+            overflow: hidden;
         }
 
-        .modal-header,
+        .modal-header {
+            border: none;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a4a5e 100%);
+            padding: 18px 24px;
+        }
+
+        .modal-header .modal-title {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        .modal-header .btn-close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 24px;
+            background-color: #fafbfc;
+        }
+
         .modal-footer {
             border: none;
+            background-color: #f1f5f9;
+            padding: 16px 24px;
         }
 
+        /* Form Section Title */
+        .form-section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            padding: 10px 14px;
+            background: linear-gradient(135deg, #e0f0ff 0%, #f0f7ff 100%);
+            border-left: 4px solid var(--primary-dark);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-section-title i {
+            color: #0284c7;
+        }
+
+        /* Form Labels */
+        .form-label {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.875rem;
+            margin-bottom: 6px;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        /* Form Controls */
         .form-control,
         .form-select {
-            border-radius: 14px;
-            border: 1px solid #dbe2ef;
-            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            background-color: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+            background-color: #fff;
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Modal Buttons */
+        .modal-footer .btn-primary {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a4a5e 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-footer .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+
+        .modal-footer .btn-outline-secondary {
+            border-radius: 10px;
+            padding: 10px 24px;
+            font-weight: 600;
         }
 
         .form-label {
@@ -270,38 +375,40 @@
     <div class="app-shell">
         <aside class="sidebar" id="sidebar">
             <div class="">
-                <img
-                src="{{ asset('assets/image/Logo.png') }}"
-                alt="UP2D Pasundan Logo"
-                class=""
-            />
+                <img src="{{ asset('assets/image/Logo.png') }}" alt="UP2D Pasundan Logo" class="" />
             </div>
             <nav class="nav flex-column gap-2">
-                <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ url('admin/dashboard') }}">
+                <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                    href="{{ url('admin/dashboard') }}">
                     <i class="fa-solid fa-chart-line"></i> Dashboard
                 </a>
-                <a class="nav-link {{ request()->routeIs('admin.units') ? 'active' : '' }}" href="{{ url('admin/units') }}">
+                <a class="nav-link {{ request()->routeIs('admin.units') ? 'active' : '' }}"
+                    href="{{ url('admin/units') }}">
                     <i class="fa-solid fa-car-battery"></i> Units
                 </a>
-                <a class="nav-link {{ request()->routeIs('admin.peminjaman') ? 'active' : '' }}" href="{{ url('admin/peminjaman') }}">
+                <a class="nav-link {{ request()->routeIs('admin.peminjaman') ? 'active' : '' }}"
+                    href="{{ url('admin/peminjaman') }}">
                     <i class="fa-solid fa-clipboard-list"></i> Peminjaman
                 </a>
-                <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{ url('admin/users') }}">
+                <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}"
+                    href="{{ url('admin/users') }}">
                     <i class="fa-solid fa-users"></i> Users
                 </a>
             </nav>
             <div class="nav-section">
                 <small class="text-uppercase text-white-50 d-block mb-2">Report</small>
                 <nav class="nav flex-column gap-2">
-                    <a class="nav-link {{ request()->routeIs('admin.report') ? 'active' : '' }}" href="{{ url('admin/report') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.report') ? 'active' : '' }}"
+                        href="{{ url('admin/report') }}">
                         <i class="fa-solid fa-file-lines"></i> Pelaporan Anomali
                     </a>
-                    <a class="nav-link {{ request()->routeIs('admin.maintenance') ? 'active' : '' }}" href="{{ url('admin/maintenance') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.maintenance') ? 'active' : '' }}"
+                        href="{{ url('admin/maintenance') }}">
                         <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance
                     </a>
                 </nav>
             </div>
-            <form method="POST"  action="{{ route('logout') }}" class="logout-btn">
+            <form method="POST" action="{{ route('logout') }}" class="logout-btn">
                 @csrf
                 <button type="submit" class="nav-link">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
@@ -328,4 +435,3 @@
 </body>
 
 </html>
-
