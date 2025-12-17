@@ -85,6 +85,10 @@
             <h1 class="mb-1">Pelaporan Unit</h1>
             <span class="text-muted">Laporan kondisi dan anomali unit</span>
         </div>
+        <div class="alert alert-warning mb-0 py-2 px-3 d-flex align-items-center" style="max-width: 450px;">
+            <i class="fa-solid fa-circle-info me-2"></i>
+            <small><strong>Catatan Admin:</strong> Apabila unit telah selesai diperbaiki, mohon segera dihapus dari daftar unit perbaikan agar data tetap akurat.</small>
+        </div>
     </div>
 
     <div class="card">
