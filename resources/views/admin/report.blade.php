@@ -164,8 +164,7 @@
                                             default => 'yellow'
                                         };
                                     @endphp
-                                    <span
-                                        class="badge-status {{ $kondisiClass }}">{{ $item->unit->kondisi_kendaraan ?? '-' }}</span>
+                                    <span class="badge-status {{ $kondisiClass }}">{{ $item->unit->kondisi_kendaraan ?? '-' }}</span>
                                 </td>
                                 <td>{{ $tglKejadian }}</td>
                                 <td>{{ $item->lokasi_penggunaan ?? '-' }}</td>
@@ -238,499 +237,231 @@
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
-                        <<<<<<< HEAD <form id="editReportUPSForm" class="row g-3">
+                        <div class="row g-3">
                             <!-- Informasi Pelapor -->
                             <div class="col-12">
                                 <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label required">Nama Pelapor</label>
-                                <input type="text" class="form-control" id="reportUPSNama">
+                                <label class="form-label">Nama Pelapor</label>
+                                <input type="text" class="form-control" id="reportNama" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label required">Unit</label>
-                                <select class="form-select" id="reportUPSUnit">
-                                    <option>UPS</option>
+                                <label class="form-label">Unit</label>
+                                <input type="text" class="form-control" id="reportPeralatan" readonly>
+                            </div>
+
+                            <!-- Informasi Unit -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-bolt me-2"></i>Informasi Unit</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nopol</label>
+                                <input type="text" class="form-control" id="reportNopol" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Tanggal Kejadian</label>
+                                <input type="date" class="form-control" name="tgl_kejadian" id="reportTglKejadian">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Lokasi Penggunaan</label>
+                                <input type="text" class="form-control" name="lokasi_penggunaan" id="reportLokasi">
+                            </div>
+
+                            <!-- Detail Kejadian -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail Kejadian</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">No. BA</label>
+                                <input type="text" class="form-control" name="no_ba" id="reportNoBA">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">UP3</label>
+                                <input type="text" class="form-control" name="up3" id="reportUp3">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Keterangan</label>
+                                <textarea class="form-control" rows="3" name="deskripsi_kerusakan" id="reportKeterangan"></textarea>
+                            </div>
+
+                            <!-- Anggaran & Dokumentasi -->
+                            <div class="col-12">
+                                <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran & Dokumentasi</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Keperluan Anggaran</label>
+                                <input type="number" class="form-control" name="keperluan_anggaran" id="reportAnggaran" placeholder="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Kondisi Kendaraan</label>
+                                <select class="form-select" name="kondisi_kendaraan" id="reportKondisi">
+                                    <option value="BAIK">Baik</option>
+                                    <option value="DIGUNAKAN">Digunakan</option>
+                                    <option value="RUSAK">Rusak</option>
+                                    <option value="PERBAIKAN">Perbaikan</option>
                                 </select>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Nama Pelapor</label>
-                                        <input type="text" class="form-control" id="reportNama" readonly>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Unit</label>
-                                        <input type="text" class="form-control" id="reportPeralatan" readonly>
-                                    </div>
+                            </div>
 
-                                    <!-- Informasi Unit -->
-                                    <div class="col-12">
-                                        <div class="form-section-title"><i class="fa-solid fa-bolt me-2"></i>Informasi Unit
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Nopol</label>
-                                        <input type="text" class="form-control" id="reportNopol" readonly>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Tanggal Kejadian</label>
-                                        <input type="date" class="form-control" name="tgl_kejadian" id="reportTglKejadian">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Lokasi Penggunaan</label>
-                                        <input type="text" class="form-control" name="lokasi_penggunaan" id="reportLokasi">
-                                    </div>
-
-                                    <!-- Detail Kejadian -->
-                                    <div class="col-12">
-                                        <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail
-                                            Kejadian</div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">No. BA</label>
-                                        <input type="text" class="form-control" name="no_ba" id="reportNoBA">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">UP3</label>
-                                        <input type="text" class="form-control" name="up3" id="reportUp3">
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="form-label">Keterangan</label>
-                                        <textarea class="form-control" rows="3" name="deskripsi_kerusakan"
-                                            id="reportKeterangan"></textarea>
-                                    </div>
-
-                                    <!-- Anggaran & Dokumentasi -->
-                                    <div class="col-12">
-                                        <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran
-                                            & Dokumentasi</div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Keperluan Anggaran</label>
-                                        <input type="number" class="form-control" name="keperluan_anggaran"
-                                            id="reportAnggaran" placeholder="0">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Kondisi Kendaraan</label>
-                                        <select class="form-select" name="kondisi_kendaraan" id="reportKondisi">
-                                            <option value="BAIK">Baik</option>
-                                            <option value="DIGUNAKAN">Digunakan</option>
-                                            <option value="RUSAK">Rusak</option>
-                                            <option value="PERBAIKAN">Perbaikan</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Existing Images Section -->
-                                    <div class="col-12">
-                                        <label class="form-label">Foto yang Ada</label>
-                                        <div id="existingImagesContainer" class="d-flex flex-wrap gap-2 mb-2">
-                                            <!-- Images will be loaded dynamically -->
-                                            <p class="text-muted small" id="noImagesText">Tidak ada foto</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Upload New Images -->
-                                    <div class="col-12">
-                                        <label class="form-label">Tambah Foto Baru</label>
-                                        <input type="file" name="new_images[]" id="newImages" multiple
-                                            accept="image/jpeg,image/jpg,image/png" class="form-control">
-                                        <small class="text-muted">Format: JPG, JPEG, PNG. Maksimal 5MB per file.</small>
-                                    </div>
+                            <!-- Existing Images Section -->
+                            <div class="col-12">
+                                <label class="form-label">Foto yang Ada</label>
+                                <div id="existingImagesContainer" class="d-flex flex-wrap gap-2 mb-2">
+                                    <!-- Images will be loaded dynamically -->
+                                    <p class="text-muted small" id="noImagesText">Tidak ada foto</p>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary"
-                                    data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+
+                            <!-- Upload New Images -->
+                            <div class="col-12">
+                                <label class="form-label">Tambah Foto Baru</label>
+                                <input type="file" name="new_images[]" id="newImages" multiple
+                                    accept="image/jpeg,image/jpg,image/png" class="form-control">
+                                <small class="text-muted">Format: JPG, JPEG, PNG. Maksimal 5MB per file.</small>
                             </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <<<<<<< HEAD <!-- Edit UKB Modal -->
-        <div class="modal fade" id="editReportUKBModal" tabindex="-1" aria-labelledby="editReportUKBModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editReportUKBModalLabel">Edit Pelaporan UKB</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editReportUKBForm" class="row g-3">
-                            <!-- Informasi Pelapor -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Nama Pelapor</label>
-                                <input type="text" class="form-control" id="reportUKBNama">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Unit</label>
-                                <select class="form-select" id="reportUKBUnit">
-                                    <option>UKB</option>
-                                </select>
-                            </div>
-
-                            <!-- Informasi Unit -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-plug me-2"></i>Informasi Unit</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Type & Panjang Kabel</label>
-                                <select class="form-select" id="reportUKBTypeKabel">
-                                    <option>95 mm - 4 x 75</option>
-                                    <option>1C x 60SQMM - 6 x 200</option>
-                                    <option>150 mm - 4 x 50</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Merk dan Nopol UKB</label>
-                                <select class="form-select" id="reportUKBMerkNopol">
-                                    <option>150 mm - 4 x 50</option>
-                                    <option>NULL - D 8934 FH</option>
-                                    <option>NYYHY - NULL</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Jenis & Volume UKB</label>
-                                <select class="form-select" id="reportUKBJenisVolume">
-                                    <option>Karavan - 2 Set</option>
-                                    <option>NULL - 1 Set</option>
-                                    <option>Mobile - 2 Set</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Kondisi</label>
-                                <select class="form-select" id="reportUKBKondisi">
-                                    <option>Baik</option>
-                                    <option>Rusak</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label required">Lokasi Penggunaan</label>
-                                <input type="text" class="form-control" id="reportUKBLokasi">
-                            </div>
-
-                            <!-- Detail Kejadian -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail
-                                    Kejadian
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Tanggal Kejadian</label>
-                                <input type="date" class="form-control" id="reportUKBTanggal">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">No. BA</label>
-                                <input type="text" class="form-control" id="reportUKBNoBA">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Posko Pelaksanaan</label>
-                                <input type="text" class="form-control" id="reportUKBPosko">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">UP3</label>
-                                <input type="text" class="form-control" id="reportUKBUP3">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label required">Keterangan</label>
-                                <textarea class="form-control" rows="2" id="reportUKBKeterangan"></textarea>
-                            </div>
-
-                            <!-- Anggaran & Dokumentasi -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran &
-                                    Dokumentasi</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Keperluan Anggaran</label>
-                                <input type="text" class="form-control" id="reportUKBAnggaran" placeholder="Rp 0">
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-12">
-                                <label class="form-label d-block">Bukti Foto</label>
-                                <div class="upload-control">
-                                    <button type="button" class="btn btn-secondary mb-2">Upload File</button>
-                                    <small class="text-muted d-block">File.jpg</small>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" form="editReportUKBForm" class="btn btn-primary">Edit</button>
-                    </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus laporan ini?</p>
+                    <p class="text-muted small">Data yang dihapus tidak dapat dikembalikan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="deleteForm" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <!-- Edit Deteksi Modal -->
-        <div class="modal fade" id="editReportDeteksiModal" tabindex="-1" aria-labelledby="editReportDeteksiModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editReportDeteksiModalLabel">Edit Pelaporan Deteksi</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editReportDeteksiForm" class="row g-3">
-                            <!-- Informasi Pelapor -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-user me-2"></i>Informasi Pelapor</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Nama Pelapor</label>
-                                <input type="text" class="form-control" id="reportDeteksiNama">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Unit</label>
-                                <select class="form-select" id="reportDeteksiUnit">
-                                    <option>UPS</option>
-                                    <option>Deteksi</option>
-                                </select>
-                            </div>
-
-                            <!-- Informasi Unit -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-search me-2"></i>Informasi Unit</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Fitur & Type Deteksi</label>
-                                <select class="form-select" id="reportDeteksiFiturType">
-                                    <option>Assesment & Deteksi - Mobil</option>
-                                    <option>Deteksi - Mobil</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Kondisi</label>
-                                <select class="form-select" id="reportDeteksiKondisi">
-                                    <option>Baik</option>
-                                    <option>Rusak</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Merk dan Nopol Unit</label>
-                                <select class="form-select" id="reportDeteksiMerkNopol">
-                                    <option>BAUR - B 9193 KCG</option>
-                                    <option>CENTRIX - D 8657 ES</option>
-                                    <option>CENTIX - D 8656 ES</option>
-                                    <option>MEGGER - NULL</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Lokasi Penggunaan</label>
-                                <input type="text" class="form-control" id="reportDeteksiLokasi">
-                            </div>
-
-                            <!-- Detail Kejadian -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-calendar-days me-2"></i>Detail
-                                    Kejadian
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Tanggal Kejadian</label>
-                                <input type="date" class="form-control" id="reportDeteksiTanggal">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">No. BA</label>
-                                <input type="text" class="form-control" id="reportDeteksiNoBA">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Posko Pelaksanaan</label>
-                                <input type="text" class="form-control" id="reportDeteksiPosko">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">UP3</label>
-                                <input type="text" class="form-control" id="reportDeteksiUP3">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label required">Keterangan</label>
-                                <textarea class="form-control" rows="2" id="reportDeteksiKeterangan"></textarea>
-                            </div>
-
-                            <!-- Anggaran & Dokumentasi -->
-                            <div class="col-12">
-                                <div class="form-section-title"><i class="fa-solid fa-money-bill me-2"></i>Anggaran &
-                                    Dokumentasi</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label required">Keperluan Anggaran</label>
-                                <input type="text" class="form-control" id="reportDeteksiAnggaran" placeholder="Rp 0">
-                            </div>
-                            <div class="col-md-6"></div>
-                            <div class="col-12">
-                                <label class="form-label d-block">Bukti Foto</label>
-                                <div class="upload-control">
-                                    <button type="button" class="btn btn-secondary mb-2">Upload File</button>
-                                    <small class="text-muted d-block">File.jpg</small>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" form="editReportDeteksiForm" class="btn btn-primary">Edit</button>
-                    </div>
-                    =======
-                    <!-- Delete Confirmation Modal -->
-                    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Hapus</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Apakah Anda yakin ingin menghapus laporan ini?</p>
-                                    <p class="text-muted small">Data yang dihapus tidak dapat dikembalikan.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        data-bs-dismiss="modal">Batal</button>
-                                    <form id="deleteForm" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus</button>
-                                    </form>
-                                    >>>>>>> 016f404efd05096e59e9cb8c409a58f9bbef7ad6
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    </div>
 @endsection
 
-                @push('scripts')
-                                    <script>
-                                        // Show image in modal
-                                        function showImage(src) {
-                                            document.getElementById('previewImage').src = src;
-                                        }
+@push('scripts')
+    <script>
+        // Show image in modal
+        function showImage(src) {
+            document.getElementById('previewImage').src = src;
+        }
 
-                                        // Delete image function
-                                        function deleteImage(imageId, element) {
-                                            if (!confirm('Hapus foto ini?')) return;
+        // Delete image function
+        function deleteImage(imageId, element) {
+            if (!confirm('Hapus foto ini?')) return;
 
-                                            $.ajax({
-                                                url: '/admin/report/image/' + imageId,
-                                                type: 'DELETE',
-                                                data: {
-                                                    _token: '{{ csrf_token() }}'
-                                                },
-                                                success: function (response) {
-                                                    // Remove image element from DOM
-                                                    $(element).closest('.image-item').remove();
-                                                    // Check if no images left
-                                                    if ($('#existingImagesContainer .image-item').length === 0) {
-                                                        $('#noImagesText').show();
-                                                    }
-                                                },
-                                                error: function (xhr) {
-                                                    alert('Gagal menghapus foto: ' + (xhr.responseJSON?.message || 'Unknown error'));
-                                                }
-                                            });
-                                        }
+            $.ajax({
+                url: '/admin/report/image/' + imageId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    // Remove image element from DOM
+                    $(element).closest('.image-item').remove();
+                    // Check if no images left
+                    if ($('#existingImagesContainer .image-item').length === 0) {
+                        $('#noImagesText').show();
+                    }
+                },
+                error: function (xhr) {
+                    alert('Gagal menghapus foto: ' + (xhr.responseJSON?.message || 'Unknown error'));
+                }
+            });
+        }
 
-                                        $(function () {
-                                            // Initialize single DataTable
-                                            $('#reportTable').DataTable({
-                                                responsive: true,
-                                                pageLength: 10,
-                                                lengthMenu: [5, 10, 25, 50],
-                                                scrollX: true,
-                                                language: {
-                                                    search: "Cari:",
-                                                    lengthMenu: "Tampilkan _MENU_ data",
-                                                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-                                                    paginate: {
-                                                        previous: "Sebelumnya",
-                                                        next: "Selanjutnya"
-                                                    }
-                                                }
-                                            });
+        $(function () {
+            // Initialize DataTable
+            $('#reportTable').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                scrollX: true,
+                language: {
+                    search: "Cari:",
+                    lengthMenu: "Tampilkan _MENU_ data",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    paginate: {
+                        previous: "Sebelumnya",
+                        next: "Selanjutnya"
+                    }
+                }
+            });
 
-                    <<<<<<< HEAD
-                                            function switchTable(type) {
-                                                // Hide all tables
-                                                $('.table-container').removeClass('active');
-                                                $('.tab-button').removeClass('active');
+            // Edit button handler
+            $(document).on('click', '.btn-edit-report', function () {
+                const button = $(this);
+                const id = button.data('id');
 
-                                // Show selected table
-                                                if (type === 'UPS') {
-                                                    $('#tableUPS').addClass('active');
-                                                    $('.tab-button:first').addClass('active');
-                                                } else if (type === 'UKB') {
-                                                    $('#tableUKB').addClass('active');
-                                                    $('.tab-button:nth-child(2)').addClass('active');
-                                                } else if (type === 'Deteksi') {
-                                                    $('#tableDeteksi').addClass('active');
-                                                    $('.tab-button:last').addClass('active');
-                    =======
-                            // Edit button handler
-                            $(document).on('click', '.btn-edit-report', function () {
-                                const button = $(this);
-                                const id = button.data('id');
+                // Set form action URL
+                $('#editReportForm').attr('action', '/admin/report/' + id);
 
-                                // Set form action URL
-                                $('#editReportForm').attr('action', '/admin/report/' + id);
+                // Populate form fields
+                $('#reportNama').val(button.data('nama'));
+                $('#reportPeralatan').val(button.data('peralatan'));
+                $('#reportNopol').val(button.data('nopol'));
+                $('#reportKondisi').val(button.data('kondisi'));
+                $('#reportTglKejadian').val(button.data('tgl-kejadian'));
+                $('#reportLokasi').val(button.data('lokasi'));
+                $('#reportNoBA').val(button.data('no-ba'));
+                $('#reportUp3').val(button.data('up3'));
+                $('#reportKeterangan').val(button.data('keterangan'));
+                $('#reportAnggaran').val(button.data('anggaran'));
 
-                                // Populate form fields
-                                $('#reportNama').val(button.data('nama'));
-                                $('#reportPeralatan').val(button.data('peralatan'));
-                                $('#reportNopol').val(button.data('nopol'));
-                                $('#reportKondisi').val(button.data('kondisi'));
-                                $('#reportTglKejadian').val(button.data('tgl-kejadian'));
-                                $('#reportLokasi').val(button.data('lokasi'));
-                                $('#reportNoBA').val(button.data('no-ba'));
-                                $('#reportUp3').val(button.data('up3'));
-                                $('#reportKeterangan').val(button.data('keterangan'));
-                                $('#reportAnggaran').val(button.data('anggaran'));
+                // Clear file input
+                $('#newImages').val('');
 
-                                // Clear file input
-                                $('#newImages').val('');
+                // Load existing images
+                const container = $('#existingImagesContainer');
+                container.empty();
 
-                                // Load existing images
-                                const container = $('#existingImagesContainer');
-                                container.empty();
+                const images = button.data('images') || [];
+                if (images.length === 0) {
+                    container.html('<p class="text-muted small" id="noImagesText">Tidak ada foto</p>');
+                } else {
+                    images.forEach(function(img) {
+                        container.append(`
+                            <div class="image-item position-relative" style="display: inline-block;">
+                                <img src="/storage/${img.path}"
+                                     alt="Foto"
+                                     class="rounded"
+                                     style="width: 80px; height: 80px; object-fit: cover;">
+                                <button type="button"
+                                        class="btn btn-danger btn-sm position-absolute"
+                                        style="top: -5px; right: -5px; padding: 2px 6px; font-size: 10px;"
+                                        onclick="deleteImage(${img.id}, this)">
+                                    <i class="fa-solid fa-times"></i>
+                                </button>
+                            </div>
+                        `);
+                    });
+                }
+            });
 
-                                const images = button.data('images') || [];
-                                if (images.length === 0) {
-                                    container.html('<p class="text-muted small" id="noImagesText">Tidak ada foto</p>');
-                                } else {
-                                    images.forEach(function(img) {
-                                        container.append(`
-                                            <div class="image-item position-relative" style="display: inline-block;">
-                                                <img src="/storage/${img.path}"
-                                                     alt="Foto"
-                                                     class="rounded"
-                                                     style="width: 80px; height: 80px; object-fit: cover;">
-                                                <button type="button"
-                                                        class="btn btn-danger btn-sm position-absolute"
-                                                        style="top: -5px; right: -5px; padding: 2px 6px; font-size: 10px;"
-                                                        onclick="deleteImage(${img.id}, this)">
-                                                    <i class="fa-solid fa-times"></i>
-                                                </button>
-                                            </div>
-                                        `);
-                                    });
-                    >>>>>>> 016f404efd05096e59e9cb8c409a58f9bbef7ad6
-                                                }
-                                            });
-
-                                        // Delete button handler
-                                        $(document).on('click', '.btn-action.delete', function () {
-                                            const id = $(this).data('id');
-                                            // Set form action URL for delete
-                                            $('#deleteForm').attr('action', '/admin/report/' + id);
-                                            // Show confirmation modal
-                                            $('#deleteConfirmModal').modal('show');
-                                        });
-                        });
-                                    </script>
-                @endpush
+            // Delete button handler
+            $(document).on('click', '.btn-action.delete', function () {
+                const id = $(this).data('id');
+                // Set form action URL for delete
+                $('#deleteForm').attr('action', '/admin/report/' + id);
+                // Show confirmation modal
+                $('#deleteConfirmModal').modal('show');
+            });
+        });
+    </script>
+@endpush

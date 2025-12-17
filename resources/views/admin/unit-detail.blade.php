@@ -28,9 +28,9 @@
   <div>
       @php
         $statusClass = match($unit->status) {
-            'Digunakan' => 'bg-green',
+            'Digunakan' => 'bg-yellow',
             'Tidak Siap Oprasi' => 'bg-red',
-            default => 'bg-yellow'
+            default => 'bg-green'
         };
       @endphp
       <span class="badge-status {{ $statusClass }}">{{ $unit->status }}</span>

@@ -1319,7 +1319,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" form="editUnitDeteksiForm" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
-                <<<<<<< HEAD=======</form>
+                </form>
             </div>
         </div>
     </div>
@@ -1449,12 +1449,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" form="editUnitUPSForm" class="btn btn-primary">Simpan Perubahan</button>
-                    >>>>>>> 016f404efd05096e59e9cb8c409a58f9bbef7ad6
                 </div>
             </div>
         </div>
 
-        <<<<<<< HEAD <!-- Detail Unit Modal -->
+         <!-- Detail Unit Modal -->
             <div class="modal fade" id="detailUnitModal" tabindex="-1" aria-labelledby="detailUnitModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -1719,7 +1718,6 @@
                     </div>
                 </div>
             </div>
-            >>>>>>> 016f404efd05096e59e9cb8c409a58f9bbef7ad6
 @endsection
 
         @push('scripts')

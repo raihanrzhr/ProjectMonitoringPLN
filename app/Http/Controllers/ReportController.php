@@ -95,14 +95,19 @@ class ReportController extends Controller
 
             return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
             
-        } 
-        catch (\Exception $e) {
-            // dd([
-            //     'error' => $e->getMessage(),
-            //     'file' => $e->getFile(),
-            //     'line' => $e->getLine(),
-            //     'trace' => $e->getTraceAsString(),
-            // ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Re-throw validation exceptions untuk ditangani Laravel
+            throw $e;
+        } catch (\Exception $e) {
+            // Log error untuk debugging
+            \Log::error('Error saat menyimpan report: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi. Error: ' . $e->getMessage());
         }
     }
 

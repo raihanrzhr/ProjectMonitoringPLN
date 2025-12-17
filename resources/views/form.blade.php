@@ -35,6 +35,31 @@
                 </button>
             </div>
 
+            {{-- Error Messages --}}
+            @if(session('error'))
+                <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <strong>Error!</strong> {{ session('error') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <strong>Validasi Gagal:</strong>
+                    <ul class="list-disc list-inside mt-2">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if(session('success'))
+                <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                    <strong>Sukses!</strong> {{ session('success') }}
+                </div>
+            @endif
+
+
             <!-- Peminjaman Form -->
             <div id="peminjamanForm" class="bg-white rounded-lg shadow-lg p-6 md:p-8">
                 <h2 class="text-2xl font-bold text-[#002837] mb-6">Form Peminjaman</h2>
