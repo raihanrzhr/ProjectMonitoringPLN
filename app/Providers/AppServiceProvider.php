@@ -6,8 +6,10 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Unit;
 use App\Models\Peminjaman;
+use App\Models\Report;
 use App\Observers\UnitObserver;
 use App\Observers\PeminjamanObserver;
+use App\Observers\ReportObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,6 @@ class AppServiceProvider extends ServiceProvider
         // Register Observers
         Unit::observe(UnitObserver::class);
         Peminjaman::observe(PeminjamanObserver::class);
+        Report::observe(ReportObserver::class);
     }
 }
-

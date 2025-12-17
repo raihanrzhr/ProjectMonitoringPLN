@@ -88,10 +88,14 @@ class ReportController extends Controller
             }
 
             // Update kondisi_kendaraan dan status unit menjadi RUSAK / Tidak Siap Oprasi
-            Unit::where('unit_id', $request->unit_id)->update([
-                'kondisi_kendaraan' => 'RUSAK',
-                'status' => 'Tidak Siap Oprasi'
-            ]);
+            // Menggunakan model instance agar observer ter-trigger
+            $unit = Unit::where('unit_id', $request->unit_id)->first();
+            if ($unit) {
+                $unit->update([
+                    'kondisi_kendaraan' => 'RUSAK',
+                    'status' => 'Tidak Siap Oprasi'
+                ]);
+            }
 
             return redirect()->route('landing')->with('success', 'Form pelaporan anomali berhasil dikirim!');
             
@@ -166,10 +170,23 @@ class ReportController extends Controller
         ]);
 
         // Update kondisi_kendaraan di tabel units jika ada perubahan
+        // Menggunakan direct attribute assignment + save() agar observer ter-trigger
         if ($request->filled('kondisi_kendaraan')) {
-            Unit::where('unit_id', $report->unit_id)->update([
-                'kondisi_kendaraan' => $request->kondisi_kendaraan
-            ]);
+            $unit = Unit::where('unit_id', $report->unit_id)->first();
+            if ($unit && $unit->kondisi_kendaraan !== $request->kondisi_kendaraan) {
+                $unit->kondisi_kendaraan = $request->kondisi_kendaraan;
+                
+                // Jika kondisi diubah menjadi BAIK, otomatis ubah status menjadi Standby
+                if ($request->kondisi_kendaraan === 'BAIK') {
+                    $unit->status = 'Standby';
+                }
+                // Jika kondisi diubah menjadi RUSAK atau PERBAIKAN, status menjadi Tidak Siap Oprasi
+                elseif (in_array($request->kondisi_kendaraan, ['RUSAK', 'PERBAIKAN'])) {
+                    $unit->status = 'Tidak Siap Oprasi';
+                }
+                
+                $unit->save();
+            }
         }
 
         // Handle new image uploads
