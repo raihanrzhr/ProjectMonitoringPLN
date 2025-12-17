@@ -48,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($archivedUnits as $unit)
+                    @foreach($archivedUnits as $unit)
                         <tr>
                             <td>{{ $unit->nama_unit }}</td>
 
@@ -106,14 +106,7 @@
                                 </button>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9" class="text-center py-4 text-muted">
-                                <i class="fa-solid fa-box-open fa-2x mb-2"></i><br>
-                                Belum ada unit di arsip.
-                            </td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
