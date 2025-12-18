@@ -3,7 +3,7 @@
 @section('title', 'Users - UP2D Pasundan')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="page-header-sticky d-flex justify-content-between align-items-center mb-4">
         <div>
             <button class="btn btn-outline-dark btn-sm d-lg-none" id="toggleSidebar">
                 <i class="fa-solid fa-bars"></i>
@@ -16,6 +16,7 @@
         </button>
     </div>
 
+    <div class="scrollable-content-wrapper">
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -83,6 +84,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Create User Modal -->
@@ -274,7 +276,7 @@
 @push('styles')
     <style>
         :root {
-            --primary-dark: #002d3c;
+            --primary-dark: #0f172a;
         }
 
         .table-responsive {
@@ -374,6 +376,27 @@
             .dataTables_filter {
                 font-size: 13px;
             }
+        }
+
+        /* Page Header Sticky */
+        .page-header-sticky {
+            position: sticky;
+            top: 0;
+            background: var(--bg-soft, #f5f8ff);
+            z-index: 100;
+            padding-bottom: 16px;
+        }
+
+        /* Scrollable Content Wrapper - X and Y */
+        .scrollable-content-wrapper {
+            max-height: calc(100vh - 170px);
+            max-width: calc(100vw - 305px);
+            overflow-y: auto;
+            overflow-x: auto;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 24px;
         }
     </style>
 @endpush

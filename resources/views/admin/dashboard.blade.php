@@ -14,6 +14,23 @@
         color: #64748b;
     }
 
+    .content-header {
+        position: sticky;
+        top: 0;
+        background: var(--bg-soft, #f5f8ff);
+        z-index: 100;
+        padding-bottom: 16px;
+    }
+
+    .scrollable-content-wrapper {
+        max-height: calc(100vh - 170px);
+        overflow-y: auto;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 24px;
+    }
+
     .card-analytics {
         background: #fff;
         border-radius: 20px;
@@ -374,6 +391,7 @@
     </div>
 </div>
 
+<div class="scrollable-content-wrapper">
 <!-- Summary Cards -->
 <div class="row g-3 mb-4">
     <div class="col-xl-3 col-md-6">
@@ -670,6 +688,7 @@
             @endif
         </div>
     </div>
+</div>
 </div>
 
 @endsection

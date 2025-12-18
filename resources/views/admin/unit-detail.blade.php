@@ -16,11 +16,32 @@
   .bg-green { background-color: #dcfce7; color: #166534; }
   .bg-red { background-color: #fee2e2; color: #991b1b; }
   .bg-yellow { background-color: #fef9c3; color: #854d0e; }
+
+  /* Page Header Sticky */
+  .page-header-sticky {
+      position: sticky;
+      top: 0;
+      background: var(--bg-soft, #f5f8ff);
+      z-index: 100;
+      padding-bottom: 16px;
+  }
+
+  /* Scrollable Content Wrapper - X and Y */
+  .scrollable-content-wrapper {
+      max-height: calc(100vh - 150px);
+      max-width: calc(100vw - 305px);
+      overflow-y: auto;
+      overflow-x: auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 24px;
+  }
 </style>
 @endpush
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center page-header mb-4">
+<div class="page-header-sticky d-flex justify-content-between align-items-center page-header mb-4">
   <div>
     <a href="{{ route('admin.units') }}" class="btn btn-outline-dark back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
     <h1 class="d-inline-block ms-3 align-middle">Detail Unit: {{ $unit->nama_unit }}</h1>
@@ -37,6 +58,7 @@
   </div>
 </div>
 
+<div class="scrollable-content-wrapper">
 <div class="detail-card mb-4">
   <div class="row g-4">
     {{-- === DATA UMUM (Semua Tipe Punya) === --}}
@@ -259,5 +281,6 @@
       </tbody>
     </table>
   </div>
+</div>
 </div>
 @endsection
