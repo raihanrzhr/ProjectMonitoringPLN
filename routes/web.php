@@ -99,7 +99,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware(['role:3,4'])->group(function () {
         
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance');
+        // Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance');
 
         Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
         Route::put('/peminjaman/{peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');

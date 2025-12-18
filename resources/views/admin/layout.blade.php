@@ -397,20 +397,20 @@
                     href="{{ url('admin/users') }}">
                     <i class="fa-solid fa-users"></i> Users
                 </a>
+                <a class="nav-link {{ request()->routeIs('admin.report') ? 'active' : '' }}"
+                    href="{{ url('admin/report') }}">
+                    <i class="fa-solid fa-file-lines"></i> Pelaporan Anomali
+                </a>
             </nav>
-            <div class="nav-section">
+            <!-- <div class="nav-section">
                 <small class="text-uppercase text-white-50 d-block mb-2">Report</small>
                 <nav class="nav flex-column gap-2">
-                    <a class="nav-link {{ request()->routeIs('admin.report') ? 'active' : '' }}"
-                        href="{{ url('admin/report') }}">
-                        <i class="fa-solid fa-file-lines"></i> Pelaporan Anomali
-                    </a>
                     <a class="nav-link {{ request()->routeIs('admin.maintenance') ? 'active' : '' }}"
                         href="{{ url('admin/maintenance') }}">
                         <i class="fa-solid fa-screwdriver-wrench"></i> Maintenance
                     </a>
                 </nav>
-            </div>
+            </div> -->
             <form method="POST" action="{{ route('logout') }}" class="logout-btn">
                 @csrf
                 <button type="submit" class="nav-link">
