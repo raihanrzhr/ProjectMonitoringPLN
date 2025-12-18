@@ -172,6 +172,20 @@
             border-radius: 20px;
             padding: 24px;
         }
+
+        /* Mobile responsive - when sidebar is hidden */
+        @media (max-width: 991.98px) {
+            .scrollable-content-wrapper {
+                max-width: 100%;
+                max-height: calc(100vh - 200px);
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+
+            .scrollable-content-wrapper > .card {
+                min-width: 800px;
+            }
+        }
     </style>
 @endpush
 

@@ -389,7 +389,7 @@
 
         /* Scrollable Content Wrapper - X and Y */
         .scrollable-content-wrapper {
-            max-height: calc(100vh - 170px);
+            max-height: calc(100vh - 180px);
             max-width: calc(100vw - 305px);
             overflow-y: auto;
             overflow-x: auto;
@@ -397,6 +397,20 @@
             border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 24px;
+        }
+
+        /* Mobile responsive - when sidebar is hidden */
+        @media (max-width: 991.98px) {
+            .scrollable-content-wrapper {
+                max-width: 100%;
+                max-height: calc(100vh - 200px);
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+
+            .scrollable-content-wrapper > .card {
+                min-width: 800px;
+            }
         }
     </style>
 @endpush

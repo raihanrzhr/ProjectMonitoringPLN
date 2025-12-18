@@ -279,7 +279,7 @@
 
         /* Scrollable Content Wrapper - X and Y */
         .scrollable-content-wrapper {
-            max-height: calc(100vh - 170px);
+            max-height: calc(100vh - 260px);
             max-width: calc(100vw - 305px);
             overflow-y: auto;
             overflow-x: auto;
@@ -287,6 +287,20 @@
             border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 24px;
+        }
+
+        /* Mobile responsive - when sidebar is hidden */
+        @media (max-width: 991.98px) {
+            .scrollable-content-wrapper {
+                max-width: 100%;
+                max-height: calc(100vh - 200px);
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+
+            .scrollable-content-wrapper > .card {
+                min-width: 800px;
+            }
         }
     </style>
 @endpush
@@ -436,7 +450,7 @@
                                             data-merk-battery="{{ $unit->detailUps->batt_merk ?? '' }}"
                                             data-jumlah-battery="{{ $unit->detailUps->batt_jumlah ?? '' }}"
                                             data-kapasitas-battery="{{ $unit->detailUps->batt_kapasitas ?? '' }}"
-                                        @elseif($unit->tipe_peralatan === 'UKB')
+                                            @elseif($unit->tipe_peralatan === 'UKB')
                                             data-panjang="{{ $unit->detailUkb->panjang_kabel_m ?? '' }}"
                                             data-volume="{{ $unit->detailUkb->volume ?? '' }}"
                                             data-jenis="{{ $unit->detailUkb->jenis_ukb ?? '' }}"
