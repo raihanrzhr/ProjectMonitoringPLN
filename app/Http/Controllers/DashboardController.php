@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Unit;
 use App\Models\Peminjaman;
 use App\Models\Report;
+use App\Models\User;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -122,6 +123,29 @@ class DashboardController extends Controller
         }
         $unitsNeedingAttention = $taxExpiringQuery->get();
         
+        // === PENDING USERS (role_id = 1) ===
+        $pendingUsers = User::where('role_id', 1)->get();
+        
+        // === ACTIVE PEMINJAMAN (Status: Sedang Digunakan + 7 hari terakhir) ===
+        $newPeminjaman = Peminjaman::with(['unit', 'userPemohon'])
+            ->where('status_peminjaman', 'Sedang Digunakan')
+            ->where('created_at', '>=', Carbon::now()->subDays(7))
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        // === REPORTS NEEDING ATTENTION ===
+        // Unit RUSAK: selalu tampil | Unit PERBAIKAN: 7 hari terakhir
+        $newReports = Report::with(['unit', 'userPelapor'])
+            ->whereHas('unit', function($query) {
+                $query->where('kondisi_kendaraan', 'RUSAK')
+                    ->orWhere(function($q) {
+                        $q->where('kondisi_kendaraan', 'PERBAIKAN')
+                          ->where('updated_at', '>=', Carbon::now()->subDays(7));
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
         return view('admin.dashboard', compact(
             'filter',
             'totalUnits',
@@ -143,7 +167,10 @@ class DashboardController extends Controller
             'weeklyReports',
             'recentPeminjaman',
             'recentReports',
-            'unitsNeedingAttention'
+            'unitsNeedingAttention',
+            'pendingUsers',
+            'newPeminjaman',
+            'newReports'
         ));
     }
 }
