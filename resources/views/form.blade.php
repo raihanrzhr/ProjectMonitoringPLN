@@ -53,11 +53,6 @@
                 </div>
             @endif
 
-            @if(session('success'))
-                <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                    <strong>Sukses!</strong> {{ session('success') }}
-                </div>
-            @endif
 
 
             <!-- Peminjaman Form -->
@@ -203,6 +198,10 @@ function showErrorPopup(message) {
             <button onclick="document.getElementById('formErrorModal').remove()" class="mt-2 px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
         </div></div>`;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => {
+        const modal = document.getElementById('formErrorModal');
+        if (modal) modal.remove();
+    }, 3000);
 }
 
 function showSuccessPopup(message) {
@@ -213,6 +212,10 @@ function showSuccessPopup(message) {
             <button onclick="document.getElementById('formSuccessModal').remove()" class="mt-2 px-6 py-2 bg-[#002837] text-white rounded-lg font-semibold hover:bg-blue-800">OK</button>
         </div></div>`;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => {
+        const modal = document.getElementById('formSuccessModal');
+        if (modal) modal.remove();
+    }, 3000);
 }
 
 function showConfirmation(message, onConfirm) {
@@ -242,10 +245,7 @@ function validateForm(e) {
         showErrorPopup('Semua kolom wajib diisi!');
         return false;
     }
-    // Show confirmation before submit
-    showConfirmation('Apakah Anda yakin ingin mengirim form ini?', () => {
-        form.submit();
-    });
+    form.submit();
 }
 
 // Cache untuk data unit dari API
