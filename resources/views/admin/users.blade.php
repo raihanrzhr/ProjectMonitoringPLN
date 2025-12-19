@@ -18,10 +18,21 @@
 
     {{-- Success Notification --}}
     <div id="successNotification" class="notification-toast" style="display: none;">
-        <div class="notification-content">
+        <div class="notification-content notification-success">
             <i class="fa-solid fa-check-circle me-2"></i>
             <span id="notificationMessage"></span>
             <button type="button" class="notification-close" onclick="hideNotification()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    {{-- Error Notification --}}
+    <div id="errorNotification" class="notification-toast" style="display: none;">
+        <div class="notification-content notification-error">
+            <i class="fa-solid fa-circle-xmark me-2"></i>
+            <span id="errorNotificationMessage"></span>
+            <button type="button" class="notification-close" onclick="hideErrorNotification()">
                 <i class="fa-solid fa-times"></i>
             </button>
         </div>
@@ -32,6 +43,14 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 showNotification("{{ session('success') }}");
+            });
+        </script>
+    @endif
+
+    @if(session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showErrorNotification("{{ session('error') }}");
             });
         </script>
     @endif
@@ -297,6 +316,21 @@
             $('#successNotification').fadeOut(300);
         }
 
+        // Error notification functions
+        function showErrorNotification(message) {
+            $('#errorNotificationMessage').text(message);
+            $('#errorNotification').fadeIn(300);
+            
+            // Auto hide after 8 seconds (longer for error)
+            setTimeout(function() {
+                hideErrorNotification();
+            }, 8000);
+        }
+        
+        function hideErrorNotification() {
+            $('#errorNotification').fadeOut(300);
+        }
+
         $(function () {
             $('#usersTable').DataTable({
                 responsive: true,
@@ -527,16 +561,25 @@
         .notification-content {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             padding: 14px 20px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
             font-weight: 500;
             font-size: 14px;
         }
 
-        .notification-content i.fa-check-circle {
+        .notification-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .notification-content i.fa-check-circle,
+        .notification-content i.fa-circle-xmark {
             font-size: 18px;
         }
 

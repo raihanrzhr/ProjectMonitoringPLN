@@ -97,7 +97,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        User::destroy($id);
+        $user = User::findOrFail($id);
+        $user->delete(); // This will perform a soft delete
+        
         return redirect()->route('admin.users')->with('success', 'User berhasil dihapus!');
     }
 }
