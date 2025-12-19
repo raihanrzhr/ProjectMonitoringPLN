@@ -273,6 +273,29 @@ Pada setiap aksi (tambah, edit, hapus), sistem akan menampilkan:
 
 ---
 
+## 🐛 Known Issues (Bug yang Belum Terselesaikan)
+
+> [!WARNING]
+> Berikut adalah beberapa kendala yang saat ini masih perlu proses perbaikan:
+
+### 1. Data User Tidak Bisa Dihapus
+**Masalah:** Jika seorang user sudah pernah melakukan peminjaman unit, maka data user tersebut **tidak bisa dihapus** karena masih terhubung dengan data peminjaman di sistem.
+
+**Solusi Sementara:** 
+- Jangan hapus data user yang sudah pernah melakukan peminjaman
+- Jika user sudah tidak aktif, ubah role menjadi **"Pending"** agar tidak bisa mengakses sistem
+
+### 2. Data Unit Tidak Bisa Dihapus
+**Masalah:** Jika sebuah unit sudah pernah dipinjam atau memiliki catatan peminjaman, maka data unit tersebut **tidak bisa dihapus** karena masih terhubung dengan data peminjaman di sistem.
+
+**Solusi Sementara:**
+- Jangan hapus unit yang sudah memiliki riwayat peminjaman
+- Jika unit sudah tidak digunakan, ubah status menjadi **"Tidak Siap Operasi"** agar tidak muncul di daftar peminjaman
+
+> 💡 **Catatan:** Tim pengembang sedang mengerjakan fitur "soft delete" untuk mengatasi masalah ini agar data tetap tersimpan namun tidak tampil di sistem.
+
+---
+
 ## ❓ FAQ (Pertanyaan Umum)
 
 **Q: Mengapa saya tidak bisa login?**
