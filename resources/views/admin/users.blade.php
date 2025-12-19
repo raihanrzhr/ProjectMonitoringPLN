@@ -16,6 +16,26 @@
         </button>
     </div>
 
+    {{-- Success Notification --}}
+    <div id="successNotification" class="notification-toast" style="display: none;">
+        <div class="notification-content">
+            <i class="fa-solid fa-check-circle me-2"></i>
+            <span id="notificationMessage"></span>
+            <button type="button" class="notification-close" onclick="hideNotification()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    {{-- Show notification from session flash --}}
+    @if(session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification("{{ session('success') }}");
+            });
+        </script>
+    @endif
+
     <div class="scrollable-content-wrapper">
     <div class="card">
         <div class="card-body">
@@ -63,16 +83,13 @@
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
 
-                                    {{-- Tombol Delete (Disarankan menggunakan Form untuk keamanan) --}}
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline"
-                                        onsubmit="return confirm('Yakin ingin menghapus user ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-action delete ms-2"
-                                            style="border:none; background:none;">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    {{-- Tombol Delete dengan Custom Modal --}}
+                                    <button type="button" class="btn-action delete ms-2 btn-delete-user"
+                                        data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                        data-id="{{ $user->id }}" data-nama="{{ $user->name }}"
+                                        style="border:none; background:none;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @empty
@@ -107,15 +124,18 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">Nama</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nama Lengkap" required>
+                            <input type="text" class="form-control" name="name" id="createName" placeholder="Nama Lengkap" required>
+                            <div class="invalid-feedback-custom" id="error-name"></div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">NIP</label>
-                            <input type="text" class="form-control" name="NIP" placeholder="Nomor Induk Pegawai" required>
+                            <input type="text" class="form-control" name="NIP" id="createNIP" placeholder="Nomor Induk Pegawai" required>
+                            <div class="invalid-feedback-custom" id="error-NIP"></div>
                         </div>
                         <div class="col-12">
                             <label class="form-label required">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
+                            <input type="email" class="form-control" name="email" id="createEmail" placeholder="email@example.com" required>
+                            <div class="invalid-feedback-custom" id="error-email"></div>
                         </div>
 
                         <!-- Keamanan -->
@@ -124,12 +144,13 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control" name="password" id="createPassword" placeholder="Password" required>
+                            <div class="invalid-feedback-custom" id="error-password"></div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label required">Konfirmasi Password</label>
-                            <input type="password" class="form-control" name="password_confirmation"
-                                placeholder="Ulangi Password" required>
+                            <input type="password" class="form-control" name="password_confirmation" id="createPasswordConfirmation" placeholder="Ulangi Password" required>
+                            <div class="invalid-feedback-custom" id="error-password_confirmation"></div>
                         </div>
 
                         <!-- Akses -->
@@ -138,12 +159,13 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label required">Role</label>
-                            <select class="form-select" name="role_id" required>
+                            <select class="form-select" name="role_id" id="createRoleId" required>
                                 <option value="" disabled selected>Pilih Role</option>
                                 @foreach($roles as $role)
                                     <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback-custom" id="error-role_id"></div>
                         </div>
                     </form>
                 </div>
@@ -180,14 +202,17 @@
                             <div class="col-md-6">
                                 <label class="form-label required">Nama</label>
                                 <input type="text" class="form-control" id="editUserNama" name="name" required>
+                                <div class="invalid-feedback-custom" id="edit-error-name"></div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label required">NIP</label>
                                 <input type="text" class="form-control" id="editUserNip" name="NIP" required>
+                                <div class="invalid-feedback-custom" id="edit-error-NIP"></div>
                             </div>
                             <div class="col-12">
                                 <label class="form-label required">Email</label>
                                 <input type="email" class="form-control" id="editUserEmail" name="email" required>
+                                <div class="invalid-feedback-custom" id="edit-error-email"></div>
                             </div>
 
                             <!-- Keamanan -->
@@ -197,6 +222,7 @@
                             <div class="col-12">
                                 <label class="form-label">Password Baru</label>
                                 <input type="password" class="form-control" id="editUserPassword" name="password" placeholder="Kosongkan jika tidak ubah">
+                                <div class="invalid-feedback-custom" id="edit-error-password"></div>
                                 <small class="text-muted" style="font-size: 0.75rem;">*Isi hanya jika ingin mengganti password</small>
                             </div>
 
@@ -212,6 +238,7 @@
                                         <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback-custom" id="edit-error-role_id"></div>
                             </div>
                         </div>
                     </div>
@@ -223,10 +250,53 @@
             </div>
         </div>
     </div>
+
+    {{-- Delete User Confirmation Modal --}}
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content delete-modal-content">
+                <div class="modal-body text-center py-4">
+                    <div class="delete-icon-wrapper mb-3">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h5 class="mb-2">Hapus User?</h5>
+                    <p class="text-muted mb-0">Anda akan menghapus user:</p>
+                    <p class="fw-semibold mb-3" id="deleteUserName"></p>
+                    <p class="text-muted small mb-4">Tindakan ini tidak dapat dibatalkan.</p>
+                    
+                    <form id="deleteUserForm" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger px-4">
+                                <i class="fa-solid fa-trash me-1"></i> Hapus
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
+        // Notification functions (global scope for inline onclick)
+        function showNotification(message) {
+            $('#notificationMessage').text(message);
+            $('#successNotification').fadeIn(300);
+            
+            // Auto hide after 5 seconds
+            setTimeout(function() {
+                hideNotification();
+            }, 5000);
+        }
+        
+        function hideNotification() {
+            $('#successNotification').fadeOut(300);
+        }
+
         $(function () {
             $('#usersTable').DataTable({
                 responsive: true,
@@ -243,8 +313,116 @@
                 }
             });
 
+            // Check for success message from AJAX redirect
+            const successMessage = sessionStorage.getItem('successMessage');
+            if (successMessage) {
+                showNotification(successMessage);
+                sessionStorage.removeItem('successMessage');
+            }
+
+            // Handle delete button click
+            $('.btn-delete-user').on('click', function() {
+                const id = $(this).data('id');
+                const nama = $(this).data('nama');
+                
+                // Set user name in modal
+                $('#deleteUserName').text(nama);
+                
+                // Set form action URL
+                let url = "{{ route('admin.users.destroy', ':id') }}";
+                url = url.replace(':id', id);
+                $('#deleteUserForm').attr('action', url);
+            });
+
+            // Clear all validation errors
+            function clearValidationErrors() {
+                $('.invalid-feedback-custom').text('').hide();
+                $('#createUserForm .form-control, #createUserForm .form-select').removeClass('is-invalid');
+            }
+
+            // Show validation errors
+            function showValidationErrors(errors) {
+                clearValidationErrors();
+                $.each(errors, function(field, messages) {
+                    const $input = $('#createUserForm [name="' + field + '"]');
+                    const $error = $('#error-' + field);
+                    
+                    $input.addClass('is-invalid');
+                    $error.text(messages[0]).show();
+                });
+            }
+
+            // Handle create user form submission via AJAX
+            $('#createUserForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                clearValidationErrors();
+                
+                const $form = $(this);
+                const $submitBtn = $('button[form="createUserForm"]');
+                const originalText = $submitBtn.html();
+                
+                // Disable button and show loading
+                $submitBtn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin me-1"></i> Adding...');
+                
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: 'POST',
+                    data: $form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+                        // Store message for display after redirect
+                        sessionStorage.setItem('successMessage', response.message);
+                        window.location.href = "{{ route('admin.users') }}";
+                    },
+                    error: function(xhr) {
+                        // Re-enable button
+                        $submitBtn.prop('disabled', false).html(originalText);
+                        
+                        if (xhr.status === 422) {
+                            // Validation error - show errors
+                            const errors = xhr.responseJSON.errors;
+                            showValidationErrors(errors);
+                        } else {
+                            // Other error
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
+                        }
+                    }
+                });
+            });
+
+            // Clear errors when modal is closed
+            $('#createUserModal').on('hidden.bs.modal', function() {
+                clearValidationErrors();
+                $('#createUserForm')[0].reset();
+            });
+
+            // Clear edit form validation errors
+            function clearEditValidationErrors() {
+                $('#editUserForm .invalid-feedback-custom').text('').hide();
+                $('#editUserForm .form-control, #editUserForm .form-select').removeClass('is-invalid');
+            }
+
+            // Show edit form validation errors
+            function showEditValidationErrors(errors) {
+                clearEditValidationErrors();
+                $.each(errors, function(field, messages) {
+                    const $input = $('#editUserForm [name="' + field + '"]');
+                    const $error = $('#edit-error-' + field);
+                    
+                    $input.addClass('is-invalid');
+                    $error.text(messages[0]).show();
+                });
+            }
+
             $('.btn-edit-user').on('click', function () {
                 const button = $(this);
+
+                // Clear previous errors
+                clearEditValidationErrors();
 
                 // 1. Ambil data
                 const id = button.data('id');
@@ -269,6 +447,53 @@
 
                 $('#editUserForm').attr('action', url);
             });
+
+            // Handle edit user form submission via AJAX
+            $('#editUserForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                clearEditValidationErrors();
+                
+                const $form = $(this);
+                const $submitBtn = $form.find('button[type="submit"]');
+                const originalText = $submitBtn.html();
+                
+                // Disable button and show loading
+                $submitBtn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin me-1"></i> Saving...');
+                
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: 'POST',
+                    data: $form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept': 'application/json'
+                    },
+                    success: function(response) {
+                        // Store message for display after redirect
+                        sessionStorage.setItem('successMessage', response.message);
+                        window.location.href = "{{ route('admin.users') }}";
+                    },
+                    error: function(xhr) {
+                        // Re-enable button
+                        $submitBtn.prop('disabled', false).html(originalText);
+                        
+                        if (xhr.status === 422) {
+                            // Validation error - show errors
+                            const errors = xhr.responseJSON.errors;
+                            showEditValidationErrors(errors);
+                        } else {
+                            // Other error
+                            alert('Terjadi kesalahan. Silakan coba lagi.');
+                        }
+                    }
+                });
+            });
+
+            // Clear errors when edit modal is closed
+            $('#editUserModal').on('hidden.bs.modal', function() {
+                clearEditValidationErrors();
+            });
         });
     </script>
 @endpush
@@ -277,6 +502,128 @@
     <style>
         :root {
             --primary-dark: #0f172a;
+        }
+
+        /* Success Notification Toast */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .notification-content i.fa-check-circle {
+            font-size: 18px;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 12px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            padding: 4px;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        /* Delete Confirmation Modal Styles */
+        .delete-modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .delete-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .delete-icon-wrapper i {
+            font-size: 28px;
+            color: #d97706;
+        }
+
+        .delete-modal-content h5 {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .delete-modal-content .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .delete-modal-content .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        .delete-modal-content .btn-outline-secondary {
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        .delete-modal-content .btn-danger {
+            border-radius: 8px;
+        }
+
+        /* Validation Error Styles */
+        .invalid-feedback-custom {
+            display: none;
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .form-control.is-invalid,
+        .form-select.is-invalid {
+            border-color: #dc3545;
+            background-image: none;
+        }
+
+        .form-control.is-invalid:focus,
+        .form-select.is-invalid:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
         }
 
         .table-responsive {

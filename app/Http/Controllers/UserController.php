@@ -42,6 +42,10 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
 
         User::create($validatedData);
+        
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'User berhasil ditambahkan!']);
+        }
         return redirect()->route('admin.users')->with('success', 'User berhasil ditambahkan!');
     }
 
@@ -82,6 +86,9 @@ class UserController extends Controller
 
         User::where('id', $id)->update($validatedData);
 
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'User berhasil diperbarui!']);
+        }
         return redirect()->route('admin.users')->with('success', 'User berhasil diperbarui!');
     }
 
