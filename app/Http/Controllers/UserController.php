@@ -42,7 +42,11 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
 
         User::create($validatedData);
-        return redirect()->route('admin.users');
+        
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'User berhasil ditambahkan!']);
+        }
+        return redirect()->route('admin.users')->with('success', 'User berhasil ditambahkan!');
     }
 
     /**
@@ -82,7 +86,10 @@ class UserController extends Controller
 
         User::where('id', $id)->update($validatedData);
 
-        return redirect()->route('admin.users');
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => 'User berhasil diperbarui!']);
+        }
+        return redirect()->route('admin.users')->with('success', 'User berhasil diperbarui!');
     }
 
     /**
@@ -91,6 +98,6 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         User::destroy($id);
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users')->with('success', 'User berhasil dihapus!');
     }
 }
