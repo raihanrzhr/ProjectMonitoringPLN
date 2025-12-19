@@ -492,13 +492,9 @@
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
 
-                                    <form action="{{ route('admin.units.destroy', $unit->unit_id) }}" method="POST"
-                                        class="d-inline" onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-action delete ms-2"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </form>
+                                    <button class="btn-action delete ms-2 btn-delete-unit" data-id="{{ $unit->unit_id }}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -513,6 +509,31 @@
         class="btn btn-outline-secondary d-inline-flex align-items-center gap-2 mt-3">
         <i class="fa-solid fa-box-archive"></i> Arsip Unit
     </a>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus unit ini?</p>
+                    <p class="text-muted small">Data yang dihapus tidak dapat dikembalikan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="deleteForm" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Select Unit Type Modal -->
     <div class="modal fade" id="selectUnitTypeModal" tabindex="-1" aria-labelledby="selectUnitTypeModalLabel"
@@ -1547,6 +1568,15 @@
                         }
                     }, 300);
                 }
+
+                // Delete button handler
+                $(document).on('click', '.btn-delete-unit', function () {
+                    const id = $(this).data('id');
+                    // Set form action URL for delete
+                    $('#deleteForm').attr('action', '/admin/units/' + id);
+                    // Show confirmation modal
+                    $('#deleteConfirmModal').modal('show');
+                });
                 // Toast notification functi    ons
                 function closeToast() {
                     const toast = document.getElementById('toastNotification');
